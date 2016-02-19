@@ -41,4 +41,3 @@ class TestSelectSort:
     def test_random_2(self):
         for sort in self.sorts:
             yield self.onrandom, sort, 1337, -1024, 1024
-
