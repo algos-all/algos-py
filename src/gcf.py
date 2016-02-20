@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 def gcf(a, b):
     while b:
         a, b = b, a % b
@@ -17,13 +15,3 @@ def xgcf(a, b):
         t2, t1 = t1 - q * t2, t2
 
     return a, s1, t1
-
-if __name__ == "__main__":
-    a, b = 0, 1
-    print(a, b, " : ", xgcf(a, b))
-
-    a, b = 6, 3
-    print(a, b, " : ", xgcf(a, b))
-
-    a, b = 7, 2
-    print(a, b, " : ", xgcf(a, b))
