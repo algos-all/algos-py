@@ -10,30 +10,7 @@ class CheckSort:
 
         return True
 
-    @staticmethod
-    def onsorted_ip(sort, N=10, reverse=False):
-        assert N >= 0
-
-        xs = list(reversed(range(N))) if reverse else list(range(N))
-
-        sort(xs)
-
-        assert xs == list(range(N))
-
-    @staticmethod
-    def onrandom_ip(sort, N=10, lo=-10, hi=10, seed=0):
-        assert N >= 0 and lo <= hi
-
-        random.seed(seed)
-
-        xs = [random.randint(lo, hi) for i in range(N)]
-
-        sort(xs)
-
-        assert CheckSort.issorted(xs)
-
-    @staticmethod
-    def onsorted_op(sort, N=10, reverse=False):
+    def check_on_sorted(self, sort, N=10, reverse=False):
         assert N >= 0
 
         xs = list(reversed(range(N))) if reverse else list(range(N))
@@ -41,11 +18,15 @@ class CheckSort:
 
         zs = sort(xs)
 
-        assert xs == ys
-        assert zs == list(range(N))
+        if zs is None or zs is xs:
+            # assume an in-place sort
+            assert xs == list(range(N))
+        else:
+            # assume a not-in-place sort
+            assert xs == ys
+            assert zs == list(range(N))
 
-    @staticmethod
-    def onrandom_op(sort, N=10, lo=-10, hi=10, seed=0):
+    def check_on_random(self, sort, N=10, lo=-10, hi=10, seed=0):
         assert N >= 0 and lo <= hi
 
         random.seed(seed)
@@ -55,5 +36,10 @@ class CheckSort:
 
         zs = sort(xs)
 
-        assert xs == ys
-        assert CheckSort.issorted(zs)
+        if zs is None or zs is xs:
+            # assume an in-place sort
+            assert CheckSort.issorted(xs)
+        else:
+            # assume a not-in-place sort
+            assert xs == ys
+            assert CheckSort.issorted(zs)
