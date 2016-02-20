@@ -66,7 +66,8 @@ class CheckTree:
 
             k2v[key], bst[key] = val, val
 
-            assert self.check_tree(bst, k2v)
+            for key in k2v:
+                assert bst[key] == k2v[key]
 
     def check_remove(self, bst, N=10, lo=-1024, hi=1024, seed=0):
         random.seed(0)
