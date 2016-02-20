@@ -1,6 +1,8 @@
 # Classic CS Algorithms in Python
 
 [![Build Status](https://travis-ci.org/all3fox/algos-py.svg?branch=master)](https://travis-ci.org/all3fox/algos-py)
+[![Coverage Status](https://coveralls.io/repos/github/all3fox/algos-py/badge.svg?branch=master)](https://coveralls.io/github/all3fox/algos-py?branch=master)
+
 
 ## Motivation
 
