@@ -26,9 +26,9 @@ class QuickFind(UnionFind):
 
         if u1 == u2: return
 
-        for i in range(len(self.uf)):
-            if self.uf[i] == u1:
-                self.uf[i] = u2
+        for k in self.uf:
+            if self.uf[k] == u1:
+                self.uf[k] = u2
 
         self.count -= 1
 
