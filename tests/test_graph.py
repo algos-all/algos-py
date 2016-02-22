@@ -1,5 +1,6 @@
 from graph import Graph, DiGraph
 
+
 class TestGraph:
     def setup(self):
         self.g = Graph()
