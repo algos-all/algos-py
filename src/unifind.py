@@ -1,9 +1,6 @@
 class UnionFind:
     def __init__(self, it=None):
-        if it is None:
-            self.uf = {}
-        else:
-            self.uf = {i : i for i in it}
+        self.uf = {} if it is None else {i : i for i in it}
 
         self.count = len(self.uf)
 
@@ -17,7 +14,7 @@ class UnionFind:
         if key is not val:
             raise RuntimeError("key and val must be the same object")
 
-        self.uf[key] = val
+        self.uf[key] = key
 
 class QuickFind(UnionFind):
     def find(self, key):
