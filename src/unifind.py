@@ -21,14 +21,14 @@ class QuickFind(UnionFind):
         return self.uf[key]
 
     def union(self, key1, key2):
-        u1 = self.find(key1)
-        u2 = self.find(key2)
+        val1 = self.find(key1)
+        val2 = self.find(key2)
 
-        if u1 == u2: return
+        if val1 == val2: return
 
-        for k in self.uf:
-            if self.uf[k] == u1:
-                self.uf[k] = u2
+        for key in self.uf:
+            if self.uf[key] == val1:
+                self.uf[key] = val2
 
         self.count -= 1
 
@@ -40,11 +40,11 @@ class QuickUnion(UnionFind):
         return key
 
     def union(self, key1, key2):
-        u1 = self.find(key1)
-        u2 = self.find(key2)
+        val1 = self.find(key1)
+        val2 = self.find(key2)
 
-        if u1 == u2: return
+        if val1 == val2: return
 
-        self.uf[u1] = u2
+        self.uf[val1] = val2
 
         self.count -= 1
