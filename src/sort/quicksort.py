@@ -92,4 +92,3 @@ def qsort3(xs):
         qsort(xs, i, lst)
 
     qsort(xs, 0, len(xs) - 1)
-    return xs
