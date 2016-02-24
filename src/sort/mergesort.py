@@ -1,21 +1,27 @@
-def mergesort0(l):
-    if len(l) <= 1: return l
+def mergesort0(xs):
+    if len(xs) <= 1: return xs
 
-    l1, l2 = mergesort0(l[:len(l) // 2]), mergesort0(l[len(l) // 2:])
-    i1, i2 = 0, 0
+    ls = mergesort0(xs[: len(xs) // 2])
+    rs = mergesort0(xs[len(xs) // 2 :])
 
-    while i1 < len(l1) and i2 < len(l2):
-        if l1[i1] < l2[i2]:
-            l[i1 + i2], i1 = l1[i1], i1 + 1
+    li, ri = 0, 0
+
+    while li < len(ls) and ri < len(rs):
+        if ls[li] < rs[ri]:
+            xs[li + ri] = ls[li]
+
+            li += 1
         else:
-            l[i1 + i2], i2 = l2[i2], i2 + 1
+            xs[li + ri] = rs[ri]
 
-    for i in range(i1, len(l1)):
-        l[i + i2] = l1[i]
-    for i in range(i2, len(l2)):
-        l[i1 + i] = l2[i]
+            ri += 1
 
-    return l
+    for i in range(li, len(ls)):
+        xs[i + ri] = ls[i]
+    for i in range(ri, len(rs)):
+        xs[li + i] = rs[i]
+
+    return xs
 
 
 def mergesort1(xs):
