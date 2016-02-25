@@ -2,8 +2,8 @@ import math, random
 
 from nose.tools import raises
 
-from spt import LazyDijkstra
-from wgraph import WeightedDiGraph
+from graph.wgraph import WeightedDiGraph
+from graph.spt import LazyDijkstra
 
 
 class CheckShortestPath:

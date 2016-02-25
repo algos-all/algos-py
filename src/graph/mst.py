@@ -1,5 +1,5 @@
 from heap import Heap
-from wgraph import WeightedGraph
+from graph.wgraph import WeightedGraph
 from unifind import QuickFind
 
 
