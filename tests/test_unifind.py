@@ -1,3 +1,4 @@
+import random
 from nose.tools import raises
 
 from unifind import QuickFind, QuickUnion
@@ -24,6 +25,38 @@ class CheckUnionFind:
         for x, y in zip(xs, ys):
             assert uf.find(x) == uf.find(y)
 
+    def check_random(self, UF, N=10, seed=0):
+        assert N > 0
+
+        random.seed(seed)
+
+        xs = list(range(N))
+        ys = [random.randrange(0, N) for i in range(N)]
+
+        self.check_xs_ys(UF, xs, ys)
+
+    def check_transitive_union(self, UF, N=10):
+        assert N > 1
+
+        xs = list(range(N))
+        ys = [
+            xs[0] for i in xs[: N // 2]
+        ] + [
+            xs[N // 2] for i in xs[N // 2 :]
+        ]
+
+        uf = UF(xs)
+
+        for x, y in zip(xs, ys):
+            uf.union(x, y)
+
+        uf.union(xs[N // 2 - 1], xs[-1])
+
+        for i in range(N):
+            for j in range(N):
+                assert uf.find(i) == uf.find(j)
+
+
 class TestUnionFind(CheckUnionFind):
     def __init__(self):
         self.UFS = [QuickFind, QuickUnion]
@@ -46,9 +79,12 @@ class TestUnionFind(CheckUnionFind):
         for UF in self.UFS:
             yield self.check_xs_ys, UF, xs, ys
 
-    def test_half_by_half(self, N=100):
-        xs = range(N)
-        ys = [0 for i in range(N // 2)] + [1 for i in range(N // 2, N)]
-
+    def test_random(self, ns=range(1, 100)):
         for UF in self.UFS:
-            yield self.check_xs_ys, UF, xs, ys
+            for n in ns:
+                yield self.check_random, UF, n
+
+    def test_transitive_union(self, ns=range(2, 50)):
+        for UF in self.UFS:
+            for n in ns:
+                yield self.check_transitive_union, UF, n
