@@ -18,56 +18,52 @@ def mergesort0(l):
     return l
 
 
-def mergesort1(l):
-    n, step = len(l), 1
-    while step < n:
-        for i in range(0, n, 2 * step):
-            i1, i2 = i, min(i + step, n)
-            n1, n2 = i2, min(i + 2 * step, n)
+def mergesort1(xs):
+    step = 1
 
-            aux = l[i1 : n2]
+    while step < len(xs):
+        for n in range(0, len(xs) - step, 2 * step):
+            ls, rs = xs[n : n + step], xs[n + step : n + 2 * step]
 
-            j = i
-            i1, i2 = i1 - i, i2 - i
-            n1, n2 = n1 - i, n2 - i
+            li, ri = 0, 0
 
-            while i1 < n1 and i2 < n2:
-                if aux[i1] < aux[i2]:
-                    l[j], i1 = aux[i1], i1 + 1
+            while li < len(ls) and ri < len(rs):
+                if ls[li] < rs[ri]:
+                    xs[n + li + ri] = ls[li]
+                    li += 1
                 else:
-                    l[j], i2 = aux[i2], i2 + 1
-                j += 1
+                    xs[n + li + ri] = rs[ri]
+                    ri += 1
 
-            for k in range(i1, n1):
-                l[j], j = aux[k], j + 1
-
-            for k in range(i2, n2):
-                l[j], j = aux[k], j + 1
+            for i in range(li, len(ls)):
+                xs[n + i + ri] = ls[i]
+            for i in range(ri, len(rs)):
+                xs[n + li + i] = rs[i]
 
         step *= 2
 
 
-def mergesort2(l):
-    n, step = len(l), 1
-    while step < n:
-        for offset in range(0, n, 2 * step):
-            i1, i2 = offset, min(offset + step, n)
-            n1, n2 = i2, min(offset + 2 * step, n)
+def mergesort2(xs):
+    step = 1
 
-            aux1, aux2 = l[i1 : n1], l[i2 : n2]
+    while step < len(xs):
+        for n in range(0, len(xs) - step, 2 * step):
+            aux = xs[n : n + 2 * step]
 
-            i, i1, i2 = offset, 0, 0
-            while i1 < len(aux1) and i2 < len(aux2):
-                if aux1[i1] < aux2[i2]:
-                    l[i], i1 = aux1[i1], i1 + 1
+            li, ri = 0, step
+
+            while li < step and ri < len(aux):
+                if aux[li] < aux[ri]:
+                    xs[n + li + ri - step] = aux[li]
+                    li += 1
                 else:
-                    l[i], i2 = aux2[i2], i2 + 1
-                i += 1
+                    xs[n + li + ri - step] = aux[ri]
+                    ri += 1
 
-            for k in range(i1, len(aux1)):
-                l[i], i = aux1[k], i + 1
-
-            for k in range(i2, len(aux2)):
-                l[i], i = aux2[k], i + 1
+            for i in range(li, step):
+                xs[n + i + ri - step] = aux[i]
+            for i in range(ri, len(aux)):
+                xs[n + li + i - step] = aux[i]
 
         step *= 2
+
