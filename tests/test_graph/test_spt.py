@@ -31,9 +31,7 @@ class CheckShortestPath:
 
         h = spt(g, 0)
 
-        for i in range(N):
-            assert h.edges[i] == [[i + 1, 1]], h.edges
-            assert h.costs[i] == i * 1
+        assert self.is_shortest(h, g)
 
     def check_random(self, spt, V=10, E=10, seed=0):
         assert V > 1 and E > 0
