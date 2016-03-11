@@ -38,12 +38,10 @@ class BellmanFord:
 
         self.costs = {node : None for node in wdgraph.edges}
         self.paths = {node : None for node in wdgraph.edges}
+        self.costs[src] = 0
 
         this_epoch = deque(maxlen=len(wdgraph.edges))
         next_epoch = {node : False for node in wdgraph.edges}
-
-        self.costs[src] = 0
-        self.paths[src] = None
 
         this_epoch.append(src)
         next_epoch[src] = True
@@ -54,13 +52,13 @@ class BellmanFord:
             n1 = this_epoch.popleft()
             next_epoch[n1] = False
 
-            cost1 = self.costs[n1]
+            c1 = self.costs[n1]
             for n2, w in wdgraph.edges[n1]:
-                cost2 = self.costs[n2]
+                c2 = self.costs[n2]
 
-                if cost2 is not None and cost2 < cost1 + w: continue
+                if c2 is not None and c2 < c1 + w: continue
 
-                self.costs[n2] = cost1 + w
+                self.costs[n2] = c1 + w
                 self.paths[n2] = n1
 
                 if not next_epoch[n2]:
