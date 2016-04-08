@@ -1,4 +1,4 @@
-from graph.graph import Graph, DiGraph
+from src.graph.graph import Graph, DiGraph
 
 
 class TestGraph:

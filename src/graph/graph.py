@@ -1,5 +1,5 @@
-from heap import Heap
-from unifind import QuickFind
+from src.heap import Heap
+from src.unifind import QuickFind
 
 class Graph:
     def __init__(self):
