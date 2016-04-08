@@ -23,6 +23,7 @@ def concomp0(graph):
 
 def concomp1(graph):
     cc, i = {node : None for node in graph}, 0
+
     nodes = deque(maxlen=len(graph))
 
     for node in graph:
@@ -34,12 +35,29 @@ def concomp1(graph):
             node = nodes.popleft()
 
             cc[node] = i
-            nodes.extend(
-                [n for n in graph[node] if cc[n] is None]
-            )
+            nodes.extend([n for n in graph[node] if cc[n] is None])
 
         i += 1
 
     return cc
 
-concomps = [concomp0, concomp1]
+
+def concomp2(graph):
+    cc = {node : None for node in graph}
+
+    for i, node in enumerate(graph):
+        if cc[node] is not None: continue
+
+        nodes = [node]
+
+        while nodes:
+            node = nodes.pop()
+
+            cc[node] = i
+
+            nodes.extend([n for n in graph[node] if cc[n] is None])
+
+    return cc
+
+
+concomps = [concomp0, concomp1, concomp2]
