@@ -7,35 +7,41 @@ class TestGraph:
 
     def test_add_edge(self):
         self.g.add_edge(0, 1)
-        for i in range(2): len(self.g.edges[i]) == 1
+
+        for i in range(2):
+            assert len(self.g[i]) == 1, len(self.g[i])
 
     def test_add_edge_loop(self):
         for i in range(10):
             self.g.add_edge(i, i + 1)
 
         for i in range(1, 9):
-            assert len(self.g.edges[i]) == 2
+            assert len(self.g[i]) == 2, len(self.g[i])
 
         for i in [0, 10]:
-            assert len(self.g.edges[i]) == 1
+            assert len(self.g[i]) == 1, len(self.g[i])
 
     def test_del_edge(self):
         self.g.add_edge(0, 1)
         for i in [0, 1]:
-            assert len(self.g.edges[i]) == 1
+            assert len(self.g[i]) == 1, len(self.g[i])
 
         self.g.del_edge(0, 1)
         for i in [0, 1]:
-            assert len(self.g.edges[i]) == 0
+            assert len(self.g[i]) == 0, len(self.g[i])
 
     def test_del_edge_nonexistent(self):
         self.g.del_edge(0, 1)
         assert True
 
     def test_del_edge_multiple(self):
-        for i in range(3): self.g.add_edge(0, 1)
+        for i in range(3):
+            self.g.add_edge(0, 1)
+
         self.g.del_edge(0, 1)
-        for i in range(2): assert len(self.g.edges[i]) == 0
+
+        for i in range(2):
+            assert len(self.g[i]) == 0, len(self.g[i])
 
 
 class TestDiGraph:

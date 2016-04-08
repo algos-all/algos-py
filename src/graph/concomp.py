@@ -2,15 +2,15 @@ from collections import deque
 
 def concomp0(graph):
     def dfs(node):
-        for n in graph.edges[node]:
+        for n in graph[node]:
             if cc[n] is not None: continue
 
             cc[n] = i
             dfs(n)
 
-    cc, i = {node : None for node in graph.edges}, 0
+    cc, i = {node : None for node in graph}, 0
 
-    for n in graph.edges:
+    for n in graph:
         if cc[n] is not None: continue
 
         cc[n] = i
@@ -22,10 +22,10 @@ def concomp0(graph):
 
 
 def concomp1(graph):
-    cc, i = {node : None for node in graph.edges}, 0
-    nodes = deque(maxlen=len(graph.edges))
+    cc, i = {node : None for node in graph}, 0
+    nodes = deque(maxlen=len(graph))
 
-    for node in graph.edges:
+    for node in graph:
         if cc[node] is not None: continue
 
         nodes.append(node)
@@ -35,7 +35,7 @@ def concomp1(graph):
 
             cc[node] = i
             nodes.extend(
-                [n for n in graph.edges[node] if cc[n] is None]
+                [n for n in graph[node] if cc[n] is None]
             )
 
         i += 1

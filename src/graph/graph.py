@@ -3,21 +3,33 @@ from src.unifind import QuickFind
 
 class Graph:
     def __init__(self):
-        self.edges = {}
+        self.graph = {}
+
+    def __len__(self):
+        return len(self.graph)
+
+    def __iter__(self):
+        return iter(self.graph)
+
+    def __getitem__(self, node):
+        return self.graph[node]
+
+    def __setitem__(self, n1, n2):
+        self.graph[n1].append(n2)
+        self.graph[n2].append(n1)
 
     def add_edge(self, n1, n2):
-        if n1 not in self.edges: self.edges[n1] = []
-        if n2 not in self.edges: self.edges[n2] = []
+        if n1 not in self.graph: self.graph[n1] = []
+        if n2 not in self.graph: self.graph[n2] = []
 
-        self.edges[n1].append(n2)
-        self.edges[n2].append(n1)
+        self[n1] = n2
 
     def del_edge(self, n1, n2):
-        if n1 not in self.edges: return
-        if n2 not in self.edges: return
+        if n1 not in self.graph: return
+        if n2 not in self.graph: return
 
-        self.edges[n1] = [n for n in self.edges[n1] if n != n2]
-        self.edges[n2] = [n for n in self.edges[n2] if n != n1]
+        self.graph[n1] = [n for n in self.graph[n1] if n != n2]
+        self.graph[n2] = [n for n in self.graph[n2] if n != n1]
 
 
 class DiGraph:
