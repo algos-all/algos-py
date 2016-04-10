@@ -1,25 +1,7 @@
-class WeightedGraph:
-    def __init__(self):
-        self.graph = {}
+from src.graph.agraph import AbstractGraph
 
-    def __len__(self):
-        return len(self.graph)
 
-    def __iter__(self):
-        return iter(self.graph)
-
-    def __getitem__(self, node):
-        return self.graph[node]
-
-    def __eq__(self, other):
-        return self.graph == other
-
-    def __ne__(self, other):
-        return self.graph != other
-
-    def __repr__(self):
-        return self.graph.__repr__()
-
+class WeightedGraph(AbstractGraph):
     def add_edge(self, n1, n2, w=0):
         if n1 not in self.graph: self.graph[n1] = []
         if n2 not in self.graph: self.graph[n2] = []

@@ -1,28 +1,10 @@
 from src.heap import Heap
 from src.unifind import QuickFind
 
-class Graph:
-    def __init__(self):
-        self.graph = {}
+from src.graph.agraph import AbstractGraph
 
-    def __len__(self):
-        return len(self.graph)
 
-    def __iter__(self):
-        return iter(self.graph)
-
-    def __getitem__(self, node):
-        return self.graph[node]
-
-    def __eq__(self, other):
-        return self.graph == other
-
-    def __ne__(self, other):
-        return self.graph != other
-
-    def __repr__(self):
-        return self.graph.__repr__()
-
+class Graph(AbstractGraph):
     def add_edge(self, n1, n2):
         if n1 not in self.graph: self.graph[n1] = []
         if n2 not in self.graph: self.graph[n2] = []
@@ -38,28 +20,7 @@ class Graph:
         self.graph[n2] = [n for n in self.graph[n2] if n != n1]
 
 
-class DiGraph:
-    def __init__(self):
-        self.graph = {}
-
-    def __len__(self):
-        return len(self.graph)
-
-    def __iter__(self):
-        return iter(self.graph)
-
-    def __getitem__(self, node):
-        return self.graph[node]
-
-    def __eq__(self, other):
-        return self.graph == other
-
-    def __ne__(self, other):
-        return self.graph != other
-
-    def __repr__(self):
-        return self.graph.__repr__()
-
+class DiGraph(AbstractGraph):
     def add_edge(self, n1, n2):
         if n1 not in self: self.graph[n1] = []
         if n2 not in self: self.graph[n2] = []
