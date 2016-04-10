@@ -14,15 +14,21 @@ class Graph:
     def __getitem__(self, node):
         return self.graph[node]
 
-    def __setitem__(self, n1, n2):
-        self.graph[n1].append(n2)
-        self.graph[n2].append(n1)
+    def __eq__(self, other):
+        return self.graph == other
+
+    def __ne__(self, other):
+        return self.graph != other
+
+    def __repr__(self):
+        return self.graph.__repr__()
 
     def add_edge(self, n1, n2):
         if n1 not in self.graph: self.graph[n1] = []
         if n2 not in self.graph: self.graph[n2] = []
 
-        self[n1] = n2
+        self.graph[n1].append(n2)
+        self.graph[n2].append(n1)
 
     def del_edge(self, n1, n2):
         if n1 not in self.graph: return
