@@ -34,25 +34,28 @@ class Dijkstra:
 class BellmanFord:
     def __init__(self, wdgraph, src=None):
         if src not in wdgraph:
-            raise RuntimeError("Source node not in graph")
+            raise RuntimeError("src not in wdgraph")
 
         self.costs = {node : None for node in wdgraph}
         self.paths = {node : None for node in wdgraph}
+
         self.costs[src] = 0
 
-        this_epoch = deque(maxlen=len(wdgraph))
-        next_epoch = {node : False for node in wdgraph}
+        relaxed = deque(maxlen=len(wdgraph))
+        newcost = {node : False for node in wdgraph}
 
-        this_epoch.append(src)
-        next_epoch[src] = True
+        relaxed.append(src)
+        newcost[src] = True
 
-        i, j = 0, 1
+        epochs = 0
+        nepoch = len(relaxed)
 
-        while this_epoch:
-            n1 = this_epoch.popleft()
-            next_epoch[n1] = False
+        while relaxed:
+            n1 = relaxed.popleft()
+            newcost[n1] = False
 
             c1 = self.costs[n1]
+
             for n2, w in wdgraph[n1]:
                 c2 = self.costs[n2]
 
@@ -61,15 +64,17 @@ class BellmanFord:
                 self.costs[n2] = c1 + w
                 self.paths[n2] = n1
 
-                if not next_epoch[n2]:
-                    this_epoch.append(n2)
-                    next_epoch[n2] = True
+                if not newcost[n2]:
+                    relaxed.append(n2)
+                    newcost[n2] = True
 
-            j -= 1
+            nepoch -= 1
 
-            if j == 0: i, j = i + 1, len(this_epoch)
+            if nepoch == 0:
+                epochs += 1
+                nepoch = len(relaxed)
 
-            if i % (len(wdgraph) + 1) == 0:
+            if epochs % (len(wdgraph) + 1) == 0:
                 break
 
         self._check_negative_cycle()
