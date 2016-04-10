@@ -8,15 +8,15 @@ class LazyPrimMST(WeightedGraph):
         super().__init__()
 
         # visited nodes and weighted edges
-        vnodes = {node : None for node in wgraph.edges}
+        vnodes = {node : None for node in wgraph}
         wedges = Heap(xs=None, key=lambda x, y: x[-1] < y[-1])
 
-        node1 = next(iter(wgraph.edges), None)
+        node1 = next(iter(wgraph), None)
 
-        for i in range(len(wgraph.edges) - 1):
+        for i in range(len(wgraph) - 1):
             vnodes[node1] = True
 
-            for node2, w in wgraph.edges[node1]:
+            for node2, w in wgraph[node1]:
                 wedges.push([node1, node2, w])
 
             node1, node2, w = wedges.pop()
@@ -33,15 +33,15 @@ class EagerPrimMST(WeightedGraph):
         super().__init__()
 
         # visited nodes and weighted edges
-        vnodes = {node : None for node in wgraph.edges}
+        vnodes = {node : None for node in wgraph}
         wedges = Heap(xs=None, key=lambda x, y: x[-1] < y[-1])
 
-        node1 = next(iter(wgraph.edges), None)
+        node1 = next(iter(wgraph), None)
 
-        for i in range(len(wgraph.edges) - 1):
+        for i in range(len(wgraph) - 1):
             vnodes[node1] = True
 
-            for node2, w in wgraph.edges[node1]:
+            for node2, w in wgraph[node1]:
                 if vnodes[node2] is True:
                     continue
 
@@ -69,12 +69,12 @@ class KruskalMST(WeightedGraph):
         super().__init__()
 
         # visited nodes and weighted edges
-        vunion = QuickFind(n for n in wgraph.edges)
+        vunion = QuickFind(n for n in wgraph)
         wedges = Heap(
             xs=wgraph.get_edges(), key=lambda x, y: x[-1] < y[-1]
         )
 
-        for i in range(len(wgraph.edges) - 1):
+        for i in range(len(wgraph) - 1):
             n1, n2, w = wedges.pop()
 
             while vunion.find(n1) == vunion.find(n2):

@@ -10,7 +10,7 @@ class CheckMST:
 
         g = mst(g)
 
-        assert g.edges == {}
+        assert g == {}
 
     def check_chain(self, mst, N=10, seed=0):
         assert N > 0
@@ -23,9 +23,9 @@ class CheckMST:
 
         h = mst(g)
 
-        for n1 in h.edges:
-            for n2, w in h.edges[n1]:
-                assert [n2, w] in g.edges[n1]
+        for n1 in h:
+            for n2, w in h[n1]:
+                assert [n2, w] in g[n1]
 
     def check_complete3(self, mst):
         g = WeightedGraph()
@@ -36,12 +36,12 @@ class CheckMST:
 
         h = mst(g)
 
-        assert h.edges[0] == [[1, 0]]
+        assert h[0] == [[1, 0]]
 
-        assert len(h.edges[1]) == 2
-        assert [0, 0] in h.edges[1] and [2, 1] in h.edges[1]
+        assert len(h[1]) == 2
+        assert [0, 0] in h[1] and [2, 1] in h[1]
 
-        assert h.edges[2] == [[1, 1]]
+        assert h[2] == [[1, 1]]
 
     def check_complete4_0(self, mst):
         g = WeightedGraph()
@@ -55,15 +55,15 @@ class CheckMST:
 
         h = mst(g)
 
-        assert h.edges[0] == [[1, 0]]
+        assert h[0] == [[1, 0]]
 
-        assert len(h.edges[1]) == 2
-        assert [0, 0] in h.edges[1] and [2, 1] in h.edges[1]
+        assert len(h[1]) == 2
+        assert [0, 0] in h[1] and [2, 1] in h[1]
 
-        assert len(h.edges[2]) == 2
-        assert [1, 1] in h.edges[2] and [3, 2] in h.edges[2]
+        assert len(h[2]) == 2
+        assert [1, 1] in h[2] and [3, 2] in h[2]
 
-        assert h.edges[3] == [[2, 2]]
+        assert h[3] == [[2, 2]]
 
     def check_complete4_1(self, mst):
         g = WeightedGraph()
@@ -77,40 +77,40 @@ class CheckMST:
 
         h = mst(g)
 
-        assert h.edges[0] == [[1, 0]]
+        assert h[0] == [[1, 0]]
 
-        assert len(h.edges[1]) == 2
-        assert [0, 0] in h.edges[1] and [2, 1] in h.edges[1]
+        assert len(h[1]) == 2
+        assert [0, 0] in h[1] and [2, 1] in h[1]
 
-        assert len(h.edges[2]) == 2
-        assert [1, 1] in h.edges[2] and [3, 2] in h.edges[2]
+        assert len(h[2]) == 2
+        assert [1, 1] in h[2] and [3, 2] in h[2]
 
-        assert h.edges[3] == [[2, 2]]
+        assert h[3] == [[2, 2]]
 
     def check_controlled_traversal_0(self, mst):
         g = WeightedGraph()
 
-        g.edges = collections.OrderedDict()
+        g.graph = collections.OrderedDict()
 
         g.add_edge("a", "b", 1)
         g.add_edge("a", "c", 2)
 
         h = mst(g)
 
-        assert len(h.edges["a"]) == 2
-        assert ["b", 1] in h.edges["a"]
-        assert ["c", 2] in h.edges["a"]
+        assert len(h["a"]) == 2
+        assert ["b", 1] in h["a"]
+        assert ["c", 2] in h["a"]
 
-        assert len(h.edges["b"]) == 1
-        assert h.edges["b"] == [["a", 1]]
+        assert len(h["b"]) == 1
+        assert h["b"] == [["a", 1]]
 
-        assert len(h.edges["c"]) == 1
-        assert h.edges["c"] == [["a", 2]]
+        assert len(h["c"]) == 1
+        assert h["c"] == [["a", 2]]
 
     def check_controlled_traversal_1(self, mst):
         g = WeightedGraph()
 
-        g.edges = collections.OrderedDict()
+        g.graph = collections.OrderedDict()
 
         g.add_edge("a", "b", 1)
         g.add_edge("a", "c", 2)
@@ -119,12 +119,12 @@ class CheckMST:
 
         h = mst(g)
 
-        assert len(h.edges["a"]) == 4
+        assert len(h["a"]) == 4
         for n, w in zip(["b", "c", "d", "e"], range(1, 5)):
-            assert [n, w] in h.edges["a"]
+            assert [n, w] in h["a"]
 
         for n, w in zip(["b", "c", "d", "e"], range(1, 5)):
-            assert h.edges[n] == [["a", w]]
+            assert h[n] == [["a", w]]
 
 
 class TestPrimMST(CheckMST):

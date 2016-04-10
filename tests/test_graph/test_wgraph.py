@@ -7,15 +7,15 @@ class TestWeightedGraph:
 
         g.add_edge(0, 1, 42)
 
-        assert g.edges[0] == [[1, 42]]
-        assert g.edges[1] == [[0, 42]]
+        assert g[0] == [[1, 42]]
+        assert g[1] == [[0, 42]]
 
     def test_del_edge_0(self):
         g = WeightedGraph()
 
         g.del_edge(0, 1)
 
-        assert g.edges == {}
+        assert g == {}
 
     def test_del_edge_1(self):
         g = WeightedGraph()
@@ -23,8 +23,8 @@ class TestWeightedGraph:
         g.add_edge(0, 1, 42)
         g.del_edge(0, 1)
 
-        assert g.edges[0] == []
-        assert g.edges[1] == []
+        assert g[0] == []
+        assert g[1] == []
 
     def test_get_edges_0(self):
         g = WeightedGraph()
