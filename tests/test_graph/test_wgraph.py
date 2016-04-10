@@ -41,14 +41,14 @@ class TestWeightedDiGraph:
 
         g.add_edge(0, 1, 42)
 
-        assert g.edges[0] == [[1, 42]]
+        assert g[0] == [[1, 42]]
 
     def test_del_edge_0(self):
         g = WeightedDiGraph()
 
         g.del_edge(0, 1)
 
-        assert g.edges == {}
+        assert g == {}
 
     def test_del_edge_1(self):
         g = WeightedDiGraph()
@@ -56,7 +56,7 @@ class TestWeightedDiGraph:
         g.add_edge(0, 1, 42)
         g.del_edge(0, 1)
 
-        assert g.edges[0] == []
+        assert g[0] == []
 
     def test_get_edges_0(self):
         g = WeightedDiGraph()

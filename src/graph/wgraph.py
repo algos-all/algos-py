@@ -22,23 +22,19 @@ class WeightedGraph(AbstractGraph):
         ]
 
 
-class WeightedDiGraph:
-    def __init__(self):
-        self.edges = {}
-
+class WeightedDiGraph(AbstractGraph):
     def add_edge(self, n1, n2, w=0):
-        if n1 not in self.edges: self.edges[n1] = []
-        if n2 not in self.edges: self.edges[n2] = []
+        if n1 not in self.graph: self.graph[n1] = []
+        if n2 not in self.graph: self.graph[n2] = []
 
-        self.edges[n1].append([n2, w])
+        self.graph[n1].append([n2, w])
 
     def del_edge(self, n1, n2):
-        if n1 not in self.edges: return
+        if n1 not in self.graph: return
 
-        self.edges[n1] = [[n, w] for n, w in self.edges[n1] if n != n2]
+        self.graph[n1] = [[n, w] for n, w in self[n1] if n != n2]
 
     def get_edges(self):
         return [
-            [n1, n2, w] for n1 in self.edges
-            for n2, w in self.edges[n1]
+            [n1, n2, w] for n1 in self for n2, w in self[n1]
         ]

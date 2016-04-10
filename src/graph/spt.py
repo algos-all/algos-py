@@ -4,16 +4,16 @@ from collections import deque
 
 class Dijkstra:
     def __init__(self, wdgraph, src=None):
-        if src not in wdgraph.edges:
+        if src not in wdgraph:
             raise RuntimeError("Source node not in graph")
 
-        self.costs = {node : None for node in wdgraph.edges}
-        self.paths = {node : None for node in wdgraph.edges}
+        self.costs = {node : None for node in wdgraph}
+        self.paths = {node : None for node in wdgraph}
 
         self.costs[src] = 0
 
         edge_costs = Heap(
-            xs = [[src, n, w, w] for n, w in wdgraph.edges[src]],
+            xs = [[src, n, w, w] for n, w in wdgraph[src]],
             key = lambda x, y: x[-1] < y[-1]
         )
 
@@ -27,21 +27,21 @@ class Dijkstra:
             self.costs[n2] = c
             self.paths[n2] = n1
 
-            for n3, w in wdgraph.edges[n2]:
+            for n3, w in wdgraph[n2]:
                 edge_costs.push([n2, n3, w, c + w])
 
 
 class BellmanFord:
     def __init__(self, wdgraph, src=None):
-        if src not in wdgraph.edges:
+        if src not in wdgraph:
             raise RuntimeError("Source node not in graph")
 
-        self.costs = {node : None for node in wdgraph.edges}
-        self.paths = {node : None for node in wdgraph.edges}
+        self.costs = {node : None for node in wdgraph}
+        self.paths = {node : None for node in wdgraph}
         self.costs[src] = 0
 
-        this_epoch = deque(maxlen=len(wdgraph.edges))
-        next_epoch = {node : False for node in wdgraph.edges}
+        this_epoch = deque(maxlen=len(wdgraph))
+        next_epoch = {node : False for node in wdgraph}
 
         this_epoch.append(src)
         next_epoch[src] = True
@@ -53,7 +53,7 @@ class BellmanFord:
             next_epoch[n1] = False
 
             c1 = self.costs[n1]
-            for n2, w in wdgraph.edges[n1]:
+            for n2, w in wdgraph[n1]:
                 c2 = self.costs[n2]
 
                 if c2 is not None and c2 < c1 + w: continue
@@ -69,7 +69,7 @@ class BellmanFord:
 
             if j == 0: i, j = i + 1, len(this_epoch)
 
-            if i % (len(wdgraph.edges) + 1) == 0:
+            if i % (len(wdgraph) + 1) == 0:
                 break
 
         self._check_negative_cycle()

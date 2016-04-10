@@ -8,10 +8,10 @@ from graph.spt import Dijkstra, BellmanFord
 
 class CheckShortestPath:
     def is_shortest(self, spt, wdgraph):
-        for n1 in wdgraph.edges:
+        for n1 in wdgraph:
             if spt.costs[n1] is None: continue
 
-            for n2, w in wdgraph.edges[n1]:
+            for n2, w in wdgraph[n1]:
                 if spt.costs[n2] > spt.costs[n1] + w:
                     return False
 
@@ -24,10 +24,10 @@ class CheckShortestPath:
         for i in range(1, len(spt.cycle)):
             n1, n2 = spt.cycle[i - 1], spt.cycle[i]
 
-            total += min([w for n, w in wdgraph.edges[n1] if n == n2])
+            total += min([w for n, w in wdgraph[n1] if n == n2])
 
         n1, n2 = spt.cycle[-1], spt.cycle[0]
-        total += min([w for n, w in wdgraph.edges[n1] if n == n2])
+        total += min([w for n, w in wdgraph[n1] if n == n2])
 
         if total < 0: return True
 
@@ -178,8 +178,8 @@ class TestBellmanFord(CheckShortestPath):
     def test_disconnected_0(self):
         g = WeightedDiGraph()
 
-        g.edges[0] = []
-        g.edges[1] = []
+        g.graph[0] = []
+        g.graph[1] = []
 
         h = BellmanFord(g, 0)
 
