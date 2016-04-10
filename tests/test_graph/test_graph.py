@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 from src.graph.graph import Graph, DiGraph
 
 
@@ -51,34 +53,34 @@ class TestDiGraph:
     def test_add_edge_0(self):
         self.g.add_edge(0, 1)
 
-        assert self.g.edges[0] == [1]
-        assert self.g.edges[1] == []
+        assert self.g[0] == [1]
+        assert self.g[1] == []
 
     def test_add_edge_1(self):
         self.g.add_edge(0, 1)
         self.g.add_edge(0, 1)
 
-        assert self.g.edges[0] == [1, 1]
-        assert self.g.edges[1] == []
+        assert self.g[0] == [1, 1]
+        assert self.g[1] == []
 
     def test_add_edge_2(self):
         self.g.add_edge(0, 1)
         self.g.add_edge(1, 0)
 
-        assert self.g.edges[0] == [1]
-        assert self.g.edges[1] == [0]
+        assert self.g[0] == [1]
+        assert self.g[1] == [0]
 
     def test_del_edge_0(self):
         self.g.del_edge(0, 1)
 
-        assert self.g.edges == {}
+        assert self.g == {}
 
     def test_del_edge_1(self):
         self.g.add_edge(0, 1)
         self.g.del_edge(0, 1)
 
-        assert self.g.edges[0] == []
-        assert self.g.edges[1] == []
+        assert self.g[0] == []
+        assert self.g[1] == []
 
     def test_del_edge_2(self, N=10):
         for i in range(N):
@@ -86,8 +88,8 @@ class TestDiGraph:
 
         self.g.del_edge(0, 1)
 
-        assert self.g.edges[0] == []
-        assert self.g.edges[1] == []
+        assert self.g[0] == []
+        assert self.g[1] == []
 
     def test_del_edge_3(self):
         self.g.add_edge(0, 1)
@@ -96,22 +98,22 @@ class TestDiGraph:
 
         self.g.del_edge(0, 1)
 
-        assert self.g.edges[0] == [2]
-        assert self.g.edges[1] == [2]
-        assert self.g.edges[2] == []
+        assert self.g[0] == [2]
+        assert self.g[1] == [2]
+        assert self.g[2] == []
 
     def test_transpose_0(self):
         t = self.g.transpose()
 
-        assert t.edges == {}
+        assert t == {}
 
     def test_transpose_1(self):
         self.g.add_edge(0, 1)
 
         t = self.g.transpose()
 
-        assert t.edges[0] == []
-        assert t.edges[1] == [0]
+        assert t[0] == []
+        assert t[1] == [0]
 
     def test_transpose_2(self):
         self.g.add_edge(0, 1)
@@ -119,8 +121,8 @@ class TestDiGraph:
 
         t = self.g.transpose()
 
-        assert t.edges[0] == []
-        assert t.edges[1] == []
+        assert t[0] == []
+        assert t[1] == []
 
     def test_transpose_3(self, N=10):
         for i in range(N):
@@ -133,9 +135,9 @@ class TestDiGraph:
         for i in range(N + 1):
             for j in range(N + 1):
                 if j == i or j == i + 1 or (j == 0 and i == N):
-                    assert j not in t.edges[i]
+                    assert j not in t[i]
                 else:
-                    assert j in t.edges[i], "{} {}".format(j, i)
+                    assert j in t[i], "{} {}".format(j, i)
 
     def test_has_cycle_0(self):
         assert self.g.has_cycle() is False
@@ -143,13 +145,19 @@ class TestDiGraph:
     def test_has_cycle_1(self):
         self.g.add_edge(0, 1)
 
-        assert self.g.has_cycle() is False
+        assert self.g.has_cycle() is False, self.g
 
     def test_has_cycle_2(self):
         self.g.add_edge(0, 1)
         self.g.add_edge(1, 0)
 
         assert self.g.has_cycle() is True
+
+    def test_has_cycle_3(self, N=10):
+        for i in range(N):
+            self.g.add_edge(i, i + 1)
+
+        assert self.g.has_cycle() is False
 
     def test_has_cycle_3(self, N=10):
         for i in range(N):
@@ -177,6 +185,16 @@ class TestDiGraph:
         rorder = list(self.g.rpostdfs())
 
         assert rorder == [0, 1] or rorder == [1, 0]
+
+    def test_rpostdfs_3(self, N=10):
+        self.g.graph = OrderedDict()
+
+        for i in range(N):
+            self.g.add_edge(i, i + 1)
+
+        rorder = list(self.g.rpostdfs())
+
+        assert rorder == list(range(N + 1)), rorder
 
     def test_toposort_0(self):
         assert list(self.g.toposort()) == []

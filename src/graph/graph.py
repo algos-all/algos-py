@@ -34,72 +34,92 @@ class Graph:
 
 class DiGraph:
     def __init__(self):
-        self.edges = {}
+        self.graph = {}
+
+    def __len__(self):
+        return len(self.graph)
+
+    def __iter__(self):
+        return iter(self.graph)
+
+    def __getitem__(self, node):
+        return self.graph[node]
+
+    def __eq__(self, other):
+        return self.graph == other
+
+    def __ne__(self, other):
+        return self.graph != other
+
+    def __repr__(self):
+        return self.graph.__repr__()
 
     def add_edge(self, n1, n2):
-        if n1 not in self.edges: self.edges[n1] = []
-        if n2 not in self.edges: self.edges[n2] = []
+        if n1 not in self: self.graph[n1] = []
+        if n2 not in self: self.graph[n2] = []
 
-        self.edges[n1].append(n2)
+        self.graph[n1].append(n2)
 
     def del_edge(self, n1, n2):
-        if n1 not in self.edges: return
+        if n1 not in self: return
 
-        self.edges[n1] = [n for n in self.edges[n1] if n != n2]
+        self.graph[n1] = [n for n in self[n1] if n != n2]
 
     def transpose(self):
         g = DiGraph()
 
-        g.edges = {
+        g.graph = {
             src : [
-                n for n in self.edges if n not in dst and n is not src
-            ] for src, dst in self.edges.items()
+                n for n in self if n not in dst and n is not src
+            ] for src, dst in self.graph.items()
         }
 
         return g
 
     def has_cycle(self):
-        def dfs(edges, node, i):
+        def dfs(node, i):
             visited[node] = i
 
-            for n in edges[node]:
+            for n in self[node]:
                 if visited[n] == i:
                     return True
                 if visited[n] is not None:
                     continue
 
-                if dfs(edges, n, i):
-                    return True
+                if dfs(n, i): return True
 
             return False
 
-        visited = {node : None for node in self.edges}
+        visited = {node : None for node in self}
 
-        for i, node in enumerate(self.edges):
-            if visited[node] is not None: continue
+        for i, node in enumerate(self):
+            if visited[node] is not None:
+                continue
 
-            if dfs(self.edges, node, i): return True
+            if dfs(node, i):
+                return True
 
         return False
 
     def rpostdfs(self):
-        def dfs(edges, node, i):
+        def dfs(node, i):
             visited[node] = i
 
-            for n in edges[node]:
-                if visited[n] is not None: continue
+            for n in self[node]:
+                if visited[n] is not None:
+                    continue
 
-                dfs(edges, n, i)
+                dfs(n, i)
 
             postdfs.append(node)
 
         postdfs = []
-        visited = {node : None for node in self.edges}
+        visited = {node : None for node in self}
 
-        for i, node in enumerate(self.edges):
+        for i, node in enumerate(self):
             if visited[node] is not None: continue
 
-            dfs(self.edges, node, i)
+            dfs(node, i)
 
         return reversed(postdfs)
 
@@ -107,19 +127,19 @@ class DiGraph:
         return None if self.has_cycle() else self.rpostdfs()
 
     def sconcomp(self):
-        def dfs(edges, node, i):
+        def dfs(node, i):
             visited[node] = i
 
-            for n in edges[node]:
+            for n in self[node]:
                 if visited[n] is not None: continue
 
-                dfs(edges, n, i)
+                dfs(n, i)
 
-        visited = {node : None for node in self.edges}
+        visited = {node : None for node in self}
 
         for i, node in enumerate(self.transpose().rpostdfs()):
             if visited[node] is not None: continue
 
-            dfs(self.edges, node, i)
+            dfs(node, i)
 
         return visited
