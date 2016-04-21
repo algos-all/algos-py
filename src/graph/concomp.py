@@ -2,21 +2,19 @@ from collections import deque
 
 def concomp0(graph):
     def dfs(node):
+        cc[node] = i
+
         for n in graph[node]:
             if cc[n] is not None: continue
 
-            cc[n] = i
             dfs(n)
 
-    cc, i = {node : None for node in graph}, 0
+    cc = {node : None for node in graph}
 
-    for n in graph:
+    for i, n in enumerate(graph):
         if cc[n] is not None: continue
 
-        cc[n] = i
         dfs(n)
-
-        i += 1
 
     return cc
 
@@ -58,6 +56,3 @@ def concomp2(graph):
             nodes.extend([n for n in graph[node] if cc[n] is None])
 
     return cc
-
-
-concomps = [concomp0, concomp1, concomp2]

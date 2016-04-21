@@ -1,5 +1,5 @@
 from graph.graph import Graph
-from graph.concomp import concomps
+from graph.concomp import concomp0, concomp1, concomp2
 
 
 class CheckConnectedComponent:
@@ -42,14 +42,17 @@ class CheckConnectedComponent:
 
 
 class TestConnectedComponent(CheckConnectedComponent):
+    def __init__(self):
+        self.concomps = [concomp0, concomp1, concomp2]
+
     def test_one_edge(self):
-        for concomp in concomps:
-            self.check_one_edge(concomp)
+        for concomp in self.concomps:
+            yield self.check_one_edge, concomp
 
     def test_many_linked_edges(self):
-        for concomp in concomps:
-            self.check_many_linked_edges(concomp)
+        for concomp in self.concomps:
+            yield self.check_many_linked_edges, concomp
 
     def test_two_disjoint_edges(self):
-        for concomp in concomps:
-            self.check_two_disjoint_edges(concomp)
+        for concomp in self.concomps:
+            yield self.check_two_disjoint_edges, concomp
