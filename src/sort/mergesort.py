@@ -28,7 +28,7 @@ def mergesort1(xs):
     step = 1
 
     while step < len(xs):
-        for n in range(0, len(xs) - step, 2 * step):
+        for n in range(0, len(xs), 2 * step):
             ls, rs = xs[n : n + step], xs[n + step : n + 2 * step]
 
             li, ri = 0, 0
