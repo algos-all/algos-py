@@ -1,4 +1,5 @@
-import string
+from string import ascii_lowercase
+from random import seed, choice, randint
 
 class CheckStringSet:
     def check_empty_get(self, ss):
@@ -9,12 +10,10 @@ class CheckStringSet:
         assert ss.get("") is None
 
     def check_single_letters(self, ss):
-        inside = string.ascii_letters[:13]
-        outside = string.ascii_letters[13:]
+        inside = ascii_lowercase[:13]
+        outside = ascii_lowercase[13:]
 
         for letter in inside: ss.put(letter, letter)
-
-        print(ss.all())
 
         for letter in inside:
             assert ss.get(letter) == letter
@@ -46,12 +45,66 @@ class CheckStringSet:
         for i in range(1, n):
             assert ss.get(word[:i]) == i, ss.all()
 
-    def check_simple_words(self, ss, inside, outside):
-        for i, word in enumerate(inside):
-            ss.put(word, i)
+    def check_words_0(self, ss):
+        words = ["a", "aa", "aaa", "abbb"]
 
-        for i, word in enumerate(inside):
-            assert ss.get(word) == i
+        for i, w in enumerate(words):
+            ss.put(w, i)
 
-        for word in outside:
-            assert ss.get(word) is None, ss.get(word)
+        for i, w in enumerate(words):
+            assert ss.get(w) == i
+
+    def check_words_1(self, ss):
+        words = ["c", "cb", "cc", "ce"]
+
+        for i, w in enumerate(words):
+            ss.put(w, i)
+
+        for i, w in enumerate(words):
+            assert ss.get(w) == i
+
+    def check_words_2(self, ss):
+        words = ["good", "go"]
+
+        for i, w in enumerate(words):
+            ss.put(w, i)
+
+        for i, w in enumerate(words):
+            assert ss.get(w) == i
+
+    def check_words_3(self, ss):
+        words = ["b", "a", "c"]
+
+        for i, w in enumerate(words):
+            ss.put(w, i)
+
+        for i, w in enumerate(words):
+            assert ss.get(w) == i
+
+    def check_words_4(self, ss):
+        words = ["b", "a", "c", "ball", "all", "cya"]
+
+        for i, w in enumerate(words):
+            ss.put(w, i)
+
+        for i, w in enumerate(words):
+            assert ss.get(w) == i
+
+    def check_random_words(
+            self, ss, i, n=10, m=3, alpha=ascii_lowercase
+    ):
+        assert n >= 1 and m >= 1 and len(alpha) != 0
+
+        seed(i)
+
+        words, values = [
+            "".join([choice(alpha) for i in range(randint(1, m))])
+            for j in range(n)
+        ], {}
+
+        for i, w in enumerate(words):
+            ss.put(w, i)
+            values[w] = i
+
+        for i, w in enumerate(words):
+            assert ss.get(w) == values[w]
