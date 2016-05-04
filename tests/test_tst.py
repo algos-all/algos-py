@@ -45,3 +45,21 @@ class TestTernarySearchTree(CheckStringSet):
     def test_random_words_2(self, times=10):
         for i in range(times):
             yield self.check_random_words, TST(), i, 100, 10, "01"
+
+    def test_gcp_empty_0(self):
+        self.check_gcp_empty_0(TST())
+
+    def test_gcp_empty_1(self):
+        self.check_gcp_empty_1(TST())
+
+    def test_gcp_0(self):
+        self.check_gcp_0(TST())
+
+    def test_gcp_1(self):
+        self.check_gcp_1(TST())
+
+    def test_gcp_2(self):
+        self.check_gcp_2(TST())
+
+    def test_gcp_3(self):
+        self.check_gcp_3(TST())

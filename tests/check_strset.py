@@ -108,3 +108,35 @@ class CheckStringSet:
 
         for i, w in enumerate(words):
             assert ss.get(w) == values[w]
+
+    def check_gcp_empty_0(self, ss):
+        assert ss.gcp("") == 0
+
+    def check_gcp_empty_1(self, ss):
+        ss.put("a", 42)
+
+        assert ss.gcp("") == 0
+
+    def check_gcp_0(self, ss):
+        words = ["a", "b"]
+
+        for i, w in enumerate(words):
+            ss.put(w, i)
+
+        assert ss.gcp("c") == 0, ss.gcp("c")
+
+    def check_gcp_1(self, ss):
+        words = ["a", "b", "c"]
+
+        for i, w in enumerate(words):
+            ss.put(w, i)
+
+        assert ss.gcp("c") == 1, ss.gcp("c")
+
+    def check_gcp_2(self, ss):
+        ss.put("a", 0)
+        assert ss.gcp("a") == 1
+
+    def check_gcp_3(self, ss):
+        ss.put("a", 0)
+        assert ss.gcp("aa") == 1

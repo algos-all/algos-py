@@ -38,6 +38,9 @@ class TernarySearchTree:
             node, _, _, _ = self.get_node_with_parent(key)
             return None if node is None else node.val
 
+        def gcp(self, key):
+            return self.get_node_with_parent(key)[2]
+
     def __init__(self):
         self.root = None
 
@@ -71,6 +74,10 @@ class TernarySearchTree:
             node = node[2]
 
         node.val = val
+
+    def gcp(self, key):
+        return 0 if self.root is None or len(key) == 0 else \
+            self.root.gcp(key)
 
     def all(self):
         if self.root is None: return []
