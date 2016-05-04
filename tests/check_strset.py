@@ -140,3 +140,96 @@ class CheckStringSet:
     def check_gcp_3(self, ss):
         ss.put("a", 0)
         assert ss.gcp("aa") == 1
+
+    def check_all_0(self, ss):
+        assert ss.all() == []
+
+    def check_all_1(self, ss):
+        ss.put("a", 0)
+        assert ss.all() == ["a"], ss.all()
+
+    def check_all_2(self, ss):
+        words = ["a", "b", "c"]
+
+        for i, w in enumerate(words):
+            ss.put(w, i)
+
+        result = ss.all()
+
+        for r in result:
+            assert r in words, result
+
+        for w in words:
+            assert w in result, result
+
+    def check_all_random(
+            self, ss, i, n=10, m=3, alpha=ascii_lowercase
+    ):
+        assert n >= 1 and m >= 1 and len(alpha) != 0
+
+        seed(i)
+
+        words, values = [
+            "".join([choice(alpha) for i in range(randint(1, m))])
+            for j in range(n)
+        ], {}
+
+        for i, w in enumerate(words):
+            ss.put(w, i)
+            values[w] = i
+
+        result = ss.all()
+
+        for r in result:
+            assert r in words
+
+        for w in words:
+            assert w in result
+
+    def check_startswith_empty_0(self, ss):
+        assert ss.startswith("") == []
+
+    def check_startswith_empty_1(self, ss):
+        words = ["a", "b", "c"]
+
+        for i, w in enumerate(words): ss.put(w, i)
+
+        result = ss.startswith("")
+
+        for r in result: assert r in words, result
+        for w in words: assert w in result, result
+
+    def check_startswith_0(self, ss):
+        ss.put("a", 0)
+        assert ss.startswith("a") == ["a"]
+
+    def check_startswith_1(self, ss):
+        words = ["a", "b"]
+
+        for i, w in enumerate(words): ss.put(w, i)
+
+        for w in words: assert ss.startswith(w) == [w]
+
+    def check_startswith_2(self, ss):
+        words = ["help", "hell"]
+
+        for i, w in enumerate(words): ss.put(w, i)
+
+        result = ss.startswith("hel")
+
+        for w in words:
+            assert w in result, result
+
+        for w in words:
+            result = ss.startswith(w)
+
+            assert result == [w], result
+
+        result = ss.startswith("helpme")
+        assert result == []
+
+    def check_startswith_3(self, ss):
+        ss.put("help", 0)
+
+        assert ss.startswith("hell") == []
+        assert ss.startswith("helpme") == []

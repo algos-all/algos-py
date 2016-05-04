@@ -1,5 +1,3 @@
-import string
-
 from check_strset import CheckStringSet
 
 from tst import TernarySearchTree as TST
@@ -63,3 +61,34 @@ class TestTernarySearchTree(CheckStringSet):
 
     def test_gcp_3(self):
         self.check_gcp_3(TST())
+
+    def test_all_0(self):
+        self.check_all_0(TST())
+
+    def test_all_1(self):
+        self.check_all_1(TST())
+
+    def test_all_2(self):
+        self.check_all_2(TST())
+
+    def test_all_random(self, times=10):
+        for i in range(times):
+            yield self.check_all_random, TST(), i
+
+    def test_startswith_empty_0(self):
+        self.check_startswith_empty_0(TST())
+
+    def test_startswith_empty_1(self):
+        self.check_startswith_empty_1(TST())
+
+    def test_startswith_0(self):
+        self.check_startswith_0(TST())
+
+    def test_startswith_1(self):
+        self.check_startswith_1(TST())
+
+    def test_startswith_2(self):
+        self.check_startswith_2(TST())
+
+    def test_startswith_3(self):
+        self.check_startswith_3(TST())

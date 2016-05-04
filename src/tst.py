@@ -79,7 +79,43 @@ class TernarySearchTree:
         return 0 if self.root is None or len(key) == 0 else \
             self.root.gcp(key)
 
+    def dfs(self, node, prefix, results):
+        if node is None: return
+
+        for n in node.edges[:2]:
+            self.dfs(n, prefix, results)
+
+        self.dfs(node.edges[2], prefix + node.key, results)
+
+        if node.val is not None:
+            results.append(prefix + node.key)
+
+
+    def startswith(self, key):
+        if self.root is None: return []
+
+        if len(key) == 0: return self.all()
+
+        node, _, _, _ = self.root.get_node_with_parent(key)
+
+        if node is None: return []
+
+        results = [] if node.val is None else [key]
+
+        self.dfs(node[2], key, results)
+
+        return results
+
     def all(self):
+        if self.root is None: return []
+
+        results = []
+
+        self.dfs(self.root, "", results)
+
+        return results
+
+    def show(self):
         if self.root is None: return []
 
         results = []
@@ -97,7 +133,7 @@ class TernarySearchTree:
                 for i in range(3)
             ]
             results.append(
-                [node.key, vs]
+                [node.key, node.val, vs]
             )
 
             # if node.val is not None:
