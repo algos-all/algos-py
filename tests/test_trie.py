@@ -1,5 +1,3 @@
-import string
-
 from check_strset import CheckStringSet
 
 from trie import Trie
@@ -15,54 +13,82 @@ class TestTrie(CheckStringSet):
     def test_single_digits(self):
         self.check_single_digits(Trie())
 
-    def test_simple_words(self):
-        inside = ["hello", "world", "this", "is", "dog"]
-        outside = ["help", "thisis", "do"]
-        self.check_simple_words(Trie(), inside, outside)
+    def test_simple_chain(self):
+        for i in range(1, 10):
+            yield self.check_simple_chain, Trie(), i
 
-    def test_gcp_with_empty(self):
-        trie = Trie()
+    def test_words_0(self):
+        self.check_words_0(Trie())
 
-        assert trie.gcp("") == 0
+    def test_words_1(self):
+        self.check_words_1(Trie())
 
-        trie.put("hello", 42)
+    def test_words_2(self):
+        self.check_words_2(Trie())
 
-        assert trie.gcp("") == 0
+    def test_words_3(self):
+        self.check_words_3(Trie())
 
-    def test_gcp(self):
-        trie = Trie()
+    def test_words_4(self):
+        self.check_words_4(Trie())
 
-        trie.put("hello", 42)
+    def test_random_words_0(self, times=10):
+        for i in range(times):
+            yield self.check_random_words, Trie(), i
 
-        assert trie.gcp("h") == 1
-        assert trie.gcp("hello") == len("hello")
-        assert trie.gcp("helloworld") == len("hello")
-        assert trie.gcp("help") == 3
+    def test_random_words_1(self, times=10):
+        for i in range(times):
+            yield self.check_random_words, Trie(), i, 100, 10
 
-    def test_empty_startwith(self):
-        trie = Trie()
+    def test_random_words_2(self, times=10):
+        for i in range(times):
+            yield self.check_random_words, Trie(), i, 100, 10, "01"
 
-        assert trie.startwith("") == []
-        assert trie.startwith("hello") == []
+    def test_gcp_empty_0(self):
+        self.check_gcp_empty_0(Trie())
 
-    def test_startwith_0(self):
-        trie, word = Trie(), "hello"
+    def test_gcp_empty_1(self):
+        self.check_gcp_empty_1(Trie())
 
-        trie.put(word, 42)
+    def test_gcp_0(self):
+        self.check_gcp_0(Trie())
 
-        for i in range(1, len(word)):
-            assert trie.startwith(word[:i]) == [word]
+    def test_gcp_1(self):
+        self.check_gcp_1(Trie())
 
-    def test_startwith_1(self):
-        trie, word = Trie(), "hello"
+    def test_gcp_2(self):
+        self.check_gcp_2(Trie())
 
-        trie.put(word, 42)
+    def test_gcp_3(self):
+        self.check_gcp_3(Trie())
 
-        result = trie.startwith(word + word)
+    def test_all_0(self):
+        self.check_all_0(Trie())
 
-        assert result == [], result
+    def test_all_1(self):
+        self.check_all_1(Trie())
 
-        trie.put(word + word, 42)
+    def test_all_2(self):
+        self.check_all_2(Trie())
 
-        result = trie.startwith(word + word)
-        assert result == [word + word], result
+    def test_all_random(self, times=10):
+        for i in range(times):
+            yield self.check_all_random, Trie(), i
+
+    def test_startswith_empty_0(self):
+        self.check_startswith_empty_0(Trie())
+
+    def test_startswith_empty_1(self):
+        self.check_startswith_empty_1(Trie())
+
+    def test_startswith_0(self):
+        self.check_startswith_0(Trie())
+
+    def test_startswith_1(self):
+        self.check_startswith_1(Trie())
+
+    def test_startswith_2(self):
+        self.check_startswith_2(Trie())
+
+    def test_startswith_3(self):
+        self.check_startswith_3(Trie())

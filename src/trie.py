@@ -34,7 +34,7 @@ class Trie:
         def gcp(self, key):
             return self.get_node_with_parent(key)[2]
 
-        def startwith(self, key):
+        def startswith(self, key):
             node, _, i = self.get_node_with_parent(key)
 
             if i < len(key):
@@ -46,7 +46,7 @@ class Trie:
                 for k in node:
                     dfs(node[k], prefix + k)
 
-                if node.val: results.append(prefix)
+                if node.val is not None: results.append(prefix)
 
             for k in node.edges:
                 dfs(node[k], key + k)
@@ -66,8 +66,8 @@ class Trie:
     def gcp(self, key):
         return 0 if self.root is None else self.root.gcp(key)
 
-    def startwith(self, key):
-        return [] if self.root is None else self.root.startwith(key)
+    def startswith(self, key):
+        return [] if self.root is None else self.root.startswith(key)
 
     def put(self, key, val):
         node, parent, i = self.get_node_with_parent(key)
