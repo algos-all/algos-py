@@ -1,6 +1,6 @@
-from check_strset import CheckStringSet
+from check_sset import CheckStringSet
 
-from trie import Trie
+from sset.trie import Trie
 
 
 class TestTrie(CheckStringSet):

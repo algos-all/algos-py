@@ -1,6 +1,6 @@
-from check_strset import CheckStringSet
+from check_sset import CheckStringSet
 
-from tst import TernarySearchTree as TST
+from sset.tst import TernarySearchTree as TST
 
 
 class TestTernarySearchTree(CheckStringSet):
