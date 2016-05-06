@@ -47,8 +47,8 @@ class BellmanFord:
         relaxed.append(src)
         newcost[src] = True
 
-        epochs = 0
-        nepoch = len(relaxed)
+        nepoch = 1
+        epochs = len(wdgraph) + 1
 
         while relaxed:
             n1 = relaxed.popleft()
@@ -71,10 +71,10 @@ class BellmanFord:
             nepoch -= 1
 
             if nepoch == 0:
-                epochs += 1
+                epochs -= 1
                 nepoch = len(relaxed)
 
-            if epochs % (len(wdgraph) + 1) == 0:
+            if epochs == 0:
                 break
 
         self._check_negative_cycle()
