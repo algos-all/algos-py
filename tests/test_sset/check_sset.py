@@ -91,11 +91,11 @@ class CheckStringSet:
             assert ss.get(w) == i
 
     def check_random_words(
-            self, ss, i, n=10, m=3, alpha=ascii_lowercase
+            self, ss, s, n=10, m=3, alpha=ascii_lowercase
     ):
         assert n >= 1 and m >= 1 and len(alpha) != 0
 
-        seed(i)
+        seed(s)
 
         words, values = [
             "".join([choice(alpha) for i in range(randint(1, m))])
