@@ -40,7 +40,7 @@ class Trie:
             if i < len(key):
                 return []
 
-            results = [key] if node.val is not None else []
+            results = []
 
             def dfs(node, prefix):
                 for k in node:
@@ -48,8 +48,7 @@ class Trie:
 
                 if node.val is not None: results.append(prefix)
 
-            for k in node.edges:
-                dfs(node[k], key + k)
+            dfs(node, key)
 
             return results
 
