@@ -5,20 +5,26 @@ class Node:
 
         self.red = red
 
+    def __getitem__(self, key):
+        return self.edges[key]
+
+    def __setitem__(self, key, val):
+        self.edges[key] = val
+
     @staticmethod
     def isred(node):
         return node and node.red
 
     def both_kids_are_red(self):
-        return Node.isred(self.edges[0]) and Node.isred(self.edges[1])
+        return Node.isred(self[0]) and Node.isred(self[1])
 
     def both_ll_or_rr_are_red(self, thisway):
-        kid = self.edges[thisway]
-        return Node.isred(kid) and Node.isred(kid.edges[thisway])
+        kid = self[thisway]
+        return Node.isred(kid) and Node.isred(kid[thisway])
 
     def both_lr_or_rl_are_red(self, thisway):
-        kid = self.edges[thisway]
-        return Node.isred(kid) and Node.isred(kid.edges[not thisway])
+        kid = self[thisway]
+        return Node.isred(kid) and Node.isred(kid[not thisway])
 
     def get_node_with_parent(self, key):
         parent = None
@@ -27,7 +33,7 @@ class Node:
                 return self, parent
 
             here = 0 if key < self.key else 1
-            self, parent = self.edges[here], self
+            self, parent = self[here], self
 
         return None, parent
 
@@ -52,31 +58,27 @@ class RedBlackTree:
         return self.root.get(key)
 
     def single_rotate(self, node, thisway):
-        top, child = node.edges[2], node.edges[thisway]
-        gchild = child.edges[not thisway]
+        top, child = node[2], node[thisway]
+        gchild = child[not thisway]
 
-        node.edges[thisway] = gchild
-        if gchild: gchild.edges[2] = node
+        node[thisway] = gchild
+        if gchild: gchild[2] = node
 
-        child.edges[2] = top
-        child.edges[not thisway], node.edges[2] = node, child
+        child[not thisway], node[2] = node, child
 
         if top:
-            here = 0 if node is top.edges[0] else 1
-            top.edges[here] = child
+            child[2], top[0 if node is top[0] else 1] = top, child
         else:
-            self.root = child
+            child[2], self.root = None, child
 
     def double_rotate(self, node, thisway):
-        child = node.edges[thisway]
-        gchild = child.edges[not thisway]
+        child, gchild = node[thisway], node[thisway][not thisway]
 
-        child.edges[not thisway] = gchild.edges[thisway]
-        if gchild.edges[thisway]:
-            gchild.edges[thisway].edges[2] = child
+        child[not thisway] = gchild[thisway]
+        if gchild[thisway]: gchild[thisway][2] = child
 
-        gchild.edges[thisway], child.edges[2] = child, gchild
-        node.edges[thisway], gchild.edges[2] = gchild, node
+        gchild[thisway], child[2] = child, gchild
+        node[thisway], gchild[2] = gchild, node
 
         self.single_rotate(node, thisway)
 
@@ -92,21 +94,21 @@ class RedBlackTree:
             return
 
         thisway = 0 if key < parent.key else 1
-        parent.edges[thisway] = Node(key, val, parent=parent)
+        parent[thisway] = Node(key, val, parent=parent)
 
         if not parent.red: return
 
-        node = parent.edges[2]
+        node = parent[2]
 
         while node:
             if node.both_kids_are_red():
-                for i in range(2): node.edges[i].red = False
+                for i in range(2): node[i].red = False
 
                 if node is self.root: break
 
                 node.red = True
 
-                node = node.edges[2].edges[2]
+                node = node[2][2]
                 continue
 
             thisway = 0 if key < node.key else 1
@@ -117,7 +119,7 @@ class RedBlackTree:
             else:
                 break
 
-            node, child = node.edges[2], node
+            node, child = node[2], node
             node.red, child.red = False, True
             break
 
@@ -126,25 +128,25 @@ class RedBlackTree:
 
         if node is None: return
 
-        if node.edges[0] and node.edges[1]:
-            heir, parent = node.edges[0], node
+        if node[0] and node[1]:
+            heir, parent = node[0], node
 
-            while heir.edges[1]:
-                heir, parent = heir.edges[1], heir
+            while heir[1]:
+                heir, parent = heir[1], heir
 
             node.key, node.val = heir.key, heir.val
             node = heir
 
-        if node.edges[0] or node.edges[1]:
-            child = node.edges[0] if node.edges[0] else node.edges[1]
+        if node[0] or node[1]:
+            child = node[0] if node[0] else node[1]
 
             node.key, node.val = child.key, child.val
-            for i in range(2): node.edges[i] = None
+            for i in range(2): node[i] = None
 
             child.key, child.val = None, None
-            child.edges[2] = None
+            child[2] = None
 
-            for i in range(2): assert child.edges[i] is None
+            for i in range(2): assert child[i] is None
 
             return
 
@@ -154,50 +156,50 @@ class RedBlackTree:
 
             return
 
-        thisway = 0 if node is parent.edges[0] else 1
+        thisway = 0 if node is parent[0] else 1
         thatway = 0 if thisway == 1 else 1
 
         if node.red:
             node.key, node.val = None, None
-            node.edges[2], parent.edges[thisway] = None, None
+            node[2], parent[thisway] = None, None
 
-            for i in range(2): assert node.edges[i] is None
+            for i in range(2): assert node[i] is None
 
             return
 
-        node, prev, dead = node.edges[2], node, node
+        node, prev, dead = node[2], node, node
 
         while node:
-            thisway = 0 if node.edges[0] is prev else 1
+            thisway = 0 if node[0] is prev else 1
             thatway = 1 if thisway == 0 else 0
 
-            if node.edges[thatway].red:
+            if node[thatway].red:
                 self.single_rotate(node, thatway)
-                node.red, node.edges[2].red = True, False
+                node.red, node[2].red = True, False
 
-            if Node.isred(node.edges[thatway].edges[thisway]):
+            if Node.isred(node[thatway][thisway]):
                 self.double_rotate(node, thatway)
-                node.edges[2].red, node.red = node.red, False
+                node[2].red, node.red = node.red, False
                 break
 
-            if Node.isred(node.edges[thatway].edges[thatway]):
+            if Node.isred(node[thatway][thatway]):
                 self.single_rotate(node, thatway)
-                node.edges[2].edges[thatway].red = node.red
+                node[2][thatway].red = node.red
                 break
 
-            node.edges[thatway].red = True
+            node[thatway].red = True
 
             if node.red:
                 node.red = False
                 break
 
-            node, prev = node.edges[2], node
+            node, prev = node[2], node
 
-        node = dead.edges[2]
+        node = dead[2]
 
-        thisway = 0 if dead is node.edges[0] else 1
+        thisway = 0 if dead is node[0] else 1
 
         dead.key, dead.val = None, None
-        node.edges[thisway], dead.edges[2] = None, None
+        node[thisway], dead[2] = None, None
 
-        for i in range(2): assert dead.edges[i] is None
+        for i in range(2): assert dead[i] is None
