@@ -233,3 +233,110 @@ class CheckStringSet:
 
         assert ss.startswith("hell") == []
         assert ss.startswith("helpme") == []
+
+    def check_empty_remove_0(self, ss):
+        ss.remove("")
+
+        assert True
+
+    def check_empty_remove_1(self, ss):
+        ss.put("aaaaa", 0)
+
+        ss.remove("")
+
+        assert True
+
+    def check_remove_0(self, ss):
+        ss.put("a", 0)
+        ss.remove("a")
+
+        assert ss.get("a") == None
+
+    def check_remove_1(self, ss):
+        ss.put("aaaa", 0)
+
+        ss.remove("a")
+        ss.remove("aa")
+        ss.remove("aaa")
+
+        assert ss.get("aaaa") == 0
+
+    def check_remove_2(self, ss):
+        ss.put("aaaa", 0)
+
+        ss.remove("b")
+
+        assert ss.get("aaaa") == 0
+
+    def check_remove_3(self, ss):
+        ss.put("a", 0)
+        ss.remove("a")
+        ss.put("a", 0)
+
+        assert ss.get("a") == 0
+
+    def check_remove_4(self, ss):
+        words = ["a", "b", "c"]
+
+        for i, w in enumerate(words):
+            ss.put(w, i)
+
+        ss.remove("a")
+
+        assert ss.get("a") == None
+        assert ss.get("b") == 1
+        assert ss.get("c") == 2
+
+    def check_remove_5(self, ss):
+        words = ["a", "aa", "aaa"]
+
+        for i, w in enumerate(words):
+            ss.put(w, i)
+
+        ss.remove("a")
+
+        assert ss.get("") == None
+        assert ss.get("a") == None
+        assert ss.get("aa") == 1
+        assert ss.get("aaa") == 2
+
+    def check_remove_5(self, ss):
+        words = ["a", "aa", "aaa"]
+
+        for i, w in enumerate(words):
+            ss.put(w, i)
+
+        ss.remove("aa")
+
+        assert ss.get("") == None
+        assert ss.get("a") == 0
+        assert ss.get("aa") == None
+        assert ss.get("aaa") == 2
+
+
+    def check_remove_6(self, ss):
+        words = ["a", "aa", "aaa"]
+
+        for i, w in enumerate(words):
+            ss.put(w, i)
+
+        ss.remove("a")
+
+        assert ss.get("") == None
+        assert ss.get("a") == None
+        assert ss.get("aa") == 1
+        assert ss.get("aaa") == 2
+
+        ss.remove("aa")
+
+        assert ss.get("") == None
+        assert ss.get("a") == None
+        assert ss.get("aa") == None
+        assert ss.get("aaa") == 2
+
+        ss.remove("aaa")
+
+        assert ss.get("") == None
+        assert ss.get("a") == None
+        assert ss.get("aa") == None
+        assert ss.get("aaa") == None

@@ -92,3 +92,30 @@ class TestTrie(CheckStringSet):
 
     def test_startswith_3(self):
         self.check_startswith_3(Trie())
+
+    def test_empty_remove_0(self):
+        self.check_empty_remove_0(Trie())
+
+    def test_empty_remove_1(self):
+        self.check_empty_remove_1(Trie())
+
+    def test_remove_0(self):
+        self.check_remove_0(Trie())
+
+    def test_remove_1(self):
+        self.check_remove_1(Trie())
+
+    def test_remove_2(self):
+        self.check_remove_2(Trie())
+
+    def test_remove_3(self):
+        self.check_remove_3(Trie())
+
+    def test_remove_4(self):
+        self.check_remove_4(Trie())
+
+    def test_remove_5(self):
+        self.check_remove_5(Trie())
+
+    def test_remove_6(self):
+        self.check_remove_6(Trie())
