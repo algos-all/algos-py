@@ -13,22 +13,22 @@ class Dijkstra:
         self.costs[src] = 0
 
         edge_costs = Heap(
-            xs = [[src, n, w, w] for n, w in wdgraph[src]],
+            xs = [[src, dst, w, w] for dst, w in wdgraph[src]],
             key = lambda x, y: x[-1] < y[-1]
         )
 
         while edge_costs:
-            n1, n2, w, c = edge_costs.pop()
+            src, dst, w, c0 = edge_costs.pop()
 
-            cost = self.costs[n2]
+            c1 = self.costs[dst]
 
-            if cost is not None and cost < c: continue
+            if c1 is not None and c1 <= c0: continue
 
-            self.costs[n2] = c
-            self.paths[n2] = n1
+            self.costs[dst] = c0
+            self.paths[dst] = src
 
-            for n3, w in wdgraph[n2]:
-                edge_costs.push([n2, n3, w, c + w])
+            for n, w in wdgraph[dst]:
+                edge_costs.push([dst, n, w, c0 + w])
 
 
 class BellmanFord:
