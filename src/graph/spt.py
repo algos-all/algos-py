@@ -34,50 +34,50 @@ class Dijkstra:
 class BellmanFord:
     def __init__(self, wdgraph, src=None):
         if src not in wdgraph:
-            raise RuntimeError("src not in wdgraph")
+            raise RuntimeError("Node not in graph")
 
         self.costs = {node : None for node in wdgraph}
         self.paths = {node : None for node in wdgraph}
 
+        torelax = deque(maxlen=len(wdgraph))
+        inrelax = {node : False for node in wdgraph}
+
         self.costs[src] = 0
+        torelax.append(src)
+        inrelax[src] = True
 
-        relaxed = deque(maxlen=len(wdgraph))
-        newcost = {node : False for node in wdgraph}
+        nepoch = len(wdgraph) + 1
+        lepoch = 1 # len(torelax)
 
-        relaxed.append(src)
-        newcost[src] = True
+        while torelax:
+            src = torelax.popleft()
+            inrelax[src] = False
 
-        nepoch = 1
-        epochs = len(wdgraph) + 1
+            s = self.costs[src]
 
-        while relaxed:
-            n1 = relaxed.popleft()
-            newcost[n1] = False
+            for dst, w in wdgraph[src]:
+                d = self.costs[dst]
 
-            c1 = self.costs[n1]
+                if d is not None and d <= s + w: continue
 
-            for n2, w in wdgraph[n1]:
-                c2 = self.costs[n2]
+                self.costs[dst] = s + w
+                self.paths[dst] = src
 
-                if c2 is not None and c2 < c1 + w: continue
+                if not inrelax[dst]:
+                    torelax.append(dst)
+                    inrelax[dst] = True
 
-                self.costs[n2] = c1 + w
-                self.paths[n2] = n1
+            lepoch -= 1
 
-                if not newcost[n2]:
-                    relaxed.append(n2)
-                    newcost[n2] = True
-
-            nepoch -= 1
+            if lepoch == 0:
+                nepoch -= 1
+                lepoch = len(torelax)
 
             if nepoch == 0:
-                epochs -= 1
-                nepoch = len(relaxed)
-
-            if epochs == 0:
                 break
 
         self._check_negative_cycle()
+
 
     def _check_negative_cycle(self):
         onpath = {n : None for n in self.paths}
