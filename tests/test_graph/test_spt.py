@@ -37,6 +37,16 @@ class CheckShortestPath:
     def check_empty(self, spt):
         spt(WeightedDiGraph())
 
+    def check_source(self, spt):
+        g = WeightedDiGraph()
+
+        g.add_edge(0, 1, 2)
+
+        h = spt(g, 0)
+
+        assert h.costs[0] == 0, h.costs[0]
+        assert h.costs[1] == 2, h.costs[1]
+
     def check_chain(self, spt, N=10):
         assert N > 0
 
@@ -87,6 +97,9 @@ class TestDijkstra(CheckShortestPath):
     def test_empty(self):
         yield self.check_empty, Dijkstra
 
+    def test_source(self):
+        yield self.check_source, Dijkstra
+
     def test_chain(self, ns=range(1, 10)):
         for n in ns:
             yield self.check_chain, Dijkstra, n
@@ -107,6 +120,9 @@ class TestDijkstra(CheckShortestPath):
 class TestBellmanFord(CheckShortestPath):
     def test_empty(self):
         yield self.check_empty, BellmanFord
+
+    def test_source(self):
+        yield self.check_source, BellmanFord
 
     def test_chain(self, ns=range(1, 10)):
         for n in ns:

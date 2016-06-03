@@ -12,24 +12,22 @@ class Dijkstra:
 
         self.costs[src] = 0
 
-        edge_costs = Heap(
-            xs = [[src, dst, w, w] for dst, w in wdgraph[src]],
-            key = lambda x, y: x[-1] < y[-1]
+        edges = Heap(
+            xs=[[src, dst, w] for dst, w in wdgraph[src]],
+            key=lambda x, y: x[-1] < y[-1]
         )
 
-        while edge_costs:
-            src, dst, w, c0 = edge_costs.pop()
+        while edges:
+            src, dst, c = edges.pop()
 
-            c1 = self.costs[dst]
+            if self.costs[dst] is not None and self.costs[dst] <= c:
+                continue
 
-            if c1 is not None and c1 <= c0: continue
-
-            self.costs[dst] = c0
+            self.costs[dst] = c
             self.paths[dst] = src
 
-            for n, w in wdgraph[dst]:
-                edge_costs.push([dst, n, w, c0 + w])
-
+            for node, w in wdgraph[dst]:
+                edges.push([dst, node, w + c])
 
 class BellmanFord:
     def __init__(self, wdgraph, src=None):
