@@ -92,3 +92,30 @@ class TestTernarySearchTree(CheckStringSet):
 
     def test_startswith_3(self):
         self.check_startswith_3(TST())
+
+    def test_empty_remove_0(self):
+        self.check_empty_remove_0(TST())
+
+    def test_empty_remove_1(self):
+        self.check_empty_remove_1(TST())
+
+    def test_remove_0(self):
+        self.check_remove_0(TST())
+
+    def test_remove_1(self):
+        self.check_remove_1(TST())
+
+    def test_remove_2(self):
+        self.check_remove_2(TST())
+
+    def test_remove_3(self):
+        self.check_remove_3(TST())
+
+    def test_remove_4(self):
+        self.check_remove_4(TST())
+
+    def test_remove_5(self):
+        self.check_remove_5(TST())
+
+    def test_remove_6(self):
+        self.check_remove_6(TST())

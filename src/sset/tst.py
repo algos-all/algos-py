@@ -52,7 +52,8 @@ class TernarySearchTree:
         self.root = None
 
     def get_node_with_parent(self, key):
-        if self.root is None: return None, None, 0, False
+        if self.root is None or len(key) == 0:
+            return None, None, 0, False
         return self.root.get_node_with_parent(key)
 
     def get(self, key):
@@ -81,6 +82,26 @@ class TernarySearchTree:
             node = node[2]
 
         node.val = val
+
+    def remove(self, key):
+        node, _, i, flag = self.get_node_with_parent(key)
+
+        if node is None or node.val is None or i < len(key): return
+
+        node.val = None
+
+        for i in range(len(key) - 1, 0, -1):
+            if node: return
+
+            for i in range(3):
+                if node.top[i] is node:
+                    node.top[i] = None
+                    break
+
+            node = node.top
+
+        if node: return
+        self.root = None
 
     def gcp(self, key):
         return 0 if self.root is None or len(key) == 0 else \
