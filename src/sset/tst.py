@@ -1,10 +1,17 @@
 class TernarySearchTree:
     class Node:
-        def __init__(self, key, val=None):
+        def __init__(self, top, key, val=None):
+            self.top = top
             self.key = key
             self.val = val
 
             self.edges = [None, None, None]
+
+        def __len__(self):
+            return sum(1 for e in self.edges if e is not None)
+
+        def __bool__(self):
+            return self.val is not None or bool(len(self))
 
         def __getitem__(self, key):
             return self.edges[key]
@@ -54,22 +61,22 @@ class TernarySearchTree:
 
     def put(self, key, val):
         if len(key) == 0:
-            raise RuntimeError("Can not save empty key")
+            raise RuntimeError("Can't save empty key")
 
         node, parent, i, flag = self.get_node_with_parent(key)
 
         if node is None and parent is None:
-            self.root = self.Node(key[0])
+            self.root = self.Node(None, key[0])
             node = self.root
         elif node is None:
             here = 2 if flag else 0 if key[i] < parent.key else 1
 
-            parent[here] = self.Node(key[i])
+            parent[here] = self.Node(parent, key[i])
 
             node = parent[here]
 
         for n in range(i + 1, len(key)):
-            node[2] = self.Node(key[n])
+            node[2] = self.Node(node, key[n])
 
             node = node[2]
 
@@ -78,18 +85,6 @@ class TernarySearchTree:
     def gcp(self, key):
         return 0 if self.root is None or len(key) == 0 else \
             self.root.gcp(key)
-
-    def dfs(self, node, prefix, results):
-        if node is None: return
-
-        for n in node.edges[:2]:
-            self.dfs(n, prefix, results)
-
-        self.dfs(node.edges[2], prefix + node.key, results)
-
-        if node.val is not None:
-            results.append(prefix + node.key)
-
 
     def startswith(self, key):
         if self.root is None: return []
@@ -102,7 +97,7 @@ class TernarySearchTree:
 
         results = [] if node.val is None else [key]
 
-        self.dfs(node[2], key, results)
+        self._dfs(node[2], key, results)
 
         return results
 
@@ -111,9 +106,20 @@ class TernarySearchTree:
 
         results = []
 
-        self.dfs(self.root, "", results)
+        self._dfs(self.root, "", results)
 
         return results
+
+    def _dfs(self, node, prefix, results):
+        if node is None: return
+
+        for n in node.edges[:2]:
+            self._dfs(n, prefix, results)
+
+        self._dfs(node.edges[2], prefix + node.key, results)
+
+        if node.val is not None:
+            results.append(prefix + node.key)
 
     def show(self):
         if self.root is None: return []

@@ -13,13 +13,18 @@ class CheckStringSet:
         inside = ascii_lowercase[:13]
         outside = ascii_lowercase[13:]
 
-        for letter in inside: ss.put(letter, letter)
+        for letter in inside:
+            ss.put(letter, letter)
 
         for letter in inside:
-            assert ss.get(letter) == letter
+            assert ss.get(letter) == letter, "{} != {}".format(
+                ss.get(letter), letter
+            )
 
         for letter in outside:
-            assert ss.get(letter) == None
+            assert ss.get(letter) == None, "{} != None".format(
+                ss.get(letter)
+            )
 
     def check_single_digits(self, ss):
         inside = list(range(0, 5))

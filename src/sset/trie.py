@@ -1,9 +1,16 @@
 class Trie:
     class Node:
-        def __init__(self):
-            self.val = None
-            self.top = None
+        def __init__(self, top, val=None):
+            self.top = top
+            self.val = val
+
             self.edges = {}
+
+        def __len__(self):
+            return len(self.edges)
+
+        def __bool__(self):
+            return self.val is not None or bool(len(self))
 
         def __iter__(self):
             return iter(self.edges)
@@ -11,14 +18,20 @@ class Trie:
         def __getitem__(self, key):
             return self.edges[key]
 
-        def put(self, key, val, i):
-            for n in range(i, len(key)):
-                if key[n] not in self:
-                    self.edges[key[n]] = Trie.Node()
-                    self.edges[key[n]].top = self
+        def __setitem__(self, key, val):
+            self.edges[key] = val
 
-                self = self.edges[key[n]]
-            self.val = val
+        def __str__(self):
+            def f(x): return 'None' if x is None else str(hex(id(x)))
+
+            return f(x) + ": " + self.val + " " + \
+                " ".join(map(f, self.top + self.edges))
+
+        def __repr__(self):
+            return self.__str__()
+
+        def pop(self, key):
+            self.edges.pop(key)
 
         def get_node_with_parent(self, key):
             for i in range(len(key)):
@@ -27,6 +40,14 @@ class Trie:
 
                 self = self[key[i]]
             return self, self.top, len(key)
+
+        def put(self, key, val, i):
+            for n in range(i, len(key)):
+                if key[n] not in self:
+                    self[key[n]] = Trie.Node(self)
+
+                self = self[key[n]]
+            self.val = val
 
         def get(self, key):
             node, _, i = self.get_node_with_parent(key)
@@ -63,17 +84,11 @@ class Trie:
     def get(self, key):
         return None if self.root is None else self.root.get(key)
 
-    def gcp(self, key):
-        return 0 if self.root is None else self.root.gcp(key)
-
-    def startswith(self, key):
-        return [] if self.root is None else self.root.startswith(key)
-
     def put(self, key, val):
         node, parent, i = self.get_node_with_parent(key)
 
         if node is None and parent is None:
-            self.root = Trie.Node()
+            self.root = Trie.Node(None)
             node = self.root
 
         node.put(key, val, i)
@@ -86,16 +101,23 @@ class Trie:
         node.val = None
 
         for i in range(len(key) - 1, 0, -1):
-            if len(node.edges) != 0 or node.val is not None: return
+            if node: return
 
             node = node.top
-            node.edges.pop(key[i])
+            node.pop(key[i])
 
-        if len(node.edges) == 0:
-            self.root.edges.pop(key[0])
+        if len(node) == 0:
+            self.root.pop(key[0])
 
-            if len(self.root.edges) == 0:
+            if len(self.root) == 0:
                 self.root = None
+
+
+    def gcp(self, key):
+        return 0 if self.root is None else self.root.gcp(key)
+
+    def startswith(self, key):
+        return [] if self.root is None else self.root.startswith(key)
 
     def all(self):
         if self.root is None: return []
@@ -103,7 +125,6 @@ class Trie:
         result = []
 
         def dfs(node, prefix):
-            print(node, node.top, node.edges, node.val)
             for k in node:
                 dfs(node[k], prefix + k)
 
