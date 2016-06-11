@@ -9,50 +9,49 @@ class SearchKMP:
         if not pattern: return
 
         self.automat = {
-            l : {i : 0 for i in range(len(pattern))} for l in letters
+            letter : {
+                i : 0 for i in range(len(pattern))
+            } for letter in letters
         }
-        self.automat[pattern[0]][0] = 1
 
-        i = 0
+        i, self.automat[pattern[0]][0] = 0, 1
 
         for j, p in enumerate(pattern[1:], 1):
-            for l in letters:
-                self.automat[l][j] = self.automat[l][i]
+            for letter in letters:
+                self.automat[letter][j] = self.automat[letter][i]
 
             self.automat[p][j] = j + 1
             i = self.automat[p][i]
 
     def search(self, txt):
         i, j = 0, 0
-        N, M = len(txt), len(self.pattern)
+        n, m = len(txt), len(self.pattern)
 
-        while i < N and j < M:
+        while i < n and j < m:
             j = self.automat[txt[i]][j]
             i += 1
 
-        if j == M:
-            return i - M
-        else:
-            return N
+        if j == m:
+            return i - m
+        return n
 
 
 class SearchBM:
     def __init__(self, pattern, letters=string.ascii_letters):
         self.pattern = pattern
         self.letters = letters
+
         self.rshifts = {letter : -1 for letter in letters}
 
-        for i, p in enumerate(pattern):
-            self.rshifts[p] = i
+        for i, letter in enumerate(pattern):
+            self.rshifts[letter] = i
 
     def search(self, txt):
-        N, M = len(txt), len(self.pattern)
+        i, n, m = 0, len(txt), len(self.pattern)
 
-        i = 0
-        while i <= N - M:
+        while i <= n - m:
             skip = 0
-
-            for j in range(M - 1, -1, -1):
+            for j in range(m - 1, -1, -1):
                 if txt[i + j] != self.pattern[j]:
                     skip = max(1, j - self.rshifts[txt[i + j]])
 
@@ -61,5 +60,4 @@ class SearchBM:
                 return i
 
             i += skip
-
-        return N
+        return n
