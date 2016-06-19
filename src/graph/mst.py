@@ -11,21 +11,21 @@ class LazyPrimMST(WeightedGraph):
         vnodes = {node : None for node in wgraph}
         wedges = Heap(xs=None, key=lambda x, y: x[-1] < y[-1])
 
-        node1 = next(iter(wgraph), None)
+        src = next(iter(wgraph), None)
 
         for i in range(len(wgraph) - 1):
-            vnodes[node1] = True
+            vnodes[src] = True
 
-            for node2, w in wgraph[node1]:
-                wedges.push([node1, node2, w])
+            for dst, w in wgraph[src]:
+                wedges.push([src, dst, w])
 
-            node1, node2, w = wedges.pop()
-            while vnodes[node2] is not None:
-                node1, node2, w = wedges.pop()
+            src, dst, w = wedges.pop()
+            while vnodes[dst] is not None:
+                src, dst, w = wedges.pop()
 
-            self.add_edge(node1, node2, w)
+            self.add_edge(src, dst, w)
 
-            node1 = node2
+            src = dst
 
 
 class EagerPrimMST(WeightedGraph):
@@ -36,32 +36,32 @@ class EagerPrimMST(WeightedGraph):
         vnodes = {node : None for node in wgraph}
         wedges = Heap(xs=None, key=lambda x, y: x[-1] < y[-1])
 
-        node1 = next(iter(wgraph), None)
+        src = next(iter(wgraph), None)
 
         for i in range(len(wgraph) - 1):
-            vnodes[node1] = True
+            vnodes[src] = True
 
-            for node2, w in wgraph[node1]:
-                if vnodes[node2] is True:
+            for dst, w in wgraph[src]:
+                if vnodes[dst] is True:
                     continue
 
-                if vnodes[node2] is None:
-                    vnodes[node2] = [node1, w]
-                    wedges.push([node1, node2, w])
+                if vnodes[dst] is None:
+                    vnodes[dst] = [src, w]
+                    wedges.push([src, dst, w])
                     continue
 
-                if vnodes[node2][-1] > w:
-                    vnodes[node2] = [node1, w]
-                    wedges.push([node1, node2, w])
+                if vnodes[dst][-1] > w:
+                    vnodes[dst] = [src, w]
+                    wedges.push([src, dst, w])
                     continue
 
-            node1, node2, w = wedges.pop()
-            while vnodes[node2] is True:
-                node1, node2, w = wedges.pop()
+            src, dst, w = wedges.pop()
+            while vnodes[dst] is True:
+                src, dst, w = wedges.pop()
 
-            self.add_edge(node1, node2, w)
+            self.add_edge(src, dst, w)
 
-            node1 = node2
+            src = dst
 
 
 class KruskalMST(WeightedGraph):
