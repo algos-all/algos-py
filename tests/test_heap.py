@@ -114,21 +114,24 @@ class TestHeap:
         assert data == orig
 
     def test_heap_sort_0(self, N=1000, fst=-1024, lst=1024):
-        data = [random.randint(fst, lst) for i in range(N)]
-        orig = data.copy()
+        xs = [random.randint(fst, lst) for i in range(N)]
 
-        h = Heap(data)
-        h.sort()
+        ys = xs.copy()
 
-        assert h.xs == sorted(data, reverse=True)
-        assert data == orig
+        h = Heap(xs)
+
+        zs = h.sort()
+
+        assert zs == sorted(xs, reverse=True)
+        assert xs == ys
 
     def test_heap_sort_1(self, N=1000, fst=-1024, lst=1024):
-        data = [random.randint(fst, lst) for i in range(N)]
-        orig = data.copy()
+        xs = [random.randint(fst, lst) for i in range(N)]
 
-        h = Heap(data, key=operator.ge)
-        h.sort()
+        ys = xs.copy()
 
-        assert h.xs == sorted(data)
-        assert data == orig
+        h = Heap(xs, key=operator.ge)
+        zs = h.sort()
+
+        assert zs == sorted(xs)
+        assert xs == ys

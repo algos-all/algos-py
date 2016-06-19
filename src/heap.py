@@ -8,7 +8,7 @@ class Heap:
         self.xs = [] if xs is None else xs.copy()
 
         for i in range(len(self) // 2, -1, -1):
-            self.sink(i, len(self))
+            self.sink(self.xs, i, len(self))
 
     def __len__(self):
         return len(self.xs)
@@ -19,18 +19,19 @@ class Heap:
     def __setitem__(self, key, val):
         self.xs[key] = val
 
-    def sink(self, i, n):
+    def sink(self, xs, i, n):
         lchild = 2 * i + 1
         while lchild < n:
             rchild = lchild + 1
-            if rchild < n and not self.key(self[lchild], self[rchild]):
+
+            if rchild < n and not self.key(xs[lchild], xs[rchild]):
                 child = rchild
             else:
                 child = lchild
 
-            if self.key(self[i], self[child]): break
+            if self.key(xs[i], xs[child]): break
 
-            self[i], self[child] = self[child], self[i]
+            xs[i], xs[child] = xs[child], xs[i]
             i, lchild = child, 2 * child + 1
 
     def swim(self, i):
@@ -51,11 +52,15 @@ class Heap:
         if not self: return el
 
         el, self[0] = self[0], el
-        self.sink(0, len(self))
+        self.sink(self.xs, 0, len(self))
 
         return el
 
     def sort(self):
-        for i in range(len(self) - 1, -1, -1):
-            self[0], self[i] = self[i], self[0]
-            self.sink(0, i)
+        ys = self.xs.copy()
+
+        for i in range(len(ys) - 1, -1, -1):
+            ys[0], ys[i] = ys[i], ys[0]
+            self.sink(ys, 0, i)
+
+        return ys
