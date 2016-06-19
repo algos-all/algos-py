@@ -50,14 +50,12 @@ class SearchBM:
         i, n, m = 0, len(txt), len(self.pattern)
 
         while i <= n - m:
-            skip = 0
             for j in range(m - 1, -1, -1):
                 if txt[i + j] != self.pattern[j]:
-                    skip = max(1, j - self.rshifts[txt[i + j]])
+                    i += max(1, j - self.rshifts[txt[i + j]])
 
                     break
             else:
                 return i
 
-            i += skip
         return n
