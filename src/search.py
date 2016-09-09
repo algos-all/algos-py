@@ -9,26 +9,25 @@ class SearchKMP:
         if not pattern: return
 
         self.automat = {
-            letter : {
-                i : 0 for i in range(len(pattern))
-            } for letter in letters
+            j : {letter : 0 for letter in letters}
+            for j in range(len(self.pattern))
         }
 
-        i, self.automat[pattern[0]][0] = 0, 1
+        x, self.automat[0][pattern[0]] = 0, 1
 
         for j, p in enumerate(pattern[1:], 1):
             for letter in letters:
-                self.automat[letter][j] = self.automat[letter][i]
+                self.automat[j][letter] = self.automat[x][letter]
 
-            self.automat[p][j] = j + 1
-            i = self.automat[p][i]
+            self.automat[j][p] = j + 1
+            x = self.automat[x][p]
 
     def search(self, txt):
         i, j = 0, 0
         n, m = len(txt), len(self.pattern)
 
         while i < n and j < m:
-            j = self.automat[txt[i]][j]
+            j = self.automat[j][txt[i]]
             i += 1
 
         if j == m:
