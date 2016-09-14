@@ -1,11 +1,16 @@
-from sort.shellsort import shellsort0, shellsort1
+import operator
+
+from itertools import product
 
 from check_sort import CheckSort
+from sort.shellsort import shellsort
 
 
 class TestShellSort(CheckSort):
     def __init__(self):
-        self.sorts = [shellsort0, shellsort1]
+        self.revs = [False, True]
+
+        self.sorts = [shellsort]
 
     def test_empty(self):
         for sort in self.sorts:
@@ -15,29 +20,18 @@ class TestShellSort(CheckSort):
         for sort in self.sorts:
             yield self.check_on_sorted, sort, 1
 
-    def test_single_1(self):
-        for sort in self.sorts:
-            yield self.check_on_random, sort, 1
-
     def test_sorted_0(self, ns=range(10)):
-        for sort in self.sorts:
-            for n in ns:
-                yield self.check_on_sorted, sort, n
+        for sort, n in product(self.sorts, ns):
+            yield self.check_on_sorted, sort, n
 
     def test_sorted_1(self, ns=range(10)):
-        for sort in self.sorts:
-            for n in ns:
-                yield self.check_on_sorted, sort, n, True
+        for sort, n in product(self.sorts, ns):
+            yield self.check_on_sorted, sort, n, True
 
-    def test_random_0(self, ns=range(100)):
-        for sort in self.sorts:
-            for n in ns:
-                yield self.check_on_random, sort, n
+    def test_random(self, ns=range(100), ss=range(10)):
+        for sort, rev, n, s in product(self.sorts, self.revs, ns, ss):
+            yield self.check_on_random, sort, lambda x: x, rev, n, s
 
-    def test_random_1(self):
-        for sort in self.sorts:
-            yield self.check_on_random, sort, 1024, -1024, 1024
-
-    def test_random_2(self):
-        for sort in self.sorts:
-            yield self.check_on_random, sort, 1337, -1024, 1024
+    def test_random_big(self, ns=[10000, 10001, 10002], ss=range(10)):
+        for sort, rev, n, s in product(self.sorts, self.revs, ns, ss):
+            yield self.check_on_random, sort, lambda x: x, rev, n, s

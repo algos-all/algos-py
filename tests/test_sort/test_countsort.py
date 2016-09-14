@@ -1,11 +1,14 @@
-from sort.countsort import countsort0, countsort1
+from itertools import product
 
 from check_sort import CheckSort
+from sort.countsort import countsort
 
 
 class TestCountsortSort(CheckSort):
     def __init__(self):
-        self.sorts = [countsort0, countsort1]
+        self.revs = [False, True]
+
+        self.sorts = [countsort]
 
     def test_empty(self):
         for sort in self.sorts:
@@ -14,10 +17,6 @@ class TestCountsortSort(CheckSort):
     def test_single_0(self):
         for sort in self.sorts:
             yield self.check_on_sorted, sort, 1
-
-    def test_single_1(self):
-        for sort in self.sorts:
-            yield self.check_on_random, sort, 1
 
     def test_sorted_0(self, ns=range(10)):
         for sort in self.sorts:
@@ -29,15 +28,10 @@ class TestCountsortSort(CheckSort):
             for n in ns:
                 yield self.check_on_sorted, sort, n, True
 
-    def test_random_0(self, ns=range(100)):
-        for sort in self.sorts:
-            for n in ns:
-                yield self.check_on_random, sort, n
+    def test_random(self, ns=range(100), ss=range(10)):
+        for sort, rev, n, s in product(self.sorts, self.revs, ns, ss):
+            yield self.check_on_random, sort, lambda x: x, rev, n, s
 
-    def test_random_1(self):
-        for sort in self.sorts:
-            yield self.check_on_random, sort, 1024, -1024, 1024
-
-    def test_random_2(self):
-        for sort in self.sorts:
-            yield self.check_on_random, sort, 1337, -1024, 1024
+    def test_random_big(self, ns=[10000, 10001, 10002], ss=range(10)):
+        for sort, rev, n, s in product(self.sorts, self.revs, ns, ss):
+            yield self.check_on_random, sort, lambda x: x, rev, n, s

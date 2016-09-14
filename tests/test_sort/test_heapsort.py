@@ -1,29 +1,37 @@
-from sort.heapsort import heapsort
+import operator
+
+from itertools import product
 
 from check_sort import CheckSort
+from sort.heapsort import heapsort
 
 
 class TestHeapSort(CheckSort):
+    def __init__(self):
+        self.revs = [False, True]
+
+        self.sorts = [heapsort]
+
     def test_empty(self):
-        yield self.check_on_sorted, heapsort, 0
+        for sort in self.sorts:
+            yield self.check_on_sorted, sort, 0
 
     def test_single_0(self):
-        yield self.check_on_sorted, heapsort, 1
-
-    def test_single_1(self):
-        yield self.check_on_random, heapsort, 1
+        for sort in self.sorts:
+            yield self.check_on_sorted, sort, 1
 
     def test_sorted_0(self, ns=range(10)):
-        for n in ns: yield self.check_on_sorted, heapsort, n
+        for sort, n in product(self.sorts, ns):
+            yield self.check_on_sorted, sort, n
 
     def test_sorted_1(self, ns=range(10)):
-        for n in ns: yield self.check_on_sorted, heapsort, n, True
+        for sort, n in product(self.sorts, ns):
+            yield self.check_on_sorted, sort, n, True
 
-    def test_random_0(self, ns=range(100)):
-        for n in ns: yield self.check_on_random, heapsort, n
+    def test_random(self, ns=range(100), ss=range(10)):
+        for sort, rev, n, s in product(self.sorts, self.revs, ns, ss):
+            yield self.check_on_random, sort, lambda x: x, rev, n, s
 
-    def test_random_1(self):
-        yield self.check_on_random, heapsort, 1024, -1024, 1024
-
-    def test_random_2(self):
-        yield self.check_on_random, heapsort, 1337, -1024, 1024
+    def test_random_big(self, ns=[10000, 10001, 10002], ss=range(10)):
+        for sort, rev, n, s in product(self.sorts, self.revs, ns, ss):
+            yield self.check_on_random, sort, lambda x: x, rev, n, s
