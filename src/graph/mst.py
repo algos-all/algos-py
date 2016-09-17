@@ -46,12 +46,12 @@ class EagerPrimMST(WeightedGraph):
                     continue
 
                 if vnodes[dst] is None:
-                    vnodes[dst] = [src, w]
+                    vnodes[dst] = w
                     wedges.push([src, dst, w])
                     continue
 
-                if vnodes[dst][-1] > w:
-                    vnodes[dst] = [src, w]
+                if vnodes[dst] > w:
+                    vnodes[dst] = w
                     wedges.push([src, dst, w])
                     continue
 
