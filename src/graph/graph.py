@@ -1,6 +1,3 @@
-from src.heap import Heap
-from src.unifind import QuickFind
-
 from src.graph.agraph import AbstractGraph
 
 
