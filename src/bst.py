@@ -1,18 +1,23 @@
-class Node:
-    def __init__(self, key, val):
-        self.key, self.val = key, val
-        self.lft, self.rgt = None, None
+class BinarySearchTree:
+    class Node:
+        def __init__(self, key, val):
+            self.key, self.val = key, val
+            self.lft, self.rgt = None, None
+
+    def __init__(self):
+        self.root = None
 
     def get_node_with_parent(self, key):
-        parent = None
-        while self:
-            if key == self.key:
-                return self, parent
+        node, parent = self.root, None
 
-            if key < self.key:
-                self, parent = self.lft, self
+        while node:
+            if key == node.key:
+                return node, parent
+
+            if key < node.key:
+                node, parent = node.lft, node
             else:
-                self, parent = self.rgt, self
+                node, parent = node.rgt, node
 
         return None, parent
 
@@ -20,29 +25,16 @@ class Node:
         node, _ = self.get_node_with_parent(key)
         return None if node is None else node.val
 
-
-class BinarySearchTree:
-    def __init__(self):
-        self.root = None
-
-    def get_node_with_parent(self, key):
-        if self.root is None: return None, None
-        return self.root.get_node_with_parent(key)
-
-    def get(self, key):
-        if self.root is None: return None
-        return self.root.get(key)
-
     def put(self, key, val):
         node, parent = self.get_node_with_parent(key)
 
         if node is None and parent is None:
-            self.root = Node(key, val)
+            self.root = self.Node(key, val)
         elif node is None:
             if key < parent.key:
-                parent.lft = Node(key, val)
+                parent.lft = self.Node(key, val)
             else:
-                parent.rgt = Node(key, val)
+                parent.rgt = self.Node(key, val)
         else:
             node.val = val
 
