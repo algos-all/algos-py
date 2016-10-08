@@ -4,18 +4,6 @@ from bst import BinarySearchTree as bst
 
 
 class CheckTree:
-    def dfs(self, bst):
-        keys = []
-
-        def go(node):
-            if node.lft: go(node.lft)
-            if node.rgt: go(node.rgt)
-
-            keys.append(node.key)
-
-        go(bst.root)
-        return keys
-
     def check_tree(self, bst, k2v):
         for key in k2v:
             if bst.get(key) != k2v[key]:
