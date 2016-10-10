@@ -25,7 +25,9 @@ class DisjointSetUnion:
             return key
 
         self.ws[self.xs[key]] -= self.ws[key]
-        return self.find(self.xs[key], self.ws[key])
+        self.xs[key] = self.find(self.xs[key], self.ws[key])
+
+        return self.xs[key]
 
     def union(self, key1, key2):
         val1 = self.find(key1)
