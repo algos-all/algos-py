@@ -69,15 +69,15 @@ class KruskalMST(WeightedGraph):
 
         # visited nodes and weighted edges
         nodes = DisjointSetUnion([n for n in wgraph])
-        edges= Heap(
+        edges = Heap(
             xs=wgraph.get_edges(), key=lambda x, y: x[-1] < y[-1]
         )
 
-        for i in range(len(wgraph) - 1):
+        while edges:
             n1, n2, w = edges.pop()
 
-            while nodes.find(n1) == nodes.find(n2):
-                n1, n2, w = edges.pop()
+            if nodes.find(n1) == nodes.find(n2):
+                continue
 
             self.add_edge(n1, n2, w)
 
