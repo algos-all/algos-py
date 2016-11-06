@@ -6,7 +6,7 @@ class DisjointSetUnion:
         self.count = len(xs) if xs else 0
 
     def __iter__(self):
-        return iter(self.xs.keys())
+        return iter(self.xs)
 
     def __getitem__(self, key):
         return self.xs[key]
