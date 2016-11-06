@@ -76,30 +76,24 @@ class BellmanFord:
 
         self._check_negative_cycle()
 
-
     def _check_negative_cycle(self):
-        onpath = {n : None for n in self.paths}
+        visited = {n : None for n in self.paths}
 
         for i, n in enumerate(self.paths):
-            if onpath[n] is not None:
+            if visited[n] is not None:
                 continue
 
-            while n is not None and onpath[n] is None:
-                onpath[n] = i
+            path = []
+
+            while n is not None and visited[n] is None:
+                visited[n] = i
+                path.append(n)
 
                 n = self.paths[n]
 
-            if n is not None and onpath[n] == i: break
-        else:
-            self.cycle = []
-            return
+            if n is not None and visited[n] == i:
+                # cycle can start with a "tail" that is not part of it
+                self.cycle = list(reversed(path[path.index(n):]))
+                return
 
-        self.cycle = [n]
-        n = self.paths[n]
-
-        while self.cycle[0] is not n:
-            self.cycle.append(n)
-
-            n = self.paths[n]
-
-        self.cycle = list(reversed(self.cycle))
+        self.cycle = []

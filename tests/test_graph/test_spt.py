@@ -1,5 +1,6 @@
 import math, random
 
+from itertools import product
 from nose.tools import raises
 
 from graph.wgraph import WeightedDiGraph
@@ -9,6 +10,7 @@ from graph.spt import Dijkstra, BellmanFord
 class CheckShortestPath:
     def is_shortest(self, spt, wdgraph):
         for n1 in wdgraph:
+            # there may be several connected components
             if spt.costs[n1] is None: continue
 
             for n2, w in wdgraph[n1]:
@@ -18,18 +20,21 @@ class CheckShortestPath:
         return True
 
     def is_negative_cycle(self, spt, wdgraph):
+        def min_edge(n1, n2):
+            ws = [w for n, w in wdgraph[n1] if n == n2]
+            assert ws, "n1 and n2 are not actually connected"
+
+            return min(ws)
+
         assert len(spt.cycle) > 0, spt.cycle
 
         total = 0
         for i in range(1, len(spt.cycle)):
-            n1, n2 = spt.cycle[i - 1], spt.cycle[i]
+            total += min_edge(spt.cycle[i - 1], spt.cycle[i])
+        total += min_edge(spt.cycle[-1], spt.cycle[0])
 
-            total += min([w for n, w in wdgraph[n1] if n == n2])
-
-        n1, n2 = spt.cycle[-1], spt.cycle[0]
-        total += min([w for n, w in wdgraph[n1] if n == n2])
-
-        if total < 0: return True
+        if total < 0:
+            return True
 
         return False
 
@@ -80,14 +85,23 @@ class CheckShortestPath:
         random.seed(seed)
 
         g = WeightedDiGraph()
+        j = WeightedDiGraph()
 
         for i in range(E):
             n1, n2 = random.sample(range(V), 2)
             g.add_edge(n1, n2, random.random() - 0.5)
 
+        for src in g:
+            for dst, w in g[src]:
+                j.add_edge(src, dst, w)
+
         h = spt(g, n1)
 
-        if h.cycle != []:
+        for src in j:
+            for dst, w in j[src]:
+                assert [dst, w] in g[src]
+
+        if h.cycle:
             assert self.is_negative_cycle(h, g), h.cycle
         else:
             assert self.is_shortest(h, g)
@@ -170,6 +184,9 @@ class TestBellmanFord(CheckShortestPath):
 
         h = BellmanFord(g, 0)
 
+        print(h.cycle)
+        print(h.paths)
+
         assert self.is_negative_cycle(h, g)
 
     def test_negative_cycle_1(self):
@@ -205,13 +222,11 @@ class TestBellmanFord(CheckShortestPath):
         assert h.paths[1] == None
 
     def test_random_negative_1(self, ns=range(2, 8), ntimes=100):
-        for n in ns:
+        for n, i in product(ns, range(ntimes)):
             e = math.factorial(n)
 
-            for i in range(ntimes):
-                yield self.check_random_negative, BellmanFord, n, e, i
+            yield self.check_random_negative, BellmanFord, n, e, i
 
     def test_random_negative_1(self, ns=range(2, 100), ntimes=100):
-        for n in ns:
-            for i in range(ntimes):
-                yield self.check_random_negative, BellmanFord, n, n, i
+        for n, i in product(ns, range(ntimes)):
+            yield self.check_random_negative, BellmanFord, n, n, i
