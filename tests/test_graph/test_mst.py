@@ -6,11 +6,7 @@ from graph.mst import LazyPrimMST, EagerPrimMST, KruskalMST
 
 class CheckMST:
     def check_empty(self, mst):
-        g = WeightedGraph()
-
-        g = mst(g)
-
-        assert g == {}
+        assert mst(WeightedGraph()) == {}
 
     def check_chain(self, mst, N=10, seed=0):
         assert N > 0
@@ -25,7 +21,9 @@ class CheckMST:
 
         for n1 in h:
             for n2, w in h[n1]:
-                assert [n2, w] in g[n1]
+                errmsg = "{} {} is not in {}".format(n2, w, g[n1])
+
+                assert [n2, w] in g[n1], errmsg
 
     def check_complete3(self, mst):
         g = WeightedGraph()
@@ -36,12 +34,12 @@ class CheckMST:
 
         h = mst(g)
 
-        assert h[0] == [[1, 0]]
+        assert h[0] == [[1, 0]], h[0]
 
         assert len(h[1]) == 2
         assert [0, 0] in h[1] and [2, 1] in h[1]
 
-        assert h[2] == [[1, 1]]
+        assert h[2] == [[1, 1]], h[2]
 
     def check_complete4_0(self, mst):
         g = WeightedGraph()
@@ -55,7 +53,7 @@ class CheckMST:
 
         h = mst(g)
 
-        assert h[0] == [[1, 0]]
+        assert h[0] == [[1, 0]], h[0]
 
         assert len(h[1]) == 2
         assert [0, 0] in h[1] and [2, 1] in h[1]
@@ -63,7 +61,7 @@ class CheckMST:
         assert len(h[2]) == 2
         assert [1, 1] in h[2] and [3, 2] in h[2]
 
-        assert h[3] == [[2, 2]]
+        assert h[3] == [[2, 2]], h[3]
 
     def check_complete4_1(self, mst):
         g = WeightedGraph()
@@ -77,7 +75,7 @@ class CheckMST:
 
         h = mst(g)
 
-        assert h[0] == [[1, 0]]
+        assert h[0] == [[1, 0]], h[0]
 
         assert len(h[1]) == 2
         assert [0, 0] in h[1] and [2, 1] in h[1]
@@ -85,7 +83,7 @@ class CheckMST:
         assert len(h[2]) == 2
         assert [1, 1] in h[2] and [3, 2] in h[2]
 
-        assert h[3] == [[2, 2]]
+        assert h[3] == [[2, 2]], h[3]
 
     def check_controlled_traversal_0(self, mst):
         g = WeightedGraph()
