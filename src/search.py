@@ -10,7 +10,7 @@ class SearchKMP:
 
         self.automat = {
             j : {letter : 0 for letter in letters}
-            for j in range(len(self.pattern))
+            for j in range(len(pattern))
         }
 
         x, self.automat[0][pattern[0]] = 0, 1
@@ -26,7 +26,7 @@ class SearchKMP:
         i, j = 0, 0
         n, m = len(txt), len(self.pattern)
 
-        while i < n and j < m:
+        while i != n and j != m:
             j = self.automat[j][txt[i]]
             i += 1
 
