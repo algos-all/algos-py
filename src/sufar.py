@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # http://goo.gl/PMph4W
 
-from math import ceil, log2
 import numpy as np # for the np solution
 
 
