@@ -1,0 +1,4 @@
+[Default]
+bears = PyUnusedCodeBear
+files = ./src/binsearch.py,./src/bst.py,./src/dsu.py,./src/gcf.py,./src/graph/agraph.py,./src/graph/concomp.py,./src/graph/graph.py,./src/graph/mst.py,./src/graph/spt.py,./src/graph/wgraph.py,./src/heap.py,./src/range_tree.py,./src/rbt.py,./src/search.py,./src/sort/countsort.py,./src/sort/heapsort.py,./src/sort/insertsort.py,./src/sort/mergesort.py,./src/sort/quicksort.py,./src/sort/selectsort.py,./src/sort/shellsort.py,./src/sset/trie.py,./src/sset/tst.py,./src/sufar.py
+non_interactive = True
