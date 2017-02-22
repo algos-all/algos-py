@@ -1,6 +1,3 @@
-import operator
-
-
 def countsort(xs, key=lambda x: x, reverse=False):
     if len(xs) <= 1:
         return xs
