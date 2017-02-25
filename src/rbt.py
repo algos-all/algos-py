@@ -1,4 +1,5 @@
 class Node:
+
     def __init__(self, key, val, red=True, parent=None):
         self.key, self.val = key, val
         self.edges = [None, None, parent]
@@ -46,6 +47,7 @@ class Node:
 
 
 class RedBlackTree:
+
     def __init__(self):
         self.root = None
 

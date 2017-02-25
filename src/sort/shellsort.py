@@ -1,5 +1,6 @@
 import operator
 
+
 def shellsort(xs, key=lambda x: x, reverse=False):
     m, n = 1, len(xs)
 

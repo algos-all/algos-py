@@ -3,12 +3,13 @@ from collections import deque
 
 
 class Dijkstra:
+
     def __init__(self, wdgraph, src=None):
         if src not in wdgraph:
             raise RuntimeError("Source node not in graph")
 
-        self.costs = {node : None for node in wdgraph}
-        self.paths = {node : None for node in wdgraph}
+        self.costs = {node: None for node in wdgraph}
+        self.paths = {node: None for node in wdgraph}
 
         self.costs[src] = 0
 
@@ -29,23 +30,25 @@ class Dijkstra:
             for node, w in wdgraph[dst]:
                 edges.push([dst, node, w + c])
 
+
 class BellmanFord:
+
     def __init__(self, wdgraph, src=None):
         if src not in wdgraph:
             raise RuntimeError("Node not in graph")
 
-        self.costs = {node : None for node in wdgraph}
-        self.paths = {node : None for node in wdgraph}
+        self.costs = {node: None for node in wdgraph}
+        self.paths = {node: None for node in wdgraph}
 
         torelax = deque(maxlen=len(wdgraph))
-        inrelax = {node : False for node in wdgraph}
+        inrelax = {node: False for node in wdgraph}
 
         self.costs[src] = 0
         torelax.append(src)
         inrelax[src] = True
 
         nepoch = len(wdgraph) + 1
-        lepoch = 1 # len(torelax)
+        lepoch = 1  # len(torelax)
 
         while torelax:
             src = torelax.popleft()
@@ -77,7 +80,7 @@ class BellmanFord:
         self._check_negative_cycle()
 
     def _check_negative_cycle(self):
-        visited = {n : None for n in self.paths}
+        visited = {n: None for n in self.paths}
 
         for i, n in enumerate(self.paths):
             if visited[n] is not None:

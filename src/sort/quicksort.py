@@ -1,4 +1,5 @@
-import random, operator
+import random
+import operator
 
 
 def qsort0(xs, key=lambda x: x, reverse=False):
@@ -80,8 +81,8 @@ def qsort3(xs, key=lambda x: x, reverse=False):
     def qsort(fst, lst):
         if fst >= lst: return
 
-        i, j = fst, lst # [p, i) are < pivot, (j, q] are > pivot
-        p, q = fst, lst # [fst, p) and (q, lst] are all equal to pivot
+        i, j = fst, lst  # [p, i) are < pivot, (j, q] are > pivot
+        p, q = fst, lst  # [fst, p) and (q, lst] are all equal to pivot
         pivot = ys[random.randint(fst, lst)]
 
         while i <= j:

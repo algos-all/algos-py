@@ -1,5 +1,6 @@
 import operator
 
+
 def heapsort(xs, key=lambda x: x, reverse=False):
     def plunge(i, n):
         lchild = 2 * i + 1

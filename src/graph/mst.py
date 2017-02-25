@@ -5,10 +5,11 @@ from dsu import DisjointSetUnion
 
 
 class LazyPrimMST(WeightedGraph):
+
     def __init__(self, wgraph):
         super().__init__()
 
-        vnodes = {node : None for node in wgraph}
+        vnodes = {node: None for node in wgraph}
         wedges = Heap(xs=None, key=lambda x, y: x[-1] < y[-1])
 
         src = next(iter(wgraph), None)
@@ -29,10 +30,11 @@ class LazyPrimMST(WeightedGraph):
 
 
 class EagerPrimMST(WeightedGraph):
+
     def __init__(self, wgraph):
         super().__init__()
 
-        nodes = {node : None for node in wgraph}
+        nodes = {node: None for node in wgraph}
         edges = Heap(xs=None, key=lambda x, y: x[-1] < y[-1])
 
         src = next(iter(wgraph), None)
@@ -64,6 +66,7 @@ class EagerPrimMST(WeightedGraph):
 
 
 class KruskalMST(WeightedGraph):
+
     def __init__(self, wgraph):
         super().__init__()
 

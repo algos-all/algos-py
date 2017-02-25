@@ -10,7 +10,7 @@ def mergesort0(xs, key=lambda x: x, reverse=False):
             return zs
 
         ls = mergesort(zs[: len(zs) // 2])
-        rs = mergesort(zs[len(zs) // 2 :])
+        rs = mergesort(zs[len(zs) // 2:])
 
         li, ri = 0, 0
 
@@ -45,8 +45,8 @@ def mergesort1(xs, key=lambda x: x, reverse=False):
 
     while step < n:
         for i in range(0, n, 2 * step):
-            xls, xrs = xs[i : i + step], xs[i + step : i + 2 * step]
-            yls, yrs = ys[i : i + step], ys[i + step : i + 2 * step]
+            xls, xrs = xs[i: i + step], xs[i + step: i + 2 * step]
+            yls, yrs = ys[i: i + step], ys[i + step: i + 2 * step]
 
             li, ri = 0, 0
 
@@ -78,8 +78,8 @@ def mergesort2(xs, key=lambda x: x, reverse=False):
 
     while step < n:
         for i in range(0, len(xs) - step, 2 * step):
-            xaux = xs[i : i + 2 * step]
-            yaux = ys[i : i + 2 * step]
+            xaux = xs[i: i + 2 * step]
+            yaux = ys[i: i + 2 * step]
 
             li, ri = 0, step
 

@@ -4,6 +4,7 @@ def gcf(a, b):
 
     return a
 
+
 def xgcf(a, b):
     s1, s2 = 1, 0
     t1, t2 = 0, 1

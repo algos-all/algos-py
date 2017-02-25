@@ -1,5 +1,6 @@
 from collections import deque
 
+
 def concomp0(graph):
     def dfs(node):
         cc[node] = i
@@ -9,7 +10,7 @@ def concomp0(graph):
 
             dfs(n)
 
-    cc = {node : None for node in graph}
+    cc = {node: None for node in graph}
 
     for i, n in enumerate(graph):
         if cc[n] is not None: continue
@@ -20,7 +21,7 @@ def concomp0(graph):
 
 
 def concomp1(graph):
-    cc, i = {node : None for node in graph}, 0
+    cc, i = {node: None for node in graph}, 0
 
     nodes = deque(maxlen=len(graph))
 
@@ -41,7 +42,7 @@ def concomp1(graph):
 
 
 def concomp2(graph):
-    cc = {node : None for node in graph}
+    cc = {node: None for node in graph}
 
     for i, node in enumerate(graph):
         if cc[node] is not None: continue

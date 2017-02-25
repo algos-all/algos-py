@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # http://goo.gl/PMph4W
 
-import numpy as np # for the np solution
+import numpy as np  # for the np solution
 
 
 def sufar_baseline(txt):
@@ -14,7 +14,7 @@ def sufar(txt):
     txt = txt + chr(0)
     N, tokens = len(txt), sorted(set(txt))
 
-    equivalence = {t:i for i, t in enumerate(tokens)}
+    equivalence = {t: i for i, t in enumerate(tokens)}
     cls, res, n = [equivalence[t] for t in txt], [(0, 0, 0)], 1
 
     while n < N:

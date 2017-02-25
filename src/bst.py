@@ -1,5 +1,7 @@
 class BinarySearchTree:
+
     class Node:
+
         def __init__(self, key, val):
             self.key, self.val = key, val
             self.lft, self.rgt = None, None
@@ -41,7 +43,7 @@ class BinarySearchTree:
     def remove(self, key):
         node, parent = self.get_node_with_parent(key)
 
-        if node is None: return # no such key or empty tree
+        if node is None: return  # no such key or empty tree
 
         if node.lft and node.rgt:
             heir, parent = node.lft, node

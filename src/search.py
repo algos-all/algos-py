@@ -2,6 +2,7 @@ import string
 
 
 class SearchKMP:
+
     def __init__(self, pattern, letters=string.ascii_letters):
         self.pattern = pattern
         self.letters = letters
@@ -9,7 +10,7 @@ class SearchKMP:
         if not pattern: return
 
         self.automat = {
-            j : {letter : 0 for letter in letters}
+            j: {letter: 0 for letter in letters}
             for j in range(len(pattern))
         }
 
@@ -36,11 +37,12 @@ class SearchKMP:
 
 
 class SearchBM:
+
     def __init__(self, pattern, letters=string.ascii_letters):
         self.pattern = pattern
         self.letters = letters
 
-        self.rshifts = {letter : -1 for letter in letters}
+        self.rshifts = {letter: -1 for letter in letters}
 
         for i, letter in enumerate(pattern):
             self.rshifts[letter] = i

@@ -2,6 +2,7 @@ from src.graph.agraph import AbstractGraph
 
 
 class WeightedGraph(AbstractGraph):
+
     def add_edge(self, n1, n2, w=0):
         if n1 not in self.graph: self.graph[n1] = []
         if n2 not in self.graph: self.graph[n2] = []
@@ -23,6 +24,7 @@ class WeightedGraph(AbstractGraph):
 
 
 class WeightedDiGraph(AbstractGraph):
+
     def add_edge(self, n1, n2, w=0):
         if n1 not in self.graph: self.graph[n1] = []
         if n2 not in self.graph: self.graph[n2] = []

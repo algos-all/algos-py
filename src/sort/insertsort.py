@@ -12,6 +12,7 @@ def insertsort0(xs, key=lambda x: x, reverse=False):
             xs[j - 1], xs[j] = xs[j], xs[j - 1]
             ys[j - 1], ys[j] = ys[j], ys[j - 1]
 
+
 def insertsort1(xs, key=lambda x: x, reverse=False):
     ys = [key(x) for x in xs]
     cmp = operator.gt if reverse else operator.lt
@@ -23,6 +24,7 @@ def insertsort1(xs, key=lambda x: x, reverse=False):
                 ys[j - 1], ys[j] = ys[j], ys[j - 1]
             else:
                 break
+
 
 def insertsort2(xs, key=lambda x: x, reverse=False):
     ys = [key(x) for x in xs]

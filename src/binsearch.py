@@ -12,6 +12,7 @@ def binsearch0(l, v):
 
     return None
 
+
 def binsearch1(l, v):
     lo, hi = 0, len(l)
 

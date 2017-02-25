@@ -1,7 +1,8 @@
 class DisjointSetUnion:
+
     def __init__(self, xs=None):
-        self.xs = {x : x for x in xs} if xs else {}
-        self.ws = {x : 1 for x in xs} if xs else {}
+        self.xs = {x: x for x in xs} if xs else {}
+        self.ws = {x: 1 for x in xs} if xs else {}
 
         self.count = len(xs) if xs else 0
 

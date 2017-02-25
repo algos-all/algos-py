@@ -2,7 +2,9 @@
 
 import operator
 
+
 class Heap:
+
     def __init__(self, xs=None, key=operator.le):
         self.key = key
         self.xs = [] if xs is None else xs.copy()

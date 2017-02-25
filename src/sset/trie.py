@@ -1,5 +1,7 @@
 class Trie:
+
     class Node:
+
         def __init__(self, top, val=None):
             self.top = top
             self.val = val
@@ -111,7 +113,6 @@ class Trie:
 
             if len(self.root) == 0:
                 self.root = None
-
 
     def gcp(self, key):
         return 0 if self.root is None else self.root.gcp(key)

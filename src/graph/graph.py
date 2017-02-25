@@ -2,6 +2,7 @@ from src.graph.agraph import AbstractGraph
 
 
 class Graph(AbstractGraph):
+
     def add_edge(self, n1, n2):
         if n1 not in self.graph: self.graph[n1] = []
         if n2 not in self.graph: self.graph[n2] = []
@@ -18,6 +19,7 @@ class Graph(AbstractGraph):
 
 
 class DiGraph(AbstractGraph):
+
     def add_edge(self, n1, n2):
         if n1 not in self: self.graph[n1] = []
         if n2 not in self: self.graph[n2] = []
@@ -33,7 +35,7 @@ class DiGraph(AbstractGraph):
         g = DiGraph()
 
         g.graph = {
-            src : [
+            src: [
                 n for n in self if n not in dst and n is not src
             ] for src, dst in self.graph.items()
         }
@@ -54,7 +56,7 @@ class DiGraph(AbstractGraph):
 
             return False
 
-        visited = {node : None for node in self}
+        visited = {node: None for node in self}
 
         for i, node in enumerate(self):
             if visited[node] is not None:
@@ -78,7 +80,7 @@ class DiGraph(AbstractGraph):
             postdfs.append(node)
 
         postdfs = []
-        visited = {node : None for node in self}
+        visited = {node: None for node in self}
 
         for i, node in enumerate(self):
             if visited[node] is not None: continue
@@ -99,7 +101,7 @@ class DiGraph(AbstractGraph):
 
                 dfs(n, i)
 
-        visited = {node : None for node in self}
+        visited = {node: None for node in self}
 
         for i, node in enumerate(self.transpose().rpostdfs()):
             if visited[node] is not None: continue

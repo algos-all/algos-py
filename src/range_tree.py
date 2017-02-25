@@ -1,4 +1,5 @@
 class RangeTree:
+
     def __init__(self, xs, f=lambda x: x, g=lambda x, y: x + y):
         self.xs = xs
         self.ns = [0 for i in range(4 * len(xs))]

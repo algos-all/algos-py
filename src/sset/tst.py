@@ -1,5 +1,7 @@
 class TernarySearchTree:
+
     class Node:
+
         def __init__(self, top, key, val=None):
             self.top = top
             self.key = key
