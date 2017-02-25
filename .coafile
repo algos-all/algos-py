@@ -1,5 +1,5 @@
 [Default]
-bears = PyUnusedCodeBear
+bears = PyUnusedCodeBear,PyCommentedCodeBear
 files = ./src/**/*.py
 non_interactive = True
 [PEP8lax]

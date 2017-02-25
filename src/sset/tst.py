@@ -165,9 +165,6 @@ class TernarySearchTree:
                 [node.key, node.val, vs]
             )
 
-            # if node.val is not None:
-            #     results.append(prefix + node.key)
-
         dfs(self.root, "")
 
         return results
