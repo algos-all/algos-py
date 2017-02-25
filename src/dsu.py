@@ -10,7 +10,7 @@ class DisjointSetUnion:
         return iter(self.xs)
 
     def __getitem__(self, key):
-        return self.xs[key]
+        return self.find(key)
 
     def __setitem__(self, key, val):
         if key is not val:
