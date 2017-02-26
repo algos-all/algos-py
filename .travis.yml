@@ -3,7 +3,7 @@ python:
   - 3.5
   - 3.6
 install:
-  - pip install coveralls coala coala-bears
+  - pip install coala coala-bears coveralls
 script:
   - coala --ci && nosetests --with-coverage --cover-package=src
 after_success:
