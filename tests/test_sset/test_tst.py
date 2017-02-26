@@ -1,3 +1,5 @@
+from nose.tools import raises
+
 from check_sset import CheckStringSet
 
 from sset.tst import TernarySearchTree as TST
@@ -6,6 +8,34 @@ from sset.tst import TernarySearchTree as TST
 class TestTernarySearchTree(CheckStringSet):
     def test_empty_get(self):
         self.check_empty_get(TST())
+
+    @raises(RuntimeError)
+    def test_empty_put(self):
+        TST().put('', 'key')
+
+    def test_str_repr(self):
+        tst = TST()
+
+        tst.put("hello", "world")
+
+        assert repr(tst.root) == str(tst.root)
+
+    def test_show(self):
+        tst = TST()
+
+        assert tst.show() == []
+
+        tst.put("hello", "world")
+
+        expected = \
+"""[['o', 'world', [None, None, None]],
+ ['l', None, [None, None, 'o']],
+ ['l', None, [None, None, 'l']],
+ ['e', None, [None, None, 'l']],
+ ['h', None, [None, None, 'e']]]
+"""
+
+        assert str(tst.show()) == "".join(expected.split("\n"))
 
     def test_single_letters(self):
         self.check_single_letters(TST())
