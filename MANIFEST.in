@@ -1,0 +1,2 @@
+include README.rst LICENSE MANIFEST.in .coafile .travis.yml
+include docs/conf.py docs/index.rst docs/Makefile docs/make.bat
