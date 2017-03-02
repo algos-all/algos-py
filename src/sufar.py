@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 # http://goo.gl/PMph4W
 
-import numpy as np  # for the np solution
-
 
 def sufar_baseline(txt):
     return [
