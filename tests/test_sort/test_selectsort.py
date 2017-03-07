@@ -1,7 +1,7 @@
 from itertools import product
 
-from check_sort import CheckSort
-from sort.selectsort import selectsort0, selectsort1
+from tests.test_sort.check_sort import CheckSort
+from src.sort.selectsort import selectsort0, selectsort1
 
 
 class TestSelectSort(CheckSort):

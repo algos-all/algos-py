@@ -75,7 +75,7 @@ class CheckStringSet:
             ss.put(w, i)
 
         for i, w in enumerate(words):
-            assert ss.get(w) == i
+            assert ss.get(w) == i, "expected {}: {}".format(w, i)
 
     def check_words_3(self, ss):
         words = ["b", "a", "c"]

@@ -1,6 +1,6 @@
 from itertools import product
 
-from check_sort import CheckSort
+from tests.test_sort.check_sort import CheckSort
 from sort.insertsort import insertsort0, insertsort1, insertsort2
 
 

@@ -1,5 +1,4 @@
-from check_sset import CheckStringSet
-
+from tests.test_sset.check_sset import CheckStringSet
 from sset.trie import Trie
 
 

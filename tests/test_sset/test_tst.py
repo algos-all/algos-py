@@ -1,7 +1,6 @@
 from nose.tools import raises
 
-from check_sset import CheckStringSet
-
+from tests.test_sset.check_sset import CheckStringSet
 from sset.tst import TernarySearchTree as TST
 
 

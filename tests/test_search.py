@@ -1,5 +1,5 @@
 from search import SearchKMP, SearchBM
-from check_search import CheckSearch
+from tests.check_search import CheckSearch
 
 class TestSearchKMP(CheckSearch):
     def test_empty_pattern_0(self):
