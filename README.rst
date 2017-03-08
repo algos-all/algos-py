@@ -5,6 +5,8 @@ Package algos-py
    :target: https://travis-ci.org/all3fox/algos-py
 .. image:: https://img.shields.io/coveralls/all3fox/algos-py.svg
    :target: https://coveralls.io/github/all3fox/algos-py
+.. image:: https://img.shields.io/pypi/v/algos-py.svg
+   :target: https://pypi.python.org/pypi/algos-py/
 .. image:: https://img.shields.io/github/license/all3fox/algos-py.svg
    :target: https://choosealicense.com/licenses/mit/
 
@@ -12,13 +14,19 @@ What is algos-py?
 =================
 
 The algos-py package contains implementations of some classic computer
-science algorithms (see list below). My primary goal is to understand
-those algorithms and the best way to do that is to code them myself.
+science algorithms. My primary goal is to understand those algorithms
+and the best way to do that is to code them myself.
 
 Along the way I practice test driven development (with nose_),
 continuos integration (with travis_ and coveralls_), version control
 (with git_ and github_), documentation (with sphinx_ and readthedocs_)
 and a lot more.
+
+..
+   What algorithms are ready?
+   ==========================
+
+   TODO
 
 ..
    How to install?
