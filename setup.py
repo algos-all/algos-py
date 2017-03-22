@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='algos-py',
-    version='0.2.1',
+    version='0.3.0',
     license='MIT',
     author='Aleksandr Lisianoi',
     author_email='all3fox@gmail.com',
