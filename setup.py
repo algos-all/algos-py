@@ -1,5 +1,8 @@
 from distutils.core import setup
 
+with open("README.rst") as readme:
+    long_description = readme.read()
+
 setup(
     name='algos-py',
     version='0.3.0',
@@ -12,6 +15,6 @@ setup(
         'tests', 'tests.test_graph', 'tests.test_sort', 'tests.test_sset'
     ],
     description="Classic computer science algorithms in Python",
-    long_description="Classic computer science algorithms in Python",
+    long_description=long_description,
     platforms=['linux']
 )
