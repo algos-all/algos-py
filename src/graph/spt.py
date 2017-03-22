@@ -15,7 +15,7 @@ class Dijkstra:
 
         edges = Heap(
             xs=[[src, dst, w] for dst, w in wdgraph[src]],
-            key=lambda x, y: x[-1] < y[-1]
+            key=lambda x: x[-1], reverse=False
         )
 
         while edges:
@@ -28,7 +28,7 @@ class Dijkstra:
             self.paths[dst] = src
 
             for node, w in wdgraph[dst]:
-                edges.push([dst, node, w + c])
+                edges.append([dst, node, w + c])
 
 
 class BellmanFord:

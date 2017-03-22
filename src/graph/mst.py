@@ -10,7 +10,7 @@ class LazyPrimMST(WeightedGraph):
         super().__init__()
 
         vnodes = {node: None for node in wgraph}
-        wedges = Heap(xs=None, key=lambda x, y: x[-1] < y[-1])
+        wedges = Heap(xs=None, key=lambda x: x[-1], reverse=False)
 
         src = next(iter(wgraph), None)
 
@@ -18,7 +18,7 @@ class LazyPrimMST(WeightedGraph):
             vnodes[src] = True
 
             for dst, w in wgraph[src]:
-                wedges.push([src, dst, w])
+                wedges.append([src, dst, w])
 
             src, dst, w = wedges.pop()
             while vnodes[dst] is not None:
@@ -35,7 +35,7 @@ class EagerPrimMST(WeightedGraph):
         super().__init__()
 
         nodes = {node: None for node in wgraph}
-        edges = Heap(xs=None, key=lambda x, y: x[-1] < y[-1])
+        edges = Heap(xs=None, key=lambda x: x[-1], reverse=False)
 
         src = next(iter(wgraph), None)
 
@@ -48,12 +48,12 @@ class EagerPrimMST(WeightedGraph):
 
                 if nodes[dst] is None:
                     nodes[dst] = w
-                    edges.push([src, dst, w])
+                    edges.append([src, dst, w])
                     continue
 
                 if nodes[dst] > w:
                     nodes[dst] = w
-                    edges.push([src, dst, w])
+                    edges.append([src, dst, w])
                     continue
 
             src, dst, w = edges.pop()
@@ -73,7 +73,7 @@ class KruskalMST(WeightedGraph):
         # visited nodes and weighted edges
         nodes = DisjointSetUnion([n for n in wgraph])
         edges = Heap(
-            xs=wgraph.get_edges(), key=lambda x, y: x[-1] < y[-1]
+            xs=wgraph.get_edges(), key=lambda x: x[-1], reverse=False
         )
 
         while edges:
