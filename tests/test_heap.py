@@ -35,29 +35,29 @@ class TestHeap:
         assert h
         assert h[0] == 43
 
-    def test_push_0(self):
+    def test_append_0(self):
         h = Heap()
 
-        h.push(42)
+        h.append(42)
 
         assert h
         assert h[0] == 42
 
-    def test_push_1(self):
+    def test_append_1(self):
         h = Heap()
 
-        h.push(42)
-        h.push(43)
+        h.append(42)
+        h.append(43)
 
         assert h
         assert h[0] == 42
         assert h[1] == 43
 
-    def test_push_2(self, N=10):
+    def test_append_2(self, N=10):
         h = Heap()
 
         for i in range(N):
-            h.push(i)
+            h.append(i)
 
         assert h
         for i in range(N):
@@ -70,7 +70,7 @@ class TestHeap:
     def test_pop_1(self):
         h = Heap()
 
-        h.push(42)
+        h.append(42)
 
         t = h.pop()
 
@@ -81,7 +81,7 @@ class TestHeap:
         h = Heap()
 
         for i in range(N):
-            h.push(i)
+            h.append(i)
 
         assert len(h) == N
         for i in range(N):
@@ -92,7 +92,7 @@ class TestHeap:
         h = Heap()
 
         for i in range(N):
-            h.push(i)
+            h.append(i)
 
         assert len(h) == N
         for i in reversed(range(N)):
@@ -113,6 +113,12 @@ class TestHeap:
                 assert h[i] <= h[2 * i + 2]
         assert data == orig
 
+    @raises(RuntimeError)
+    def test_heap_sort_raises(self):
+        h = Heap()
+
+        h.sort()
+
     def test_heap_sort_0(self, N=1000, fst=-1024, lst=1024):
         xs = [random.randint(fst, lst) for i in range(N)]
 
@@ -120,18 +126,17 @@ class TestHeap:
 
         h = Heap(xs)
 
-        zs = h.sort()
+        h.sort(reverse=True)
 
-        assert zs == sorted(xs, reverse=True)
-        assert xs == ys
+        assert h.xs == sorted(ys, reverse=True)
 
     def test_heap_sort_1(self, N=1000, fst=-1024, lst=1024):
         xs = [random.randint(fst, lst) for i in range(N)]
 
         ys = xs.copy()
 
-        h = Heap(xs, key=operator.ge)
-        zs = h.sort()
+        h = Heap(xs, reverse=True)
 
-        assert zs == sorted(xs)
-        assert xs == ys
+        h.sort()
+
+        assert h.xs == sorted(ys)

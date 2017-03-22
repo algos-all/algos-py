@@ -1,16 +1,18 @@
-#!/usr/bin/env python3
 
-import operator
+
+from sort.heapsort import swim, sink, xheapify, xheapsort
 
 
 class Heap:
 
-    def __init__(self, xs=None, key=operator.le):
-        self.key = key
-        self.xs = [] if xs is None else xs.copy()
+    def __init__(self, xs=None, key=lambda x: x, reverse=False):
+        self.xs = [] if xs is None else [x for x in xs]
+        self.ys = [] if xs is None else [key(x) for x in xs]
 
-        for i in range(len(self) // 2, -1, -1):
-            self.sink(self.xs, i, len(self))
+        xheapify(self.xs, self.ys, reverse=reverse)
+
+        self.key = key
+        self.reverse = reverse
 
     def __len__(self):
         return len(self.xs)
@@ -20,49 +22,30 @@ class Heap:
 
     def __setitem__(self, key, val):
         self.xs[key] = val
+        self.ys[key] = self.key(val)
 
-    def sink(self, xs, i, n):
-        lchild = 2 * i + 1
-        while lchild < n:
-            rchild = lchild + 1
-
-            if rchild < n and not self.key(xs[lchild], xs[rchild]):
-                child = rchild
-            else:
-                child = lchild
-
-            if self.key(xs[i], xs[child]): break
-
-            xs[i], xs[child] = xs[child], xs[i]
-            i, lchild = child, 2 * child + 1
-
-    def swim(self, i):
-        while i:
-            parent = (i - 1) // 2
-            if self.key(self[parent], self[i]): break
-
-            self[parent], self[i] = self[i], self[parent]
-            i = parent
-
-    def push(self, val):
+    def append(self, val):
         self.xs.append(val)
-        self.swim(len(self) - 1)
+        self.ys.append(self.key(val))
+
+        swim(self.xs, self.ys, len(self.xs) - 1, self.reverse)
 
     def pop(self):
-        el = self.xs.pop()
+        x = self.xs.pop()
+        y = self.ys.pop()
 
-        if not self: return el
+        if not self.xs:
+            return x
 
-        el, self[0] = self[0], el
-        self.sink(self.xs, 0, len(self))
+        self.xs[0], x = x, self.xs[0]
+        self.ys[0], y = y, self.ys[0]
 
-        return el
+        sink(self.xs, self.ys, 0, len(self.xs), self.reverse)
 
-    def sort(self):
-        ys = self.xs.copy()
+        return x
 
-        for i in range(len(ys) - 1, -1, -1):
-            ys[0], ys[i] = ys[i], ys[0]
-            self.sink(ys, 0, i)
+    def sort(self, key=lambda x: x, reverse=False):
+        if reverse is self.reverse:
+            raise RuntimeError("Cannot sort if heap has same reverse")
 
-        return ys
+        xheapsort(self.xs, self.ys, reverse)
