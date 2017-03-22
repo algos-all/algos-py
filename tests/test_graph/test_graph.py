@@ -1,6 +1,6 @@
 from collections import OrderedDict
 
-from src.graph.graph import Graph, DiGraph
+from graph.graph import Graph, DiGraph
 
 
 class TestGraph:
