@@ -1,0 +1,2 @@
+coala==0.10.0
+coala-bears==0.10.1
