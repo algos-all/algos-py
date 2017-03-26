@@ -19,8 +19,8 @@ and the best way to do that is to code them myself.
 
 Along the way I practice test driven development (with nose_),
 continuos integration (with travis_ and coveralls_), version control
-(with git_ and github_), documentation (with sphinx_ and readthedocs_)
-and a lot more.
+(with git_, github_ and gitlab_), documentation (with sphinx_ and
+readthedocs_) and a lot more.
 
 ..
    What algorithms are ready?
@@ -63,9 +63,34 @@ To run all the unit-tests and produce a coverage report:
 
    $ nosetests --with-coverage --cover-package=src
 
-..
-   How to uninstall?
-   =================
+
+..   How to uninstall?
+     =================
+
+
+Where to find?
+==============
+
+Primary repository:
+
+https://github.com/all3fox/algos-py
+
+Secondary (mirror) repository:
+
+https://gitlab.com/all3fox/algos-py
+
+Release procedure: change version in `setup.py`, then
+
+.. code-block:: bash
+
+   $ git add setup.py
+   $ git commit -m "Bump version to 1.0.0"
+   $ git tag v1.0.0
+   $ git push origin master && git push origin --tags
+   $ git push gitlab master && git push gitlab --tags
+   $ python setup.py sdist
+   $ twine upload ./dist/algos-py-1.0.0.tar.gz
+
 
 .. _travis-ci.org: https://travis-ci.org
 .. _travis: travis-ci.org_
@@ -75,6 +100,8 @@ To run all the unit-tests and produce a coverage report:
 .. _git: https://git-scm.com/
 .. _github.com: https://github.com
 .. _github: github.com_
+.. _gitlab.com: https://gitlab.com
+.. _gitlab: gitlab.com_
 .. _sphinx: http://www.sphinx-doc.org/en/stable/
 .. _readthedocs.org: https://readthedocs.org/
 .. _readthedocs: readthedocs.org_
