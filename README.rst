@@ -18,7 +18,7 @@ science algorithms. My primary goal is to understand those algorithms
 and the best way to do that is to code them myself.
 
 Along the way I practice test driven development (with nose_),
-continuos integration (with travis_ and coveralls_), version control
+continuous integration (with travis_ and coveralls_), version control
 (with git_, github_ and gitlab_), documentation (with sphinx_ and
 readthedocs_) and a lot more.
 
