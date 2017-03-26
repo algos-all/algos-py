@@ -1,0 +1,24 @@
+stages:
+  - lint
+  - test
+
+coala:
+  stage: lint
+  image: python:3.6-alpine
+  script:
+    - pip install -r requirements/lint-requirements.txt
+    - coala --ci
+
+test3.5:
+  stage: test
+  image: python:3.5-alpine
+  script:
+    - pip install -r requirements/test-requirements.txt
+    - nosetests --with-coverage --cover-package=./src
+
+test3.6:
+  stage: test
+  image: python:3.6-alpine
+  script:
+    - pip install -r requirements/test-requirements.txt
+    - nosetests --with-coverage --cover-package=./src
