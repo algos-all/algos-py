@@ -5,6 +5,10 @@ Package algos-py
    :target: https://travis-ci.org/all3fox/algos-py
 .. image:: https://img.shields.io/coveralls/all3fox/algos-py.svg
    :target: https://coveralls.io/github/all3fox/algos-py
+.. image:: https://pyup.io/repos/github/all3fox/algos-py/shield.svg
+   :target: https://pyup.io/repos/github/all3fox/algos-py/
+.. image:: https://requires.io/github/all3fox/algos-py/requirements.svg?branch=master
+   :target: https://requires.io/github/all3fox/algos-py/requirements/?branch=master
 .. image:: https://img.shields.io/pypi/v/algos-py.svg
    :target: https://pypi.python.org/pypi/algos-py/
 .. image:: https://img.shields.io/github/license/all3fox/algos-py.svg
