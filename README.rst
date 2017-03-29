@@ -3,6 +3,8 @@ Package algos-py
 
 .. image:: https://img.shields.io/travis/all3fox/algos-py.svg
    :target: https://travis-ci.org/all3fox/algos-py
+.. image:: https://img.shields.io/appveyor/ci/all3fox/algos-py.svg
+   :target: https://ci.appveyor.com/project/all3fox/algos-py
 .. image:: https://img.shields.io/coveralls/all3fox/algos-py.svg
    :target: https://coveralls.io/github/all3fox/algos-py
 .. image:: https://pyup.io/repos/github/all3fox/algos-py/shield.svg
