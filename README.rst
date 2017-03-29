@@ -1,12 +1,12 @@
 Package algos-py
 ################
 
-.. image:: https://img.shields.io/travis/all3fox/algos-py.svg
+.. image:: https://travis-ci.org/all3fox/algos-py.svg?branch=master
    :target: https://travis-ci.org/all3fox/algos-py
-.. image:: https://img.shields.io/appveyor/ci/all3fox/algos-py.svg
+.. image:: https://ci.appveyor.com/api/projects/status/j5ireye9mly39f9m/branch/master?svg=true
    :target: https://ci.appveyor.com/project/all3fox/algos-py
-.. image:: https://img.shields.io/coveralls/all3fox/algos-py.svg
-   :target: https://coveralls.io/github/all3fox/algos-py
+.. image:: https://coveralls.io/repos/github/all3fox/algos-py/badge.svg?branch=master
+   :target: https://coveralls.io/github/all3fox/algos-py?branch=master
 .. image:: https://pyup.io/repos/github/all3fox/algos-py/shield.svg
    :target: https://pyup.io/repos/github/all3fox/algos-py/
 .. image:: https://requires.io/github/all3fox/algos-py/requirements.svg?branch=master
