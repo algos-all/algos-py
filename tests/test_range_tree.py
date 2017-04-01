@@ -3,6 +3,7 @@ import copy, random
 from range_tree import RangeTree
 
 class CheckRangeTree:
+
     def check_one_sum(self, seed=42, lo=-1024, hi=1024):
         random.seed(seed)
 
