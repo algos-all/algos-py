@@ -3,7 +3,7 @@ import operator
 from itertools import product
 
 from tests.test_sort.check_sort import CheckSort
-from sort.mergesort import mergesort0, mergesort1, mergesort2
+from src.sort.mergesort import mergesort0, mergesort1, mergesort2
 
 
 class TestMergeSort(CheckSort):

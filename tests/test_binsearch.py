@@ -1,6 +1,6 @@
 import random
 
-from binsearch import binsearch0, binsearch1
+from src.binsearch import binsearch0, binsearch1
 
 
 class CheckBinsearch:

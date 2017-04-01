@@ -1,7 +1,7 @@
 import random, collections
 
-from graph.wgraph import WeightedGraph
-from graph.mst import LazyPrimMST, EagerPrimMST, KruskalMST
+from src.graph.wgraph import WeightedGraph
+from src.graph.mst import LazyPrimMST, EagerPrimMST, KruskalMST
 
 
 class CheckMST:

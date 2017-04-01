@@ -3,7 +3,7 @@ import operator
 from itertools import product
 
 from tests.test_sort.check_sort import CheckSort
-from sort.heapsort import heapsort
+from src.sort.heapsort import heapsort
 
 
 class TestHeapSort(CheckSort):

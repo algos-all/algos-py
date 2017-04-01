@@ -1,6 +1,6 @@
 import random
 
-from bst import BinarySearchTree as bst
+from src.bst import BinarySearchTree as bst
 
 
 class CheckTree:

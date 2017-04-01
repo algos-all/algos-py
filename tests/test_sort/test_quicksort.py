@@ -3,7 +3,7 @@ import operator
 from itertools import product
 
 from tests.test_sort.check_sort import CheckSort
-from sort.quicksort import qsort0, qsort1, qsort2, qsort3
+from src.sort.quicksort import qsort0, qsort1, qsort2, qsort3
 
 
 class TestQuickSort(CheckSort):

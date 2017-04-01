@@ -1,6 +1,6 @@
 import random, string
 
-from sufar import sufar, sufar_baseline
+from src.sufar import sufar, sufar_baseline
 
 
 class TestSuffixArray:

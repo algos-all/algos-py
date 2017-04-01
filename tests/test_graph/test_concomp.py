@@ -1,5 +1,5 @@
-from graph.graph import Graph
-from graph.concomp import concomp0, concomp1, concomp2
+from src.graph.graph import Graph
+from src.graph.concomp import concomp0, concomp1, concomp2
 
 
 class CheckConnectedComponent:

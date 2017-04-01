@@ -1,4 +1,4 @@
-from graph.agraph import AbstractGraph
+from src.graph.agraph import AbstractGraph
 
 
 class WeightedGraph(AbstractGraph):

@@ -1,16 +1,16 @@
-from nose.tools import raises
+import pytest
 
 from tests.test_sset.check_sset import CheckStringSet
-from sset.tst import TernarySearchTree as TST
+from src.sset.tst import TernarySearchTree as TST
 
 
 class TestTernarySearchTree(CheckStringSet):
     def test_empty_get(self):
         self.check_empty_get(TST())
 
-    @raises(RuntimeError)
     def test_empty_put(self):
-        TST().put('', 'key')
+        with pytest.raises(RuntimeError):
+            TST().put('', 'key')
 
     def test_str_repr(self):
         tst = TST()

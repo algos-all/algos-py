@@ -1,6 +1,4 @@
-
-
-from sort.heapsort import swim, sink, xheapify, xheapsort
+from src.sort.heapsort import swim, sink, xheapify, xheapsort
 
 
 class Heap:

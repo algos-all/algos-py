@@ -1,8 +1,6 @@
-import copy, random, operator
+import copy, random, operator, pytest
 
-from nose.tools import raises
-
-from heap import Heap
+from src.heap import Heap
 
 class TestHeap:
     def test_len_0(self):
@@ -15,9 +13,9 @@ class TestHeap:
 
         assert len(h) == 1
 
-    @raises(IndexError)
     def test_getitem_0(self):
-        Heap()[0]
+        with pytest.raises(IndexError):
+            Heap()[0]
 
     def test_getitem_1(self):
         h = Heap([42])
@@ -63,9 +61,9 @@ class TestHeap:
         for i in range(N):
             assert h[i] == i
 
-    @raises(IndexError)
     def test_pop_0(self):
-        Heap().pop()
+        with pytest.raises(IndexError):
+            Heap().pop()
 
     def test_pop_1(self):
         h = Heap()
@@ -113,11 +111,11 @@ class TestHeap:
                 assert h[i] <= h[2 * i + 2]
         assert data == orig
 
-    @raises(RuntimeError)
     def test_heap_sort_raises(self):
         h = Heap()
 
-        h.sort()
+        with pytest.raises(RuntimeError):
+            h.sort()
 
     def test_heap_sort_0(self, N=1000, fst=-1024, lst=1024):
         xs = [random.randint(fst, lst) for i in range(N)]

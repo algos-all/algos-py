@@ -1,6 +1,6 @@
 import copy, random
 
-from range_tree import RangeTree
+from src.range_tree import RangeTree
 
 class CheckRangeTree:
 

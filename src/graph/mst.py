@@ -1,7 +1,7 @@
-from heap import Heap
-from graph.wgraph import WeightedGraph
+from src.heap import Heap
+from src.graph.wgraph import WeightedGraph
 
-from dsu import DisjointSetUnion
+from src.dsu import DisjointSetUnion
 
 
 class LazyPrimMST(WeightedGraph):

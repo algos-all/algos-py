@@ -15,10 +15,12 @@ python:
 #       osx_image: xcode 8.2
 
 install:
-  - pip3 install coala coala-bears coveralls
+  - pip3 install -r requirements/lint-requirements.txt
+  - pip3 install -r requirements/test-requirements.txt
+  - pip3 install coveralls
 
 script:
-  - coala --ci && nosetests --with-coverage --cover-package=src
+  - coala --ci && pytest -n 2 --cov=src
 
 after_success:
   - coveralls

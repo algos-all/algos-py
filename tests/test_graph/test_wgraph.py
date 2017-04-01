@@ -1,4 +1,4 @@
-from graph.wgraph import WeightedGraph, WeightedDiGraph
+from src.graph.wgraph import WeightedGraph, WeightedDiGraph
 
 
 class TestWeightedGraph:

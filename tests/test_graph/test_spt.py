@@ -1,10 +1,9 @@
-import math, random
+import math, random, pytest
 
 from itertools import product
-from nose.tools import raises
 
-from graph.wgraph import WeightedDiGraph
-from graph.spt import Dijkstra, BellmanFord
+from src.graph.wgraph import WeightedDiGraph
+from src.graph.spt import Dijkstra, BellmanFord
 
 
 class CheckShortestPath:
@@ -38,9 +37,9 @@ class CheckShortestPath:
 
         return False
 
-    @raises(RuntimeError)
     def check_empty(self, spt):
-        spt(WeightedDiGraph())
+        with pytest.raises(RuntimeError):
+            spt(WeightedDiGraph())
 
     def check_source(self, spt):
         g = WeightedDiGraph()

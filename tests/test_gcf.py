@@ -1,7 +1,7 @@
 import random
 
 from fractions import gcd
-from gcf import gcf, xgcf
+from src.gcf import gcf, xgcf
 
 
 class TestGCF:

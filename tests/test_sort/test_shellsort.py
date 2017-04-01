@@ -3,7 +3,7 @@ import operator
 from itertools import product
 
 from tests.test_sort.check_sort import CheckSort
-from sort.shellsort import shellsort
+from src.sort.shellsort import shellsort
 
 
 class TestShellSort(CheckSort):

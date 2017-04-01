@@ -1,4 +1,4 @@
-from search import SearchKMP, SearchBM
+from src.search import SearchKMP, SearchBM
 from tests.check_search import CheckSearch
 
 class TestSearchKMP(CheckSearch):

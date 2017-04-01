@@ -32,10 +32,10 @@ install:
   # Upgrade to the latest version of pip to avoid it displaying warnings
   # about it being out of date.
   - "pip install --disable-pip-version-check --user --upgrade pip"
-  - "pip install nose"
+  - "pip install -r requirements/test-requirements.txt"
 
 test_script:
-  - "%CMD_IN_ENV% nosetests"
+  - "%CMD_IN_ENV% pytest -n 2"
 
 # on_success:
 #   - ".tox\\%TOXENV%\\Scripts\\activate"

@@ -1,19 +1,18 @@
-import random
+import random, pytest
 
 from itertools import product
-from nose.tools import raises
 
-from dsu import DisjointSetUnion as dsu
+from src.dsu import DisjointSetUnion as dsu
 
 
 class CheckDisjointSetUnion:
-    @raises(KeyError)
     def check_empty_find(self, DSU):
-        DSU().find(0)
+        with pytest.raises(KeyError):
+            DSU().find(0)
 
-    @raises(KeyError)
     def check_empty_union(self, DSU):
-        DSU().union(0, 0)
+        with pytest.raises(KeyError):
+            DSU().union(0, 0)
 
     def check_iter(self, DSU, N):
         xs = range(N)
@@ -37,11 +36,11 @@ class CheckDisjointSetUnion:
         for i in range(len(xs) // 2, len(xs)):
             assert dsu[i] == xs[i]
 
-    @raises(RuntimeError)
     def check_setitem_0(self, DSU):
         dsu = DSU()
 
-        dsu[42] = 43
+        with pytest.raises(RuntimeError):
+            dsu[42] = 43
 
     def check_setitem_1(self, DSU, N):
         xs = range(N)

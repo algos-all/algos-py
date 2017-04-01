@@ -1,7 +1,7 @@
 from itertools import product
 
 from tests.test_sort.check_sort import CheckSort
-from sort.countsort import countsort
+from src.sort.countsort import countsort
 
 
 class TestCountsortSort(CheckSort):
