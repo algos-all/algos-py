@@ -22,11 +22,14 @@ class RangeTree:
 
         self.ns[n] = self.g(self.ns[lchild], self.ns[rchild])
 
-    def get(self, lft, rgt):
-        return self.goget(0, 0, len(self.xs), lft, rgt)
+    def get(self, lft=0, rgt=None, n=0, fst=0, lst=None):
+        if rgt is None:
+            rgt = len(self.xs)
 
-    def goget(self, n, fst, lst, lft, rgt):
-        if fst == lft and lst == rgt:
+        if lst is None:
+            lst = len(self.xs)
+
+        if lft == fst and rgt == lst:
             return self.ns[n]
 
         lchild = 2 * n + 1
@@ -34,11 +37,12 @@ class RangeTree:
         mid = (fst + lst) // 2
 
         if rgt <= mid:
-            return self.goget(lchild, fst, mid, lft, rgt)
+            return self.get(lft, rgt, lchild, fst, mid)
+
         if lft >= mid:
-            return self.goget(rchild, mid, lst, lft, rgt)
+            return self.get(lft, rgt, rchild, mid, lst)
 
         return self.g(
-            self.goget(lchild, fst, mid, lft, mid),
-            self.goget(rchild, mid, lst, mid, rgt)
+            self.get(lft, rgt, lchild, fst, mid),
+            self.get(lft, rgt, rchild, mid, lst)
         )
