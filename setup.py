@@ -5,7 +5,7 @@ with open("README.rst") as readme:
 
 setup(
     name='algos-py',
-    version='0.3.3',
+    version='0.3.4',
     license='MIT',
     author='Aleksandr Lisianoi',
     author_email='all3fox@gmail.com',
