@@ -32,6 +32,12 @@ class Dijkstra:
 
 
 class BellmanFord:
+    """
+    Compute travel costs from the given vertex to all others.
+
+    This algorithm handles negative weights. If a negative cycle
+    is detected, the algorithm aborts and reports the found cycle.
+    """
 
     def __init__(self, wdgraph, src=None):
         if src not in wdgraph:
@@ -48,7 +54,7 @@ class BellmanFord:
         inrelax[src] = True
 
         nepoch = len(wdgraph) + 1
-        lepoch = 1  # len(torelax)
+        lepoch = 1 # len(torelax)
 
         while torelax:
             src = torelax.popleft()
