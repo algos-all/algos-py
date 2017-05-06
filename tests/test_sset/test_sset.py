@@ -4,9 +4,10 @@ from string import ascii_lowercase
 from random import seed, choice, randint
 
 from src.sset.tst import TernarySearchTree
+from src.sset.trie import Trie
 
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_empty_get(UUT):
     uut = UUT()
     
@@ -16,7 +17,7 @@ def test_empty_get(UUT):
 
     assert uut.get("") is None
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_single_letters(UUT):
     uut = UUT()
     lhs = ascii_lowercase[:13]
@@ -35,7 +36,7 @@ def test_single_letters(UUT):
             uut.get(letter)
         )
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_single_digits(UUT):
     uut = UUT()
     lhs = list(range(0, 5))
@@ -50,7 +51,7 @@ def test_single_digits(UUT):
     for digit in rhs:
         assert uut.get([digit]) is None
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 @pytest.mark.parametrize("n", [i for i in range(1, 11)])
 def test_simple_chain(UUT, n):
     if n <= 0:
@@ -64,7 +65,7 @@ def test_simple_chain(UUT, n):
     for i in range(1, n):
         assert uut.get(word[:i]) == i, uut.all()
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_words_0(UUT):
     uut, words = UUT(), ["a", "aa", "aaa", "abbb"]
 
@@ -74,7 +75,7 @@ def test_words_0(UUT):
     for i, w in enumerate(words):
         assert uut.get(w) == i
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_words_1(UUT):
     uut, words = UUT(), ["c", "cb", "cc", "ce"]
 
@@ -84,7 +85,7 @@ def test_words_1(UUT):
     for i, w in enumerate(words):
         assert uut.get(w) == i
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_words_2(UUT):
     uut, words = UUT(), ["good", "go"]
 
@@ -94,7 +95,7 @@ def test_words_2(UUT):
     for i, w in enumerate(words):
         assert uut.get(w) == i, "expected {}: {}".format(w, i)
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_words_3(UUT):
     uut, words = UUT(), ["b", "a", "c"]
 
@@ -104,7 +105,7 @@ def test_words_3(UUT):
     for i, w in enumerate(words):
         assert uut.get(w) == i
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_words_4(UUT):
     uut, words = UUT(), ["b", "a", "c", "ball", "all", "cya"]
 
@@ -114,11 +115,11 @@ def test_words_4(UUT):
     for i, w in enumerate(words):
         assert uut.get(w) == i
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_gcp_empty_0(UUT):
     assert UUT().gcp("") == 0
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_gcp_empty_1(UUT):
     uut = UUT()
     
@@ -126,7 +127,7 @@ def test_gcp_empty_1(UUT):
 
     assert uut.gcp("") == 0
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_gcp_0(UUT):
     uut, words = UUT(), ["a", "b"]
 
@@ -135,7 +136,7 @@ def test_gcp_0(UUT):
 
     assert uut.gcp("c") == 0, uut.gcp("c")
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_gcp_1(UUT):
     uut, words = UUT(), ["a", "b", "c"]
 
@@ -144,34 +145,34 @@ def test_gcp_1(UUT):
 
     assert uut.gcp("c") == 1, uut.gcp("c")
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_gcp_2(UUT):
     uut = UUT()
     
     uut.put("a", 0)
     assert uut.gcp("a") == 1
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_gcp_3(UUT):
     uut = UUT()
     
     uut.put("a", 0)
     assert uut.gcp("aa") == 1
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_all_0(UUT):
     uut = UUT()
     
     assert uut.all() == []
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_all_1(UUT):
     uut = UUT()
     
     uut.put("a", 0)
     assert uut.all() == ["a"], uut.all()
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_all_2(UUT):
     uut = UUT()
     
@@ -204,7 +205,7 @@ def setup_random_tst(uut, s, n, m, alpha):
 
     return uut, words, values
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 @pytest.mark.parametrize("s", [i for i in range(3)])
 @pytest.mark.parametrize("n", [i for i in range(1, 100)])
 @pytest.mark.parametrize("m", [100])
@@ -215,7 +216,7 @@ def test_random_words(UUT, s, n, m, alpha):
     for i, w in enumerate(words):
         assert uut.get(w) == values[w]
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 @pytest.mark.parametrize("s", [i for i in range(3)])
 @pytest.mark.parametrize("n", [i for i in range(1, 100)])
 @pytest.mark.parametrize("m", [100])
@@ -231,11 +232,11 @@ def test_all_random(UUT, s, n, m, alpha):
     for w in words:
         assert w in result
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_startswith_empty_0(UUT):
     assert UUT().startswith("") == []
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_startswith_empty_1(UUT):
     uut = UUT()
     
@@ -252,7 +253,7 @@ def test_startswith_empty_1(UUT):
     for w in words:
         assert w in result, result
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_startswith_0(UUT):
     uut = UUT()
 
@@ -260,7 +261,7 @@ def test_startswith_0(UUT):
 
     assert uut.startswith("a") == ["a"]
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_startswith_1(UUT):
     uut = UUT()
 
@@ -270,7 +271,7 @@ def test_startswith_1(UUT):
 
     for w in words: assert uut.startswith(w) == [w]
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_startswith_2(UUT):
     uut = UUT()
     
@@ -292,7 +293,7 @@ def test_startswith_2(UUT):
     result = uut.startswith("helpme")
     assert result == []
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_startswith_3(UUT):
     uut = UUT()
     
@@ -301,7 +302,7 @@ def test_startswith_3(UUT):
     assert uut.startswith("hell") == []
     assert uut.startswith("helpme") == []
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_empty_remove_0(UUT):
     uut = UUT()
     
@@ -309,7 +310,7 @@ def test_empty_remove_0(UUT):
 
     assert True
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_empty_remove_1(UUT):
     uut = UUT()
     
@@ -319,7 +320,7 @@ def test_empty_remove_1(UUT):
 
     assert True
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_remove_0(UUT):
     uut = UUT()
     
@@ -328,7 +329,7 @@ def test_remove_0(UUT):
 
     assert uut.get("a") == None
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_remove_1(UUT):
     uut = UUT()
     
@@ -340,7 +341,7 @@ def test_remove_1(UUT):
 
     assert uut.get("aaaa") == 0
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_remove_2(UUT):
     uut = UUT()
     
@@ -350,7 +351,7 @@ def test_remove_2(UUT):
 
     assert uut.get("aaaa") == 0
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_remove_3(UUT):
     uut = UUT()
     
@@ -360,7 +361,7 @@ def test_remove_3(UUT):
 
     assert uut.get("a") == 0
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_remove_4(UUT):
     uut = UUT()
     
@@ -375,7 +376,7 @@ def test_remove_4(UUT):
     assert uut.get("b") == 1
     assert uut.get("c") == 2
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_remove_5(UUT):
     uut = UUT()
     
@@ -391,7 +392,7 @@ def test_remove_5(UUT):
     assert uut.get("aa") == 1
     assert uut.get("aaa") == 2
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_remove_5(UUT):
     uut = UUT()
     
@@ -407,7 +408,7 @@ def test_remove_5(UUT):
     assert uut.get("aa") == None
     assert uut.get("aaa") == 2
 
-@pytest.mark.parametrize("UUT", [TernarySearchTree])
+@pytest.mark.parametrize("UUT", [TernarySearchTree, Trie])
 def test_remove_6(UUT):
     uut = UUT()
     
