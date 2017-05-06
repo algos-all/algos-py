@@ -1,8 +1,25 @@
+"""
+Implementation of a Ternary Search Tree. [1]
+
+Each node holds a single character and has up to three children.
+
+[1]: https://en.wikipedia.org/wiki/Ternary_search_tree
+"""
+
+
 class TernarySearchTree:
 
     class Node:
 
         def __init__(self, top, key, val=None):
+            """
+            :param top: pointer to parent
+            :param key: a key, usually a character
+            :param val: a value, None has a special meaning
+
+            If the value is None, then the node is an intermediate.
+            """
+
             self.top = top
             self.key = key
             self.val = val
@@ -13,6 +30,10 @@ class TernarySearchTree:
             return sum(1 for e in self.edges if e is not None)
 
         def __bool__(self):
+            """
+            Return True if this node is intermediate or final.
+            """
+
             return self.val is not None or bool(len(self))
 
         def __getitem__(self, key):
@@ -28,6 +49,12 @@ class TernarySearchTree:
             return self.__str__()
 
         def get_node_with_parent(self, key):
+            """
+            Return a node (and its parent) that correspond to key.
+
+            :param key: key, usually a string
+            :returns: a list of [node, parent, i, flag]
+            """
             i, flag, parent = 0, True, None
 
             while self:
@@ -88,7 +115,8 @@ class TernarySearchTree:
     def remove(self, key):
         node, _, i, flag = self.get_node_with_parent(key)
 
-        if node is None or node.val is None or i < len(key): return
+        if node is None or node.val is None or i < len(key):
+            return
 
         node.val = None
 
@@ -106,17 +134,23 @@ class TernarySearchTree:
         self.root = None
 
     def gcp(self, key):
+        """
+        Return greatest common prefix of given key and tree keys
+        """
         return 0 if self.root is None or len(key) == 0 else \
             self.root.gcp(key)
 
     def startswith(self, key):
-        if self.root is None: return []
+        if self.root is None:
+            return []
 
-        if len(key) == 0: return self.all()
+        if len(key) == 0:
+            return self.all()
 
         node, _, _, _ = self.root.get_node_with_parent(key)
 
-        if node is None: return []
+        if node is None:
+            return []
 
         results = [] if node.val is None else [key]
 
