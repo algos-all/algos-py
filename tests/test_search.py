@@ -1,45 +1,64 @@
-from src.search import SearchKMP, SearchBM
-from tests.check_search import CheckSearch
+import pytest, random
 
-class TestSearchKMP(CheckSearch):
-    def test_empty_pattern_0(self):
-        self.check_empty_pattern_0(SearchKMP)
+from string import ascii_lowercase
+from random import seed, choice, randrange
 
-    def test_empty_pattern_1(self):
-        self.check_empty_pattern_1(SearchKMP)
-
-    def test_pattern_0(self):
-        self.check_pattern_0(SearchKMP)
-
-    def test_pattern_1(self):
-        self.check_pattern_1(SearchKMP)
-
-    def test_pattern_2(self):
-        self.check_pattern_2(SearchKMP)
-
-    def test_random(self, ns=100, ntimes=10):
-        for n in range(1, ns):
-            for i in range(ntimes):
-                yield self.check_random, SearchKMP, n, i
+from src.search import SearchBM, SearchKMP
 
 
-class TestSearchBM(CheckSearch):
-    def test_empty_pattern_0(self):
-        self.check_empty_pattern_0(SearchBM)
+@pytest.mark.parametrize("search", [SearchBM, SearchKMP])
+def test_empty_pattern_0(search):
+    s = search("")
 
-    def test_empty_pattern_1(self):
-        self.check_empty_pattern_1(SearchBM)
+    assert s.search("Hello, world!") == 0
 
-    def test_pattern_0(self):
-        self.check_pattern_0(SearchBM)
+@pytest.mark.parametrize("search", [SearchBM, SearchKMP])
+def test_empty_pattern_1(search):
+    s = search("")
 
-    def test_pattern_1(self):
-        self.check_pattern_1(SearchBM)
+    assert s.search("") == 0
 
-    def test_pattern_2(self):
-        self.check_pattern_2(SearchBM)
+@pytest.mark.parametrize("search", [SearchBM, SearchKMP])
+def test_pattern_0(search):
+    s = search("a")
 
-    def test_random(self, ns=100, ntimes=10):
-        for n in range(1, ns):
-            for i in range(ntimes):
-                yield self.check_random, SearchBM, n, i
+    assert s.search("a") == 0
+    assert s.search("ba") == 1
+    assert s.search("bab") == 1
+
+@pytest.mark.parametrize("search", [SearchBM, SearchKMP])
+def test_pattern_1(search):
+    s = search("ABBA")
+
+    assert s.search("a") == 1
+    assert s.search("abba") == 4
+    assert s.search("ABBA") == 0
+    assert s.search("AABBA") == 1
+    assert s.search("ABABBA") == 2
+
+@pytest.mark.parametrize("search", [SearchBM, SearchKMP])
+def test_pattern_2(search):
+    s = search("ABC")
+
+    assert s.search("ABBC") == 4, s.search("ABBC")
+
+@pytest.mark.parametrize("search", [SearchBM, SearchKMP])
+@pytest.mark.parametrize("n", list(range(1, 100)))
+@pytest.mark.parametrize("seed", list(range(3)))
+def test_random(search, n, seed):
+    random.seed(seed)
+
+    txt = "".join(choice(ascii_lowercase) for i in range(n))
+
+    for i in range(10):
+        pat = txt[randrange(0, n) : randrange(0, n)]
+
+        s = search(pat)
+
+        assert s.search(txt) == txt.find(pat)
+
+        pat += "A"
+
+        s = search(pat)
+
+        assert s.search(txt) == len(txt)
