@@ -1,96 +1,90 @@
-import random
+import random, pytest
 
-from src.bst import BinarySearchTree as bst
+from src.bst import BinarySearchTree as BST
 
 
-class CheckTree:
-    def check_tree(self, bst, k2v):
+def check_tree(bst, k2v):
+    for key in k2v:
+        if bst.get(key) != k2v[key]:
+            assert False
+
+    assert True
+
+@pytest.mark.parametrize("n", list(range(1, 10)))
+@pytest.mark.parametrize("seed", list(range(3)))
+def test_put_get(n, seed, lo=-1024, hi=1024):
+    assert n > 0 and lo < hi
+
+    random.seed(0)
+
+    bst, k2v = BST(), {}
+
+    for i in range(n):
+        key, val = random.randint(lo, hi), random.randint(lo, hi)
+
+        k2v[key] = val
+
+        bst.put(key, val)
+
+        check_tree(bst, k2v)
+
+@pytest.mark.parametrize("n", list(range(1, 10)))
+@pytest.mark.parametrize("seed", list(range(3)))
+def test_contains(n, seed, lo=-1024, hi=1024):
+    assert n > 0 and lo < hi
+
+    random.seed(0)
+
+    bst, k2v = BST(), {}
+
+    for i in range(n):
+        key, val = random.randint(lo, hi), random.randint(lo, hi)
+
+        k2v[key] = val
+
+        bst.put(key, val)
+
+    for key in k2v:
+        assert key in bst
+
+@pytest.mark.parametrize("n", list(range(1, 10)))
+@pytest.mark.parametrize("seed", list(range(3)))
+def test_setitem_getitem(n, seed, lo=-1024, hi=1024):
+    assert n > 0 and lo < hi
+
+    random.seed(0)
+
+    bst, k2v = BST(), {}
+
+    for i in range(n):
+        key, val = random.randint(lo, hi), random.randint(lo, hi)
+
+        k2v[key], bst[key] = val, val
+
         for key in k2v:
-            if bst.get(key) != k2v[key]:
-                return False
+            assert bst[key] == k2v[key]
 
-        return True
+@pytest.mark.parametrize("n", list(range(1, 10)))
+@pytest.mark.parametrize("seed", list(range(3)))
+def test_remove(n, seed, lo=-1024, hi=1024):
+    assert n > 0 and lo < hi
 
-    def check_put_get(self, bst, N=10, lo=-1024, hi=1024, seed=0):
-        assert N > 0 and lo <= hi
+    random.seed(0)
 
-        random.seed(0)
-        k2v = {}
+    bst, k2v =BST(), {}
 
-        for i in range(N):
-            key, val = random.randint(lo, hi), random.randint(lo, hi)
+    for i in range(n):
+        key, val = random.randint(lo, hi), random.randint(lo, hi)
 
-            k2v[key] = val
+        k2v[key] = val
+        bst.put(key, val)
 
-            bst.put(key, val)
+    for key in list(k2v.keys()):
+        bst.remove(key)
+        k2v.pop(key)
 
-            assert self.check_tree(bst, k2v)
+        check_tree(bst, k2v)
 
-    def check_contains(self, bst, N=10, lo=-1024, hi=1024, seed=0):
-        assert N > 0 and lo <= hi
+    bst.remove(42)
 
-        random.seed(0)
-        k2v = {}
-
-        for i in range(N):
-            key, val = random.randint(lo, hi), random.randint(lo, hi)
-
-            k2v[key] = val
-
-            bst.put(key, val)
-
-        for key in k2v:
-            assert key in bst
-
-    def check_setitem_getitem(
-            self, bst, N=10, lo=-1024, hi=1024, seed=0
-    ):
-        random.seed(0)
-
-        k2v = {}
-
-        for i in range(N):
-            key, val = random.randint(lo, hi), random.randint(lo, hi)
-
-            k2v[key], bst[key] = val, val
-
-            for key in k2v:
-                assert bst[key] == k2v[key]
-
-    def check_remove(self, bst, N=10, lo=-1024, hi=1024, seed=0):
-        random.seed(0)
-
-        k2v = {}
-
-        for i in range(N):
-            key, val = random.randint(lo, hi), random.randint(lo, hi)
-
-            k2v[key] = val
-            bst.put(key, val)
-
-        for key in list(k2v.keys()):
-            bst.remove(key)
-            k2v.pop(key)
-
-            assert self.check_tree(bst, k2v)
-
-        bst.remove(42)
-        assert bst.root is None
-
-
-class TestBinarySearchTree(CheckTree):
-    def test_put_get(self, ns=range(1, 101)):
-        for n in ns:
-            yield self.check_put_get, bst(), n
-
-    def test_check_contains(self, ns=range(1, 101)):
-        for n in ns:
-            yield self.check_contains, bst(), n
-
-    def test_setitem_getitem(self, ns=range(1, 101)):
-        for n in ns:
-            yield self.check_setitem_getitem, bst(), n
-
-    def test_remove(self, ns=range(1, 101)):
-        for n in ns:
-            yield self.check_remove, bst(), n
+    assert bst.root is None
