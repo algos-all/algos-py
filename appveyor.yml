@@ -37,10 +37,10 @@ install:
 test_script:
   - "%CMD_IN_ENV% pytest -n 2"
 
-# on_success:
-#   - ".tox\\%TOXENV%\\Scripts\\activate"
-#   - "pip install codecov"
-#   - "codecov --env PLATFORM,TOXENV"
+on_success:
+#  - ".tox\\%TOXENV%\\Scripts\\activate"
+  - "pip install codecov"
+  - "codecov --env PLATFORM,TOXENV"
 
 # branches:
 #   only:

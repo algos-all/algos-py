@@ -23,4 +23,6 @@ script:
   - coala --ci && pytest -n 2 --cov=src
 
 after_success:
+  - pip install coveralls codecov
   - coveralls
+  - codecov
