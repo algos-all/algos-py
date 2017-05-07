@@ -1,58 +1,60 @@
+import pytest
+
 from src.graph.graph import Graph
 from src.graph.concomp import concomp0, concomp1, concomp2
 
 
-class CheckConnectedComponent:
-    def setup(self):
-        self.g = Graph()
+@pytest.mark.parametrize(
+    "concomp", [concomp0, concomp1, concomp2]
+)
+def test_one_edge(concomp):
+    msg = "{} failed".format(concomp.__name__)
 
-    def check_one_edge(self, concomp):
-        msg = "{} failed".format(concomp.__name__)
+    g = Graph()
 
-        self.g.add_edge(0, 1)
-        cc = concomp(self.g)
+    g.add_edge(0, 1)
 
-        assert len(cc) == 2, msg
-        assert cc[0] == cc[1], msg
+    cc = concomp(g)
 
-    def check_many_linked_edges(self, concomp):
-        N = 42
-        msg = "{} failed".format(concomp.__name__)
+    assert len(cc) == 2, msg
+    assert cc[0] == cc[1], msg
 
-        for i in range(N):
-            self.g.add_edge(i, i + 1)
+@pytest.mark.parametrize(
+    "concomp", [concomp0, concomp1, concomp2]
+)
+@pytest.mark.parametrize("n", list(range(2, 42)))
+def test_simple_chain(concomp, n):
+    assert n > 1
 
-        cc = concomp(self.g)
+    msg = "{} failed".format(concomp.__name__)
 
-        assert len(cc) == N + 1
-        for i in range(N):
-            assert cc[i] == cc[i + 1], msg
+    g = Graph()
 
-    def check_two_disjoint_edges(self, concomp):
-        msg = "{} failed".format(concomp.__name__)
+    for i in range(n):
+        g.add_edge(i, i + 1)
 
-        self.g.add_edge(0, 1)
-        self.g.add_edge(2, 3)
-        cc = concomp(self.g)
+    cc = concomp(g)
 
-        assert len(cc) == 4
-        assert cc[0] == cc[1]
-        assert cc[2] == cc[3]
-        assert cc[0] != cc[2]
+    assert len(cc) == n + 1
+
+    for i in range(n):
+        assert cc[i] == cc[i + 1], msg
 
 
-class TestConnectedComponent(CheckConnectedComponent):
-    def __init__(self):
-        self.concomps = [concomp0, concomp1, concomp2]
+@pytest.mark.parametrize(
+    "concomp", [concomp0, concomp1, concomp2]
+)
+def test_two_disjoint_edges(concomp):
+    msg = "{} failed".format(concomp.__name__)
 
-    def test_one_edge(self):
-        for concomp in self.concomps:
-            yield self.check_one_edge, concomp
+    g = Graph()
 
-    def test_many_linked_edges(self):
-        for concomp in self.concomps:
-            yield self.check_many_linked_edges, concomp
+    g.add_edge(0, 1)
+    g.add_edge(2, 3)
 
-    def test_two_disjoint_edges(self):
-        for concomp in self.concomps:
-            yield self.check_two_disjoint_edges, concomp
+    cc = concomp(g)
+
+    assert len(cc) == 4
+    assert cc[0] == cc[1]
+    assert cc[2] == cc[3]
+    assert cc[0] != cc[2]
