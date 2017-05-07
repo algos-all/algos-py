@@ -7,10 +7,13 @@ Package algos-py
    :target: https://ci.appveyor.com/project/all3fox/algos-py
 .. image:: https://coveralls.io/repos/github/all3fox/algos-py/badge.svg?branch=master
    :target: https://coveralls.io/github/all3fox/algos-py?branch=master
+.. image:: https://codecov.io/gh/all3fox/algos-py/coverage.png
+   :target: https://codecov.io/gh/all3fox/algos-py
 .. image:: https://pyup.io/repos/github/all3fox/algos-py/shield.svg
    :target: https://pyup.io/repos/github/all3fox/algos-py/
 .. image:: https://requires.io/github/all3fox/algos-py/requirements.svg?branch=master
    :target: https://requires.io/github/all3fox/algos-py/requirements/?branch=master
+|
 .. image:: https://img.shields.io/pypi/format/algos-py.svg
    :target: https://pypi.python.org/pypi/algos-py/
 .. image:: https://img.shields.io/pypi/v/algos-py.svg
@@ -21,14 +24,15 @@ Package algos-py
 What is algos-py?
 =================
 
-The algos-py package contains implementations of some classic computer
+This package contains implementations of some classic computer
 science algorithms. My primary goal is to understand those algorithms
 and the best way to do that is to code them myself.
 
-Along the way I practice test driven development (with nose_),
-continuous integration (with travis_ and coveralls_), version control
-(with git_, github_ and gitlab_), documentation (with sphinx_ and
-readthedocs_) and a lot more.
+Along the way I practice test driven development (with pytest_),
+continuous integration (with travis_ and appveyor_), coverage
+tracking (with coveralls_ and codecov_), version control (with git_,
+github_ and gitlab_), documentation (with sphinx_ and readthedocs_)
+and a lot more.
 
 ..
    What algorithms are ready?
@@ -57,20 +61,19 @@ To run all of the unit-tests:
 
 .. code-block:: bash
 
-   $ nosetests
+   $ pytest -n 2
 
 To run unit-tests for a specific module:
 
 .. code-block:: bash
 
-   $ nosetests ./tests/test_heap.py
+   $ pytest ./tests/test_heap.py
 
 To run all the unit-tests and produce a coverage report:
 
 .. code-block:: bash
 
-   $ nosetests --with-coverage --cover-package=src
-
+   $ pytest -n 2 --cov=src
 
 ..   How to uninstall?
      =================
@@ -100,11 +103,16 @@ Release procedure: change version in `setup.py`, then
    $ twine upload ./dist/algos-py-1.0.0.tar.gz
 
 
-.. _travis-ci.org: https://travis-ci.org
+.. _travis-ci.org: https://travis-ci.org/all3fox/algos-py
 .. _travis: travis-ci.org_
-.. _coveralls.io: https://coveralls.io
+.. _appveyor.com: https://ci.appveyor.com/project/all3fox/algos-py
+.. _appveyor: appveyor.com_
+.. _coveralls.io: https://coveralls.io/github/all3fox/algos-py
 .. _coveralls: coveralls.io_
+.. _codecov.io: https://codecov.io/gh/all3fox/algos-py
+.. _codecov: codecov.io_
 .. _nose: https://nose.readthedocs.io/en/latest/
+.. _pytest: https://docs.pytest.org/en/latest/
 .. _git: https://git-scm.com/
 .. _github.com: https://github.com
 .. _github: github.com_
