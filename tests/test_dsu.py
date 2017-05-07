@@ -1,146 +1,117 @@
-import random, pytest
+import copy, random, pytest
 
 from itertools import product
 
-from src.dsu import DisjointSetUnion as dsu
+from src.dsu import DisjointSetUnion as DSU
 
+def test_empty_find():
+    with pytest.raises(KeyError):
+        DSU().find(0)
 
-class CheckDisjointSetUnion:
-    def check_empty_find(self, DSU):
-        with pytest.raises(KeyError):
-            DSU().find(0)
+def test_empty_union():
+    with pytest.raises(KeyError):
+        DSU().union(0, 0)
 
-    def check_empty_union(self, DSU):
-        with pytest.raises(KeyError):
-            DSU().union(0, 0)
+@pytest.mark.parametrize("n", list(range(10)))
+def test_iter(n):
+    xs = range(n)
 
-    def check_iter(self, DSU, N):
-        xs = range(N)
+    dsu = DSU(xs)
 
-        dsu = DSU(xs)
+    for x in xs:
+        assert dsu[x] == x
 
-        for x in xs:
-            assert dsu[x] == x
+@pytest.mark.parametrize("n", list(range(10)))
+def test_getitem(n):
+    xs = range(n)
 
-    def check_getitem(self, DSU, N):
-        xs = range(N)
+    dsu = DSU(xs)
 
-        dsu = DSU(xs)
+    for i in range(1, len(xs) // 2):
+        dsu.union(xs[i - 1], xs[i])
 
-        for i in range(1, len(xs) // 2):
-            dsu.union(xs[i - 1], xs[i])
+    for i in range(1, len(xs) // 2):
+        assert dsu[i - 1] == dsu[i]
 
-        for i in range(1, len(xs) // 2):
-            assert dsu[i - 1] == dsu[i]
+    for i in range(len(xs) // 2, len(xs)):
+        assert dsu[i] == xs[i]
 
-        for i in range(len(xs) // 2, len(xs)):
-            assert dsu[i] == xs[i]
+def test_setitem_0():
+    dsu = DSU()
 
-    def check_setitem_0(self, DSU):
-        dsu = DSU()
+    with pytest.raises(RuntimeError):
+        dsu[42] = 43
 
-        with pytest.raises(RuntimeError):
-            dsu[42] = 43
+@pytest.mark.parametrize("n", list(range(10)))
+def test_setitem_1(n):
+    xs = range(n)
 
-    def check_setitem_1(self, DSU, N):
-        xs = range(N)
+    dsu = DSU()
 
-        dsu = DSU()
+    for x in xs:
+        dsu[x] = x
 
-        for x in xs:
-            dsu[x] = x
+    for x in dsu:
+        assert dsu[x] is x
 
-        for x in dsu:
-            assert dsu[x] is x
+def check_xs_ys(xs, ys):
+    assert len(xs) == len(ys)
 
-    def check_xs_ys(self, DSU, xs=range(10), ys=range(10)):
-        assert len(xs) == len(ys)
-        for y in ys: assert y in xs
+    for y in ys:
+        assert y in xs
 
-        dsu = DSU(xs)
+    dsu = DSU(xs)
 
-        for x, y in zip(xs, ys):
-            dsu.union(x, y)
+    for x, y in zip(xs, ys):
+        dsu.union(x, y)
 
-        for x, y in zip(xs, ys):
-            assert dsu.find(x) == dsu.find(y)
+    for x, y in zip(xs, ys):
+        assert dsu.find(x) == dsu.find(y)
 
-        for x, y in zip(xs, ys):
-            assert dsu.find(x) == dsu[y]
+    for x, y in zip(xs, ys):
+        assert dsu.find(x) == dsu[y]
 
-    def check_random(self, DSU, N=10, seed=0):
-        assert N > 0
+@pytest.mark.parametrize("n", list(range(1, 10)))
+@pytest.mark.parametrize("seed", list(range(10)))
+def test_all_the_same(n, seed, lo=-1024, hi=1024):
+    assert n > 0
 
-        random.seed(seed)
+    random.seed(seed)
 
-        xs = list(range(N))
-        ys = [random.randrange(0, N) for i in range(N)]
+    xs = [random.randint(lo, hi) for i in range(n)]
+    ys = copy.copy(xs)
 
-        self.check_xs_ys(DSU, xs, ys)
+    check_xs_ys(xs, ys)
 
-    def check_transitive_union(self, DSU, N=10):
-        assert N > 1
+@pytest.mark.parametrize("n", list(range(1, 10)))
+@pytest.mark.parametrize("seed", list(range(10)))
+def test_random(n, seed):
+    assert n > 0
 
-        xs = list(range(N))
-        ys = [
-            xs[0] for i in xs[: N // 2]
-        ] + [
-            xs[N // 2] for i in xs[N // 2 :]
-        ]
+    random.seed(seed)
 
-        dsu = DSU(xs)
+    xs = list(range(n))
+    ys = [random.randrange(0, n) for i in range(n)]
 
-        for x, y in zip(xs, ys):
-            dsu.union(x, y)
+    check_xs_ys(xs, ys)
 
-        dsu.union(xs[N // 2 - 1], xs[-1])
+@pytest.mark.parametrize("n", list(range(2, 10)))
+def test_transitive_union(n):
+    assert n > 1
 
-        for i, j in product(range(N), range(N)):
-            assert dsu.find(i) == dsu.find(j)
+    xs = list(range(n))
+    ys = [
+        xs[0] for i in xs[: n // 2]
+    ] + [
+        xs[n // 2] for i in xs[n // 2 :]
+    ]
 
+    dsu = DSU(xs)
 
-class TestDisjointSetUnion(CheckDisjointSetUnion):
-    def __init__(self):
-        self.DSUS = [dsu]
+    for x, y in zip(xs, ys):
+        dsu.union(x, y)
 
-    def test_empty_find(self):
-        for DSU in self.DSUS:
-            yield self.check_empty_find, DSU
+    dsu.union(xs[n // 2 - 1], xs[-1])
 
-    def test_empty_union(self):
-        for DSU in self.DSUS:
-            yield self.check_empty_union, DSU
-
-    def test_iter(self, ns=range(1, 100)):
-        for DSU, n in product(self.DSUS, ns):
-            yield self.check_iter, DSU, n
-
-    def test_getitem(self, ns=range(1, 100)):
-        for DSU, n in product(self.DSUS, ns):
-            yield self.check_getitem, DSU, n
-
-    def test_setitem_0(self):
-        for DSU in self.DSUS:
-            yield self.check_setitem_0, DSU
-
-    def test_setitem_1(self, ns=range(1, 100)):
-        for DSU, n in product(self.DSUS, ns):
-            yield self.check_setitem_1, DSU, n
-
-    def test_all_distinct(self):
-        for DSU in self.DSUS:
-            yield self.check_xs_ys, DSU
-
-    def test_all_the_same(
-            self, xs=range(10), ys=[0 for i in range(10)]
-    ):
-        for DSU in self.DSUS:
-            yield self.check_xs_ys, DSU, xs, ys
-
-    def test_random(self, ns=range(1, 100)):
-        for DSU, n in product(self.DSUS, ns):
-            yield self.check_random, DSU, n
-
-    def test_transitive_union(self, ns=range(2, 50)):
-        for DSU, n in product(self.DSUS, ns):
-            yield self.check_transitive_union, DSU, n
+    for i, j in product(range(n), range(n)):
+        assert dsu.find(i) == dsu.find(j)
