@@ -52,13 +52,14 @@ class RangeTree:
         """
         Compute the value of some function for the given range.
 
-        :param lft: first index in xs[lft:rgt]
-        :param rgt: last index in xs[lft:rgt]
+        :param lft: given index into xs[lft:rgt]
+        :param rgt: given past-the-last index into xs[lft:rgt]
         :param n:   index of the current node
         :param fst: current first index in ns[fst:lst]
-        :param lst: current last index in ns[fst:lst]
+        :param lst: current past-the-last index into ns[fst:lst]
         :returns: the value of self.g for xs[lft:rgt]
         """
+        print(fst, lst, lft, rgt)
 
         if rgt is None:
             rgt = len(self.xs)
@@ -80,6 +81,6 @@ class RangeTree:
             return self.get(lft, rgt, rchild, mid, lst)
 
         return self.g(
-            self.get(lft, rgt, lchild, fst, mid),
-            self.get(lft, rgt, rchild, mid, lst)
+            self.get(lft, mid, lchild, fst, mid),
+            self.get(mid, rgt, rchild, mid, lst)
         )
