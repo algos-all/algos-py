@@ -1,3 +1,4 @@
+import copy
 import string
 
 
@@ -17,10 +18,10 @@ class SearchKMP:
         x, self.automat[0][pattern[0]] = 0, 1
 
         for j, p in enumerate(pattern[1:], 1):
-            for letter in letters:
-                self.automat[j][letter] = self.automat[x][letter]
+            self.automat[j] = copy.copy(self.automat[x])
 
             self.automat[j][p] = j + 1
+
             x = self.automat[x][p]
 
     def search(self, txt):
