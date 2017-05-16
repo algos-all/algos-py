@@ -44,12 +44,12 @@ def mergesort1(xs, key=lambda x: x, reverse=False):
     cmp = operator.gt if reverse else operator.lt
 
     while step < n:
-        for i in range(0, n, 2 * step):
+        for i in range(0, n - step, 2 * step):
             xls, xrs = xs[i: i + step], xs[i + step: i + 2 * step]
             yls, yrs = ys[i: i + step], ys[i + step: i + 2 * step]
 
             li, ri = 0, 0
-
+            ln, rn = len(yls), len(yrs)
             while li < len(yls) and ri < len(yrs):
                 if cmp(yls[li], yrs[ri]):
                     xs[i + li + ri] = xls[li]
@@ -60,12 +60,13 @@ def mergesort1(xs, key=lambda x: x, reverse=False):
                     ys[i + li + ri] = yrs[ri]
                     ri += 1
 
-            for j in range(li, len(yls)):
-                xs[i + j + ri] = xls[j]
-                ys[i + j + ri] = yls[j]
-            for j in range(ri, len(yrs)):
-                xs[i + li + j] = xrs[j]
-                ys[i + li + j] = yrs[j]
+            if li != ln:
+                xs[i + li + ri: i + ln + ri] = xls[li:]
+                ys[i + li + ri: i + ln + ri] = yls[li:]
+
+            if ri != rn:
+                xs[i + li + ri: i + li + rn] = xrs[ri:]
+                ys[i + li + ri: i + li + rn] = yrs[ri:]
 
         step *= 2
 
