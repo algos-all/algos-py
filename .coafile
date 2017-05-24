@@ -1,4 +1,4 @@
-[Default]
+[DeadCode]
 bears = PyUnusedCodeBear,PyCommentedCodeBear
 files = ./src/**/*.py
 non_interactive = True
