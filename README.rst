@@ -13,7 +13,9 @@ Package algos-py
    :target: https://pyup.io/repos/github/all3fox/algos-py/
 .. image:: https://requires.io/github/all3fox/algos-py/requirements.svg?branch=master
    :target: https://requires.io/github/all3fox/algos-py/requirements/?branch=master
+
 |
+
 .. image:: https://img.shields.io/pypi/format/algos-py.svg
    :target: https://pypi.python.org/pypi/algos-py/
 .. image:: https://img.shields.io/pypi/v/algos-py.svg
@@ -90,10 +92,12 @@ Secondary (mirror) repository:
 
 https://gitlab.com/all3fox/algos-py
 
-Release procedure: change version in `setup.py`, then
+Release procedure:
 
 .. code-block:: bash
 
+   $ python setup.py check --restructuredtext
+   $ # change version in setup.py
    $ git add setup.py
    $ git commit -m "Bump version to 1.0.0"
    $ git tag v1.0.0
