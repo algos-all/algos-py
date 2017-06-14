@@ -3,5 +3,7 @@
 _*
 __*__
 dist
+build
 MANIFEST
+algos_py.egg-info
 algos-py-venv-3.6.0
