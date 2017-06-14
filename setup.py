@@ -1,4 +1,4 @@
-from distutils.core import setup
+from setuptools import setup, find_packages
 
 with open("README.rst") as readme:
     long_description = readme.read()
@@ -10,11 +10,8 @@ setup(
     author='Aleksandr Lisianoi',
     author_email='all3fox@gmail.com',
     url='https://github.com/all3fox/algos-py',
-    packages=[
-        'src', 'src.sort', 'src.graph', 'src.sset',
-        'tests', 'tests.test_graph', 'tests.test_sort', 'tests.test_sset'
-    ],
+    packages=find_packages(),
     description="Classic computer science algorithms in Python",
     long_description=long_description,
-    platforms=['linux']
+    platforms=['linux', 'windows', 'macos'],
 )
