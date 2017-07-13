@@ -103,8 +103,8 @@ Release procedure:
    $ git tag v1.0.0
    $ git push origin master && git push origin --tags
    $ git push gitlab master && git push gitlab --tags
-   $ python setup.py sdist
-   $ twine upload ./dist/algos-py-1.0.0.tar.gz
+   $ python setup.py bdist_wheel
+   $ twine upload ./dist/algos_py-1.0.0-py3-none-any.whl
 
 
 .. _travis-ci.org: https://travis-ci.org/all3fox/algos-py
