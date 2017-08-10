@@ -7,7 +7,7 @@ Package algos-py
    :target: https://ci.appveyor.com/project/all3fox/algos-py
 .. image:: https://coveralls.io/repos/github/all3fox/algos-py/badge.svg?branch=master
    :target: https://coveralls.io/github/all3fox/algos-py?branch=master
-.. image:: https://codecov.io/gh/all3fox/algos-py/coverage.png
+.. image:: https://img.shields.io/codecov/c/github/all3fox/algos-py/master.svg
    :target: https://codecov.io/gh/all3fox/algos-py
 .. image:: https://pyup.io/repos/github/all3fox/algos-py/shield.svg
    :target: https://pyup.io/repos/github/all3fox/algos-py/
