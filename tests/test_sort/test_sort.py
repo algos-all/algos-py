@@ -6,7 +6,7 @@ from src.sort.insertsort import (
     insertsort0, insertsort1, insertsort2
 )
 from src.sort.mergesort import (
-    mergesort0, mergesort1, mergesort2
+    mergesort0, mergesort1, mergesort2, mergesort3
 )
 from src.sort.quicksort import (
     qsort0, qsort1, qsort2, qsort3
@@ -30,7 +30,7 @@ def issorted(xs, reverse=False):
     countsort,
     heapsort,
     insertsort0, insertsort1, insertsort2,
-    mergesort0, mergesort1, mergesort2,
+    mergesort0, mergesort1, mergesort2, mergesort3,
     qsort0, qsort1, qsort2, qsort3,
     selectsort0, selectsort1,
     shellsort
