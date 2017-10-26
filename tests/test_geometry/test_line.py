@@ -23,7 +23,7 @@ def test_standard_line_1(points):
     )
 
     for i in range(-10, 10):
-        assert i * A + i * B == C
+        assert i * A + i * B + C == 0
 
 @pytest.mark.parametrize("points", [
     [(0, 0), (1, -1)], [(1, -1), (0, 0)],
@@ -38,24 +38,24 @@ def test_standard_line_2(points):
     )
 
     for i in range(-10, 10):
-        assert i * A + (-i) * B == C
+        assert i * A + (-i) * B + C == 0
 
 def test_standard_line_3():
     A, B, C = compute_standard_line(0, 0, 0, 1)
 
-    assert A * 0 + B * 2 == C
-    assert A * 0 + B * 101 == C
-    assert A * 0 + B * (-101) == C
+    assert A * 0 + B * 2 + C == 0
+    assert A * 0 + B * 101 + C == 0
+    assert A * 0 + B * (-101) + C == 0
 
 def test_standard_line_4():
     A, B, C = compute_standard_line(0, 0, 1, 0)
 
-    assert A * 0 + B * 0 == C
-    assert A * 101 + B * 0 == C
-    assert A * (-101) + B * 0 == C
+    assert A * 0 + B * 0 + C == 0
+    assert A * 101 + B * 0 + C == 0
+    assert A * (-101) + B * 0 + C == 0
 
 def test_standard_line_5():
     A, B, C = compute_standard_line(0, 2, 10, 2)
 
-    assert A * 101 + B * 2 == C
-    assert A *(-101) + B * 2 == C
+    assert A * 101 + B * 2 + C == 0
+    assert A *(-101) + B * 2 + C == 0
