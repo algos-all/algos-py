@@ -15,4 +15,5 @@ def xgcf(a, b):
         s2, s1 = s1 - q * s2, s2
         t2, t1 = t1 - q * t2, t2
 
+    # Bézout's identity says: s1 * a + t1 * b == gcd(a, b)
     return a, s1, t1
