@@ -38,13 +38,13 @@ class ConvexHull2D:
             while cw(self.upper[-2], self.upper[-1], point) != +1:
                 self.upper.pop()
 
-                if len(self.upper) == 2:
+                if len(self.upper) == 1:
                     break
 
             while cw(self.lower[-2], self.lower[-1], point) != -1:
                 self.lower.pop()
 
-                if len(self.lower) == 2:
+                if len(self.lower) == 1:
                     break
 
             self.upper.append(point)
