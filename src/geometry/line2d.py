@@ -88,12 +88,3 @@ def compute_line_intersection_2d(line0: Line2D, line1: Line2D):
         return None
 
     return Point2D((B0 * C1 - B1 * C0) / x, (A1 * C0 - A0 * C1) / x)
-
-
-if __name__ == '__main__':
-    print('Testing some lines...')
-
-    p0 = Point2D(0, 0)
-    p1 = Point2D(1, 1)
-
-    line = compute_standard_line_2d(p0, p1)

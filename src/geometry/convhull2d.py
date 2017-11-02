@@ -1,7 +1,7 @@
 from typing import List
 
 from src.geometry.point2d import Point2D
-from src.geometry.point2d import cw, ccw
+from src.geometry.point2d import cw
 
 
 class ConvexHull2D:
@@ -44,7 +44,9 @@ class ConvexHull2D:
             self.upper.append(point)
             self.lower.append(point)
 
-        self.outer = self.upper[:] + self.lower[::-1]
+        self.outer = self.upper[:] + self.lower[
+            len(self.lower) - 2:0:-1
+        ]
 
     def __len__(self):
         return len(self.outer)
@@ -61,3 +63,6 @@ class ConvexHull2D:
         self.index += 1
 
         return self.points[self.index - 1]
+
+    def __getitem__(self, key):
+        return self.outer[key]

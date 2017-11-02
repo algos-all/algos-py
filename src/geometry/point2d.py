@@ -20,15 +20,6 @@ def rotation_sign(x0, y0, x1, y1, x2, y2):
     return 0 if result == 0 else 1 if result < 0 else -1
 
 
-def cw(x0, y0, x1, y1, x2, y2):
-    return rotation_sign(x0, y0, x1, y1, x2, y2)
-
-
-def ccw(x0, y0, x1, y1, x2, y2):
-    result = rotation_sign(x0, y0, x1, y1, x2, y2)
-    return 0 if result == 0 else 1 if result == -1 else -1
-
-
 class Point2D:
 
     def __init__(self, x, y):
@@ -92,6 +83,18 @@ class Point2D:
 
         return True
 
+    def __add__(self, other: 'Point2D') -> 'Point2D':
+        return Point2D(
+            self.coords[0] + other.coords[0],
+            self.coords[1] + other.coords[1]
+        )
+
+    def __sub__(self, other: 'Point2D') -> 'Point2D':
+        return Point2D(
+            self.coords[0] - other.coords[0],
+            self.coords[1] - other.coords[1]
+        )
+
     def __iter__(self):
         return self
 
@@ -107,18 +110,22 @@ class Point2D:
         return coord
 
 
+def dot_product_2d(point0: Point2D, point1: Point2D):
+    return point0[0] * point1[0] + point0[1] * point1[1]
+
+
 def rotation_sign_2d(point0: Point2D, point1: Point2D, point2: Point2D):
     x0, y0 = point0
     x1, y1 = point1
     x2, y2 = point2
 
-    return compute_rotation_sign(x0, y0, x1, y1, x2, y2)
+    return rotation_sign(x0, y0, x1, y1, x2, y2)
 
 
 def cw(point0: Point2D, point1: Point2D, point2: Point2D):
-    return rotation_sign(point0, point1, point2)
+    return rotation_sign_2d(point0, point1, point2)
 
 
 def ccw(point0: Point2D, point1: Point2D, point2: Point2D):
-    result = rotation_sign(point0, point1, point2)
+    result = rotation_sign_2d(point0, point1, point2)
     return 0 if result == 0 else 1 if result == -1 else -1
