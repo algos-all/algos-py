@@ -14,7 +14,7 @@ that name is the query function does not *have* to be a minimum [2].
 """
 
 
-class RangeTree:
+class RangeTreeFixed1D:
 
     def __init__(self, xs, f=lambda x: x, g=lambda x, y: x + y):
         """
