@@ -1,8 +1,13 @@
 """
-Implementation of a one-dimensional Range Tree. [1]
+Implementation of a one-dimensional Range Tree [1].
+
+This particular implementation is 'static': it constructs a balanced
+tree (as a flat list, with the nodes themselves in the high-index half),
+precomputes function values and places them in the low-index half. After
+that the structure is fixed, there are no additions or removals.
 
 It is also widely known as Range Minimum Query but the problem with
-that name is the query function does not *have* to be a minimum. [2]
+that name is the query function does not *have* to be a minimum [2].
 
 [1]: https://en.wikipedia.org/wiki/Range_tree
 [2]: http://e-maxx-eng.appspot.com/sequences/rmq.html
