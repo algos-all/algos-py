@@ -1,6 +1,6 @@
 import random
 
-from src.rbt import Node, RedBlackTree
+from src.tree.rbt import Node, RedBlackTree
 
 
 class TestRedBlackTree:

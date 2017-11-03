@@ -1,6 +1,6 @@
 import copy, random, pytest
 
-from src.range_tree import RangeTreeFixed1D
+from src.tree.range_tree import RangeTreeFixed1D
 
 @pytest.mark.parametrize("seed", list(range(100)))
 def test_one_sum(seed, lo=-1024, hi=1024):

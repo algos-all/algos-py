@@ -1,6 +1,6 @@
 import random, pytest
 
-from src.bst import BinarySearchTree as BST
+from src.tree.bst import BinarySearchTree as BST
 
 
 def check_tree(bst, k2v):
