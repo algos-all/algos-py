@@ -1,18 +1,18 @@
 Package algos-py
 ################
 
-.. image:: https://travis-ci.org/all3fox/algos-py.svg?branch=master
-   :target: https://travis-ci.org/all3fox/algos-py
+.. image:: https://travis-ci.org/alisianoi/algos-py.svg?branch=master
+   :target: https://travis-ci.org/alisianoi/algos-py
 .. image:: https://ci.appveyor.com/api/projects/status/j5ireye9mly39f9m/branch/master?svg=true
-   :target: https://ci.appveyor.com/project/all3fox/algos-py
-.. image:: https://coveralls.io/repos/github/all3fox/algos-py/badge.svg?branch=master
-   :target: https://coveralls.io/github/all3fox/algos-py?branch=master
-.. image:: https://img.shields.io/codecov/c/github/all3fox/algos-py/master.svg
-   :target: https://codecov.io/gh/all3fox/algos-py
-.. image:: https://pyup.io/repos/github/all3fox/algos-py/shield.svg
-   :target: https://pyup.io/repos/github/all3fox/algos-py/
-.. image:: https://requires.io/github/all3fox/algos-py/requirements.svg?branch=master
-   :target: https://requires.io/github/all3fox/algos-py/requirements/?branch=master
+   :target: https://ci.appveyor.com/project/alisianoi/algos-py
+.. image:: https://coveralls.io/repos/github/alisianoi/algos-py/badge.svg?branch=master
+   :target: https://coveralls.io/github/alisianoi/algos-py?branch=master
+.. image:: https://img.shields.io/codecov/c/github/alisianoi/algos-py/master.svg
+   :target: https://codecov.io/gh/alisianoi/algos-py
+.. image:: https://pyup.io/repos/github/alisianoi/algos-py/shield.svg
+   :target: https://pyup.io/repos/github/alisianoi/algos-py/
+.. image:: https://requires.io/github/alisianoi/algos-py/requirements.svg?branch=master
+   :target: https://requires.io/github/alisianoi/algos-py/requirements/?branch=master
 
 |
 
@@ -20,7 +20,7 @@ Package algos-py
    :target: https://pypi.python.org/pypi/algos-py/
 .. image:: https://img.shields.io/pypi/v/algos-py.svg
    :target: https://pypi.python.org/pypi/algos-py/
-.. image:: https://img.shields.io/github/license/all3fox/algos-py.svg
+.. image:: https://img.shields.io/github/license/alisianoi/algos-py.svg
    :target: https://choosealicense.com/licenses/mit/
 
 What is algos-py?
@@ -86,11 +86,11 @@ Where to find?
 
 Primary repository:
 
-https://github.com/all3fox/algos-py
+https://github.com/alisianoi/algos-py
 
 Secondary (mirror) repository:
 
-https://gitlab.com/all3fox/algos-py
+https://gitlab.com/alisianoi/algos-py
 
 Release procedure:
 
@@ -107,13 +107,13 @@ Release procedure:
    $ twine upload ./dist/algos_py-1.0.0-py3-none-any.whl
 
 
-.. _travis-ci.org: https://travis-ci.org/all3fox/algos-py
+.. _travis-ci.org: https://travis-ci.org/alisianoi/algos-py
 .. _travis: travis-ci.org_
-.. _appveyor.com: https://ci.appveyor.com/project/all3fox/algos-py
+.. _appveyor.com: https://ci.appveyor.com/project/alisianoi/algos-py
 .. _appveyor: appveyor.com_
-.. _coveralls.io: https://coveralls.io/github/all3fox/algos-py
+.. _coveralls.io: https://coveralls.io/github/alisianoi/algos-py
 .. _coveralls: coveralls.io_
-.. _codecov.io: https://codecov.io/gh/all3fox/algos-py
+.. _codecov.io: https://codecov.io/gh/alisianoi/algos-py
 .. _codecov: codecov.io_
 .. _nose: https://nose.readthedocs.io/en/latest/
 .. _pytest: https://docs.pytest.org/en/latest/
