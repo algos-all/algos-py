@@ -2,18 +2,30 @@ from collections import deque
 
 
 def concomp0(graph):
+    '''
+    Find connected components in undirected graphs depth-first.
+
+    Args:
+        graph: an undirected graph (a forest of connected components).
+
+    Returns:
+        a dictionary {node: integer} where the integer is the same for
+        those nodes whose connected component is the same.
+    '''
     def dfs(node):
         cc[node] = i
 
         for n in graph[node]:
-            if cc[n] is not None: continue
+            if cc[n] is not None:
+                continue
 
             dfs(n)
 
     cc = {node: None for node in graph}
 
     for i, n in enumerate(graph):
-        if cc[n] is not None: continue
+        if cc[n] is not None:
+            continue
 
         dfs(n)
 
@@ -21,20 +33,32 @@ def concomp0(graph):
 
 
 def concomp1(graph):
+    '''
+    Find connected components in undirected graphs breadth-first.
+
+    Args:
+        graph: an undirected graph (a forest of connected components).
+
+    Returns:
+        a dictionary {node: integer} where the integer is the same for
+        those nodes whose connected component is the same.
+    '''
     cc, i = {node: None for node in graph}, 0
 
     nodes = deque(maxlen=len(graph))
 
     for node in graph:
-        if cc[node] is not None: continue
+        if cc[node] is not None:
+            continue
 
         nodes.append(node)
 
         while nodes:
-            node = nodes.popleft()
+            src = nodes.popleft()
 
-            cc[node] = i
-            nodes.extend([n for n in graph[node] if cc[n] is None])
+            cc[src] = i
+
+            nodes.extend([dst for dst in graph[src] if cc[dst] is None])
 
         i += 1
 
@@ -42,18 +66,29 @@ def concomp1(graph):
 
 
 def concomp2(graph):
+    '''
+    Find connected components in undirected graphs breadth-first.
+
+    Args:
+        graph: an undirected graph (a forest of connected components).
+
+    Returns:
+        a dictionary {node: integer} where the integer is the same for
+        those nodes whose connected component is the same.
+    '''
     cc = {node: None for node in graph}
 
     for i, node in enumerate(graph):
-        if cc[node] is not None: continue
+        if cc[node] is not None:
+            continue
 
         nodes = [node]
 
         while nodes:
-            node = nodes.pop()
+            src = nodes.pop()
 
-            cc[node] = i
+            cc[src] = i
 
-            nodes.extend([n for n in graph[node] if cc[n] is None])
+            nodes.extend([dst for dst in graph[src] if cc[dst] is None])
 
     return cc
