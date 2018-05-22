@@ -53,6 +53,28 @@ class DisjointSetUnion:
         self.ws[key] = 1
 
     def find(self, key, w=0):
+        '''
+        Find the set of the provided key
+
+        This method returns the same key for those keys that belong to
+        the same set. Internally, the keys from the same set make up a
+        tree whose root holds the key that represents the whole set.
+
+        When you call find with a specific key, there are two edge
+        cases:
+
+        1. The provided key is, in fact, the root of the tree. If so,
+        it is immediately returned.  2. The provided key is a leaf of
+        some very long path to the root of the tree. In this case, the
+        entire path to the root must be traversed.
+
+        To avoid having very long paths, the second case also performs
+        path compression after traversing the path to the root.
+
+        :param key: the key whose set should be found
+        :param w: the weight of the subtree of the key
+        '''
+
         if self.xs[key] == key:
             self.ws[key] += w
 
@@ -64,6 +86,16 @@ class DisjointSetUnion:
         return self.xs[key]
 
     def union(self, key1, key2):
+        '''
+        Combine the sets that contain the two given keys into one
+
+        If both keys belong to the same set, the method does not
+        achieve much. However, path compression could still change
+        the underlying data structure.
+
+        :param key1: the key contained in the first set
+        :param key2: the key contained in the second set
+        '''
         val1 = self.find(key1)
         val2 = self.find(key2)
 
