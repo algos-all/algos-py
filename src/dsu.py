@@ -22,7 +22,8 @@ class DisjointSetUnion:
         Create an empty or a pre-populated disjoint set union (DSU)
 
         :param xs: a list of elements. If None, then an empty DSU is
-        created. Otherwise, each element is treated as its own set.
+                   created. Otherwise, each element is treated as its
+                   own set.
         '''
         self.xs = {x: x for x in xs} if xs else {}
         self.ws = {x: 1 for x in xs} if xs else {}

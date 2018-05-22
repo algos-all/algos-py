@@ -3,12 +3,15 @@ Classic algorithms in Python
 
 .. warning:: This is very much a work in progress
 
-.. currentmodule:: src.dsu
-.. autofunction:: DisjointSetUnion
+.. math::
+
+   \left(\frac{n}{k}\right) = \frac{n!}{k!(n-k)!}
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+
+   src/dsu
 
 
 
