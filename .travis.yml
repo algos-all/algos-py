@@ -15,11 +15,10 @@ python:
 #       osx_image: xcode 8.2
 
 install:
-  - pip3 install -r requirements/lint-requirements.txt
-  - pip3 install -r requirements/test-requirements.txt
+  - pip3 install -r requirements.txt
 
 script:
-  - coala --ci && pytest -n 2 --cov=src
+  - pytest -n 2 --cov=src
 
 after_success:
   - pip install coveralls codecov
