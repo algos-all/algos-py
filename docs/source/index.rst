@@ -1,7 +1,7 @@
 Classic algorithms in Python
 ============================
 
-.. warning:: This is very much a work in progress
+.. warning:: This is very much a work in progress.
 
 .. math::
 
@@ -12,6 +12,7 @@ Classic algorithms in Python
    :caption: Contents:
 
    src/dsu
+   src/geometry/line2d
 
 
 
