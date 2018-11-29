@@ -4,9 +4,10 @@ from src.graph.graph import Graph
 from src.graph.concomp import concomp0, concomp1, concomp2
 
 
-@pytest.mark.parametrize(
-    "concomp", [concomp0, concomp1, concomp2]
-)
+CONNECTED_COMPONENTS = [concomp0, concomp1, concomp2]
+
+
+@pytest.mark.parametrize("concomp", CONNECTED_COMPONENTS)
 def test_one_edge(concomp):
     msg = "{} failed".format(concomp.__name__)
 
@@ -19,9 +20,8 @@ def test_one_edge(concomp):
     assert len(cc) == 2, msg
     assert cc[0] == cc[1], msg
 
-@pytest.mark.parametrize(
-    "concomp", [concomp0, concomp1, concomp2]
-)
+
+@pytest.mark.parametrize("concomp", CONNECTED_COMPONENTS)
 @pytest.mark.parametrize("n", list(range(2, 42)))
 def test_simple_chain(concomp, n):
     assert n > 1
@@ -41,9 +41,7 @@ def test_simple_chain(concomp, n):
         assert cc[i] == cc[i + 1], msg
 
 
-@pytest.mark.parametrize(
-    "concomp", [concomp0, concomp1, concomp2]
-)
+@pytest.mark.parametrize("concomp", CONNECTED_COMPONENTS)
 def test_two_disjoint_edges(concomp):
     msg = "{} failed".format(concomp.__name__)
 

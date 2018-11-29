@@ -2,16 +2,17 @@ from collections import deque
 
 
 def concomp0(graph):
-    '''
-    Find connected components in undirected graphs depth-first.
+    """
+    Performs depth-first search to find connected components of a given graph
 
     Args:
         graph: an undirected graph (a forest of connected components).
 
     Returns:
         a dictionary {node: integer} where the integer is the same for
-        those nodes whose connected component is the same.
-    '''
+        those nodes which belong to the same connected component.
+    """
+
     def dfs(node):
         cc[node] = i
 
@@ -33,16 +34,17 @@ def concomp0(graph):
 
 
 def concomp1(graph):
-    '''
-    Find connected components in undirected graphs breadth-first.
+    """
+    Performs breadth-first search to find connected components of a given graph
 
     Args:
         graph: an undirected graph (a forest of connected components).
 
     Returns:
         a dictionary {node: integer} where the integer is the same for
-        those nodes whose connected component is the same.
-    '''
+        those nodes which belong to the same connected component.
+    """
+
     cc, i = {node: None for node in graph}, 0
 
     nodes = deque(maxlen=len(graph))
@@ -66,7 +68,7 @@ def concomp1(graph):
 
 
 def concomp2(graph):
-    '''
+    """
     Find connected components in undirected graphs breadth-first.
 
     Args:
@@ -75,7 +77,7 @@ def concomp2(graph):
     Returns:
         a dictionary {node: integer} where the integer is the same for
         those nodes whose connected component is the same.
-    '''
+    """
     cc = {node: None for node in graph}
 
     for i, node in enumerate(graph):
