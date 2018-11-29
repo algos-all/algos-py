@@ -18,7 +18,7 @@ install:
   - pip3 install -r requirements.txt
 
 script:
-  - pytest -n 2 --cov=src
+  - pytest -n 2 --cov=src --benchmark-disable
 
 after_success:
   - pip install coveralls codecov
