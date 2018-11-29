@@ -2,9 +2,22 @@ from src.heap import Heap
 from collections import deque
 
 
+"""
+Shortest Path Tree (SPT) is a structure that is built from the original weighted
+directed graph. It holds the shortest paths from a single source node to every
+other node from the original graph.
+"""
+
+
 class Dijkstra:
+    """
+    Creates a shortest path tree from the provided weighted directed graph
+
+    It expects the provided graph to have *no* negative weights.
+    """
 
     def __init__(self, wdgraph, src=None):
+
         if src not in wdgraph:
             raise RuntimeError("Source node not in graph")
 
@@ -15,7 +28,8 @@ class Dijkstra:
 
         edges = Heap(
             xs=[[src, dst, w] for dst, w in wdgraph[src]],
-            key=lambda x: x[-1], reverse=False
+            key=lambda x: x[-1],
+            reverse=False,
         )
 
         while edges:
@@ -33,7 +47,7 @@ class Dijkstra:
 
 class BellmanFord:
     """
-    Compute travel costs from the given vertex to all others.
+    Creates a shortest path tree from the provided weighted directed graph
 
     This algorithm handles negative weights. If a negative cycle
     is detected, the algorithm aborts and reports the found cycle.
@@ -65,7 +79,8 @@ class BellmanFord:
             for dst, w in wdgraph[src]:
                 d = self.costs[dst]
 
-                if d is not None and d <= s + w: continue
+                if d is not None and d <= s + w:
+                    continue
 
                 self.costs[dst] = s + w
                 self.paths[dst] = src
@@ -102,7 +117,7 @@ class BellmanFord:
 
             if n is not None and visited[n] == i:
                 # cycle can start with a "tail" that is not part of it
-                self.cycle = list(reversed(path[path.index(n):]))
+                self.cycle = list(reversed(path[path.index(n) :]))
                 return
 
         self.cycle = []
