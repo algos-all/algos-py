@@ -4,25 +4,41 @@ from src.graph.wgraph import WeightedGraph
 from src.dsu import DisjointSetUnion
 
 
+"""
+Minimum Spanning Tree (MST) is a subset of the edges of a connected graph that
+has weights assigned to its edges. The tree connects all vertices of the graph
+together and has the minimum possible total edge weight.
+"""
+
+
 class LazyPrimMST(WeightedGraph):
+    """
+    Creates a minimum spanning tree from the provided weighted graph
+
+    The complexity of this implementation is:
+
+        time : (|V| + |E|)log|E| (?)
+        space:  |V| + |E|        (?)
+    """
 
     def __init__(self, wgraph):
+
         super().__init__()
 
-        vnodes = {node: None for node in wgraph}
-        wedges = Heap(xs=None, key=lambda x: x[-1], reverse=False)
+        nodes = {node: None for node in wgraph}
+        edges = Heap(xs=None, key=lambda x: x[-1], reverse=False)
 
         src = next(iter(wgraph), None)
 
         for i in range(len(wgraph) - 1):
-            vnodes[src] = True
+            nodes[src] = True
 
             for dst, w in wgraph[src]:
-                wedges.append([src, dst, w])
+                edges.append([src, dst, w])
 
-            src, dst, w = wedges.pop()
-            while vnodes[dst] is not None:
-                src, dst, w = wedges.pop()
+            src, dst, w = edges.pop()
+            while nodes[dst] is not None:
+                src, dst, w = edges.pop()
 
             self.add_edge(src, dst, w)
 
@@ -30,8 +46,17 @@ class LazyPrimMST(WeightedGraph):
 
 
 class EagerPrimMST(WeightedGraph):
+    """
+    Creates a minimum spanning tree from the provided weighted graph
+
+    The complexity of this implementation is:
+
+        time : (|V| + |E|)log|E| (?)
+        space:  |E| + |V|        (?)
+    """
 
     def __init__(self, wgraph):
+
         super().__init__()
 
         nodes = {node: None for node in wgraph}
@@ -46,15 +71,9 @@ class EagerPrimMST(WeightedGraph):
                 if nodes[dst] is True:
                     continue
 
-                if nodes[dst] is None:
+                if nodes[dst] is None or nodes[dst] > w:
                     nodes[dst] = w
                     edges.append([src, dst, w])
-                    continue
-
-                if nodes[dst] > w:
-                    nodes[dst] = w
-                    edges.append([src, dst, w])
-                    continue
 
             src, dst, w = edges.pop()
             while nodes[dst] is True:
@@ -66,22 +85,32 @@ class EagerPrimMST(WeightedGraph):
 
 
 class KruskalMST(WeightedGraph):
+    """
+    Creates a minimum spanning tree from the provided weighted graph
+
+    The complexity of this implementation is:
+
+        time:  |E|log|E| = |E|log|V|
+        space: |E| + |V|
+
+    TODO:
+        * instead of the heap, pre-sort the edges once. Wikipedia describes so:
+            https://en.wikipedia.org/wiki/Kruskal%27s_algorithm
+    """
 
     def __init__(self, wgraph):
+
         super().__init__()
 
-        # visited nodes and weighted edges
-        nodes = DisjointSetUnion([n for n in wgraph])
-        edges = Heap(
-            xs=wgraph.get_edges(), key=lambda x: x[-1], reverse=False
-        )
+        nodes = DisjointSetUnion([node for node in wgraph])
+        edges = Heap(xs=wgraph.get_edges(), key=lambda x: x[-1], reverse=False)
 
         while edges:
-            n1, n2, w = edges.pop()
+            src, dst, w = edges.pop()
 
-            if nodes.find(n1) == nodes.find(n2):
+            if nodes.find(src) == nodes.find(dst):
                 continue
 
-            self.add_edge(n1, n2, w)
+            self.add_edge(src, dst, w)
 
-            nodes.union(n1, n2)
+            nodes.union(src, dst)
