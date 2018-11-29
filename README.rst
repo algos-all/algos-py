@@ -27,8 +27,8 @@ What is algos-py?
 =================
 
 This package contains implementations of some classic computer
-science algorithms. My primary goal is to understand those algorithms
-and the best way to do that is to code them myself.
+science algorithms. My main goal is to understand these algorithms
+and the best way to do that is to implement them myself.
 
 Along the way I practice test driven development (with pytest_),
 continuous integration (with travis_ and appveyor_), coverage
