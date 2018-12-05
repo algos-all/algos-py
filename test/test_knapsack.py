@@ -1,9 +1,9 @@
 import pytest
 
-from src.knapsack import _knapsack_0, _knapsack_1, _knapsack_2
+from src.knapsack import _knapsack_0, _knapsack_1, _knapsack_2, _knapsack_3
 
 
-knapsacks = [_knapsack_0, _knapsack_1, _knapsack_2]
+knapsacks = [_knapsack_0, _knapsack_1, _knapsack_2, _knapsack_3]
 
 
 @pytest.mark.parametrize("knapsack", knapsacks)
@@ -51,9 +51,4 @@ def test_simple_benchmark(benchmark, knapsack):
     vs = [v for v in range(15)]
     ws = [w for w in range(15)]
 
-    value = sum(vs)
-    limit = sum(ws)
-
-    result = benchmark(knapsack, limit, vs, ws)
-
-    assert result == value
+    assert benchmark(knapsack, sum(ws), vs, ws) == sum(vs)

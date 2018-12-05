@@ -74,7 +74,9 @@ def _knapsack_2(limit, vs, ws):
             return memory[i][limit]
 
         reject = _knapsack(limit, vs, ws, i + 1)
-        accept = _knapsack(limit - ws[i], vs, ws, i + 1) + vs[i] if ws[i] <= limit else 0
+        accept = (
+            _knapsack(limit - ws[i], vs, ws, i + 1) + vs[i] if ws[i] <= limit else 0
+        )
 
         memory[i][limit] = max(accept, reject)
 
@@ -83,14 +85,20 @@ def _knapsack_2(limit, vs, ws):
     return _knapsack(limit, vs, ws, 0)
 
 
-# def _knapsack_3(limit, vs, ws):
-#
-#     n = len(vs)
-#
-#     memory = [[0 for _ in range(limit + 1)] for _ in range(n + 1)]
-#
-#     for i in range(n):
-#
-#         for j in range(limit):
-#
-#             pass
+def _knapsack_3(limit, vs, ws):
+
+    n = len(vs)
+
+    memory = [[0 for _ in range(limit + 1)] for _ in range(n + 1)]
+
+    for i in range(1, n + 1):
+
+        v, w = vs[i - 1], ws[i - 1]
+
+        for j in range(1, limit + 1):
+
+            memory[i][j] = max(
+                memory[i - 1][j], memory[i - 1][j - w] + v if w <= j else 0
+            )
+
+    return memory[n][limit]
