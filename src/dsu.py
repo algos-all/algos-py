@@ -1,5 +1,5 @@
 class DisjointSetUnion:
-    '''
+    """
     Construct a disjoint set union (DSU)
 
     This data structure tracks a set of elements partitioned into a
@@ -15,16 +15,16 @@ class DisjointSetUnion:
     1. Disjoint-set data structure
     2. Union-find data structure
     3. Merge-find set
-    '''
+    """
 
     def __init__(self, xs=None):
-        '''
+        """
         Create an empty or a pre-populated disjoint set union (DSU)
 
         :param xs: a list of elements. If None, then an empty DSU is
                    created. Otherwise, each element is treated as its
                    own set.
-        '''
+        """
         self.xs = {x: x for x in xs} if xs else {}
         self.ws = {x: 1 for x in xs} if xs else {}
 
@@ -37,14 +37,14 @@ class DisjointSetUnion:
         return self.find(key)
 
     def __setitem__(self, key, val):
-        '''
+        """
         Add a new element to the disjoint set union (DSU)
 
         The item is added initially as its own set.
 
         :param key: the item to add to the DSU
         :param val: the value, must be equal to the provided key
-        '''
+        """
 
         if key is not val:
             raise RuntimeError("key and val must be the same")
@@ -53,7 +53,7 @@ class DisjointSetUnion:
         self.ws[key] = 1
 
     def find(self, key, w=0):
-        '''
+        """
         Find the set of the provided key
 
         This method returns the same key for those keys that belong to
@@ -73,7 +73,7 @@ class DisjointSetUnion:
 
         :param key: the key whose set should be found
         :param w: the weight of the subtree of the key
-        '''
+        """
 
         if self.xs[key] == key:
             self.ws[key] += w
@@ -86,7 +86,7 @@ class DisjointSetUnion:
         return self.xs[key]
 
     def union(self, key1, key2):
-        '''
+        """
         Combine the sets that contain the two given keys into one
 
         If both keys belong to the same set, the method does not
@@ -95,11 +95,12 @@ class DisjointSetUnion:
 
         :param key1: the key contained in the first set
         :param key2: the key contained in the second set
-        '''
+        """
         val1 = self.find(key1)
         val2 = self.find(key2)
 
-        if val1 == val2: return
+        if val1 == val2:
+            return
 
         if self.ws[val1] < self.ws[val2]:
             val1, val2 = val2, val1
