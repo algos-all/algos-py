@@ -28,3 +28,31 @@ def fcomb(n, k):
         total_ways = total_ways * (n - i) // (i + 1)
 
     return total_ways
+
+
+def next_permutation(xs):
+    if len(xs) == 0 or len(xs) == 1:
+        return xs
+
+    i, j = len(xs) - 2, len(xs) - 1
+
+    while i != -1 and xs[i] >= xs[j]:
+        i -= 1
+        j -= 1
+
+    if i == -1:
+        xs.reverse()
+
+        return
+
+    while j != len(xs) and xs[i] <= xs[j]:
+        j += 1
+
+    xs[i], xs[j - 1] = xs[j - 1], xs[i]
+
+    i, j = i + 1, len(xs) - 1
+
+    while i < j:
+        xs[i], xs[j] = xs[j], xs[i]
+        i += 1
+        j -= 1
