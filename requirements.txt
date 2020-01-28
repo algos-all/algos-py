@@ -3,4 +3,4 @@ pytest-cov==2.5.1
 pytest-xdist==1.22.2
 pytest-benchmark==3.1.1
 Sphinx==1.7.4
-wheel==0.31.1
+wheel==0.34.1
