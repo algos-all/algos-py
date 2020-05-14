@@ -13,8 +13,7 @@ def fpow0(x, n):
         elif n > 0:
             return 0
         else:
-            reason = '0.0 cannot be raised to a negative power'
-            raise ZeroDivisionError(reason)
+            raise ZeroDivisionError('Cannot raise 0.0 to a negative power')
 
     if n < 0:
         return fpow(1 / x, -n)
@@ -48,8 +47,7 @@ def fpow1(x, n):
         elif n > 0:
             return 0
         else:
-            reason = '0.0 cannot be raised to a negative power'
-            raise ZeroDivisionError(reason)
+            raise ZeroDivisionError('Cannot raise 0.0 to a negative power')
 
     if n < 0:
         x = 1 / x
