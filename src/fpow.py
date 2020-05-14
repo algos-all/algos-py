@@ -16,7 +16,7 @@ def fpow0(x, n):
             raise ZeroDivisionError('Cannot raise 0.0 to a negative power')
 
     if n < 0:
-        return fpow(1 / x, -n)
+        return fpow0(1 / x, -n)
 
     if n == 0:
         return 1
