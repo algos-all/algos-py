@@ -1,5 +1,5 @@
 pytest==3.6.0
-pytest-cov==2.5.1
+pytest-cov==2.10.0
 pytest-xdist==1.22.2
 pytest-benchmark==3.1.1
 Sphinx==1.7.4
