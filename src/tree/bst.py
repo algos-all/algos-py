@@ -43,7 +43,8 @@ class BinarySearchTree:
     def remove(self, key):
         node, parent = self.get_node_with_parent(key)
 
-        if node is None: return  # no such key or empty tree
+        if node is None:
+            return  # no such key or empty tree
 
         if node.lft and node.rgt:
             heir, parent = node.lft, node
@@ -76,7 +77,7 @@ class BinarySearchTree:
         heir.lft, heir.rgt = None, None
 
     def __contains__(self, key):
-        return True if self.get(key) is not None else False
+        return self.get(key) is not None
 
     def __setitem__(self, key, val):
         return self.put(key, val)
