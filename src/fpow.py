@@ -46,10 +46,10 @@ def fpow1(x, n):
     if x == 0:
         if n == 0:
             return 1
-        elif n > 0:
+        if n > 0:
             return 0
-        else:
-            raise ZeroDivisionError('Cannot raise 0.0 to a negative power')
+
+        raise ZeroDivisionError('Cannot raise 0.0 to a negative power')
 
     if n < 0:
         x = 1 / x
@@ -70,3 +70,37 @@ def fpow1(x, n):
             n = n // 2
 
     return x * y
+
+
+def fpow2(x, n):
+    '''
+    Perform iterative fast exponentiaion by squaring
+    '''
+
+    if x == 0:
+        if n == 0:
+            return 1
+        if n > 0:
+            return 0
+
+        raise ZeroDivisionError('Cannot raise 0.0 to a negative power')
+
+    if n < 0:
+        x = 1 / x
+        n = -n
+
+    if n == 0:
+        return 1
+
+    y = 1
+    b = x
+    e = n
+
+    while e != 1:
+        if e % 2 == 1:
+            y *= b
+
+        b *= b
+        e = e // 2
+
+    return y * b
