@@ -1,3 +1,8 @@
+'''
+Fast exponentiation by squaring
+'''
+
+
 def fpow0(x, n):
     '''
     Perform recursive fast exponentiation by squaring.
@@ -10,10 +15,10 @@ def fpow0(x, n):
     if x == 0:
         if n == 0:
             return 1
-        elif n > 0:
+        if n > 0:
             return 0
-        else:
-            raise ZeroDivisionError('Cannot raise 0.0 to a negative power')
+
+        raise ZeroDivisionError('Cannot raise 0.0 to a negative power')
 
     if n < 0:
         return fpow0(1 / x, -n)
@@ -26,10 +31,7 @@ def fpow0(x, n):
 
     assert n == int(n), 'n must be an integer'
 
-    if n % 2 == 0:
-        return fpow0(x * x, n // 2)
-    else:
-        return x * fpow0(x * x, n // 2)
+    return fpow0(x * x, n // 2) if n % 2 == 0 else x * fpow0(x * x, n // 2)
 
 
 def fpow1(x, n):
