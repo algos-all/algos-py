@@ -1,6 +1,8 @@
-import copy, random, operator, pytest
+import pytest
+import random
 
 from src.heap import Heap
+
 
 class TestHeap:
     def test_len_0(self):
