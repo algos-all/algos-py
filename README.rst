@@ -10,9 +10,7 @@ Package algos-py
 .. image:: https://img.shields.io/codecov/c/github/algos-all/algos-py/main.svg
    :target: https://codecov.io/gh/algos-all/algos-py
 .. image:: https://pyup.io/repos/github/algos-all/algos-py/shield.svg
-   :target: https://pyup.io/repos/github/algos-all/algos-py/
-.. image:: https://requires.io/github/algos-all/algos-py/requirements.svg?branch=main
-   :target: https://requires.io/github/algos-all/algos-py/requirements/?branch=main
+   :target: https://pyup.io/repos/github/algos-all/algos-py
 
 |
 
