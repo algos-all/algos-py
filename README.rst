@@ -1,18 +1,18 @@
 Package algos-py
 ################
 
-.. image:: https://travis-ci.org/alisianoi/algos-py.svg?branch=master
-   :target: https://travis-ci.org/alisianoi/algos-py
-.. image:: https://ci.appveyor.com/api/projects/status/j5ireye9mly39f9m/branch/master?svg=true
-   :target: https://ci.appveyor.com/project/alisianoi/algos-py
-.. image:: https://coveralls.io/repos/github/alisianoi/algos-py/badge.svg?branch=master
-   :target: https://coveralls.io/github/alisianoi/algos-py?branch=master
-.. image:: https://img.shields.io/codecov/c/github/alisianoi/algos-py/master.svg
-   :target: https://codecov.io/gh/alisianoi/algos-py
-.. image:: https://pyup.io/repos/github/alisianoi/algos-py/shield.svg
-   :target: https://pyup.io/repos/github/alisianoi/algos-py/
-.. image:: https://requires.io/github/alisianoi/algos-py/requirements.svg?branch=master
-   :target: https://requires.io/github/alisianoi/algos-py/requirements/?branch=master
+.. image:: https://travis-ci.org/algos-all/algos-py.svg?branch=main
+   :target: https://travis-ci.org/algos-all/algos-py
+.. image:: https://ci.appveyor.com/api/projects/status/j5ireye9mly39f9m/branch/main?svg=true
+   :target: https://ci.appveyor.com/project/algos-all/algos-py
+.. image:: https://coveralls.io/repos/github/algos-all/algos-py/badge.svg?branch=main
+   :target: https://coveralls.io/github/algos-all/algos-py?branch=main
+.. image:: https://img.shields.io/codecov/c/github/algos-all/algos-py/main.svg
+   :target: https://codecov.io/gh/algos-all/algos-py
+.. image:: https://pyup.io/repos/github/algos-all/algos-py/shield.svg
+   :target: https://pyup.io/repos/github/algos-all/algos-py/
+.. image:: https://requires.io/github/algos-all/algos-py/requirements.svg?branch=main
+   :target: https://requires.io/github/algos-all/algos-py/requirements/?branch=main
 
 |
 
@@ -20,7 +20,7 @@ Package algos-py
    :target: https://pypi.python.org/pypi/algos-py/
 .. image:: https://img.shields.io/pypi/v/algos-py.svg
    :target: https://pypi.python.org/pypi/algos-py/
-.. image:: https://img.shields.io/github/license/alisianoi/algos-py.svg
+.. image:: https://img.shields.io/github/license/algos-all/algos-py.svg
    :target: https://choosealicense.com/licenses/mit/
 
 What is algos-py?
