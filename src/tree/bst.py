@@ -1,7 +1,18 @@
+"""
+Naive implementation of the binary search tree
+
+See: https://en.wikipedia.org/wiki/Binary_search_tree
+"""
+
+
 class BinarySearchTree:
-
+    """
+    Naive implementation of the binary search tree
+    """
     class Node:
-
+        """
+        Single node of the binary search tree
+        """
         def __init__(self, key, val):
             self.key, self.val = key, val
             self.lft, self.rgt = None, None
@@ -10,6 +21,12 @@ class BinarySearchTree:
         self.root = None
 
     def get_node_with_parent(self, key):
+        """
+        Find the node which holds the key, and return the node and its parent
+
+        If no such node is present in the tree, return only the parent node.
+        This parent node can be used to attach a new node that holds the key.
+        """
         node, parent = self.root, None
 
         while node:
@@ -24,10 +41,20 @@ class BinarySearchTree:
         return None, parent
 
     def get(self, key):
+        """
+        Find the node which holds the key, and return the attached value
+
+        If no such node exists in the tree, return None
+        """
         node, _ = self.get_node_with_parent(key)
         return None if node is None else node.val
 
     def put(self, key, val):
+        """
+        Put the (key, val) pair as a node into the tree
+
+        If a node which holds the key already exists, overwrite its value
+        """
         node, parent = self.get_node_with_parent(key)
 
         if node is None and parent is None:
@@ -41,6 +68,11 @@ class BinarySearchTree:
             node.val = val
 
     def remove(self, key):
+        """
+        Remove the node which holds the key from the tree
+
+        If no such node exists in the tree, do nothing
+        """
         node, parent = self.get_node_with_parent(key)
 
         if node is None:
