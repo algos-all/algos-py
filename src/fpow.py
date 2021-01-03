@@ -11,23 +11,12 @@ def fpow0(x, n):
     :param n: the target power value, an integer
     :return: x to the power of n
     """
-
-    if x == 0:
-        if n == 0:
-            return 1
-        if n > 0:
-            return 0
-
-        raise ZeroDivisionError("Cannot raise 0.0 to a negative power")
-
-    if n == 0:
-        return 1
-
-    if n == 1:
-        return x
-
     if n < 0:
         return fpow0(1 / x, -n)
+    if n == 0:
+        return 1
+    if x == 0:
+        return 0
 
     assert n == int(n), "n must be an integer"
 
@@ -42,21 +31,12 @@ def fpow1(x, n):
     :param n: the target power value, an integer
     :return: x to the power of n
     """
-
-    if x == 0:
-        if n == 0:
-            return 1
-        if n > 0:
-            return 0
-
-        raise ZeroDivisionError("Cannot raise 0.0 to a negative power")
-
+    if n < 0:
+        return fpow1(1 / x, -n)
     if n == 0:
         return 1
-
-    if n < 0:
-        x = 1 / x
-        n = -n
+    if x == 0:
+        return 0
 
     y = 1
 
@@ -80,21 +60,12 @@ def fpow2(x, n):
     :param n: the target power value, an integer
     :return: x to the power of n
     """
-
-    if x == 0:
-        if n == 0:
-            return 1
-        if n > 0:
-            return 0
-
-        raise ZeroDivisionError('Cannot raise 0.0 to a negative power')
-
+    if n < 0:
+        return fpow2(1 / x, -n)
     if n == 0:
         return 1
-
-    if n < 0:
-        x = 1 / x
-        n = -n
+    if x == 0:
+        return 0
 
     y = 1
 
