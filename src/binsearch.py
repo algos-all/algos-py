@@ -1,28 +1,47 @@
-def binsearch0(l, v):
-    lo, hi = 0, len(l) - 1
+"""
+Binary search
+"""
 
-    while lo <= hi:
-        i = (lo + hi) // 2
-        if l[i] == v:
-            return i
-        elif v < l[i]:
-            hi = i - 1
-        elif v > l[i]:
-            lo = i + 1
+
+def binary_search0(xs, x):
+    """
+    Perform binary search for a specific value in the given sorted list
+
+    :param xs: a sorted list
+    :param x: the target value
+    :return: an index if the value was found, or None if not
+    """
+    lft, rgt = 0, len(xs) - 1
+
+    while lft <= rgt:
+        mid = (lft + rgt) // 2
+        if xs[mid] == x:
+            return mid
+        elif x < xs[mid]:
+            rgt = mid - 1
+        elif x > xs[mid]:
+            lft = mid + 1
 
     return None
 
 
-def binsearch1(l, v):
-    lo, hi = 0, len(l)
+def binary_search1(xs, x):
+    """
+    Perform binary search for a specific value in the given sorted list
 
-    while lo < hi:
-        i = (lo + hi) // 2
-        if v < l[i]:
-            hi = i
-        elif v > l[i]:
-            lo = i + 1
-        else:
-            return i
+    :param xs: a sorted list
+    :param x: the target value
+    :return: an index if the value was found, or None if not
+    """
+    lft, rgt = 0, len(xs)
+
+    while lft < rgt:
+        mid = (lft + rgt) // 2
+        if xs[mid] == x:
+            return mid
+        elif x < xs[mid]:
+            rgt = mid
+        elif x > xs[mid]:
+            lft = mid + 1
 
     return None
