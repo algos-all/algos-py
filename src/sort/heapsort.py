@@ -1,7 +1,20 @@
+"""
+Heap operations for sorting
+"""
+
 import operator
 
 
 def sink(xs, ys, i, n, reverse=False):
+    """
+    Given an index of an element, sink it towards the bottom
+
+    :param xs: the list of elements
+    :param ys: the list of comparable derivatives
+    :param i: the 0-based index of the target element
+    :param n: the first non-usable index
+    :param reverse: True if the order should be reversed, False otherwise
+    """
     cmp = operator.gt if reverse else operator.lt
 
     lchild = 2 * i + 1
@@ -24,6 +37,14 @@ def sink(xs, ys, i, n, reverse=False):
 
 
 def swim(xs, ys, i, reverse=False):
+    """
+    Given an index of an element, let it swim to the top
+
+    :param xs: the list of elements
+    :param ys: the list of comparable derivatives
+    :param i: the 0-based index of the target element
+    :param reverse: True if the order should be reversed, False otherwise
+    """
     cmp = operator.gt if reverse else operator.lt
 
     while i != 0:
