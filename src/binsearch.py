@@ -17,10 +17,10 @@ def binary_search0(xs, x):
         mid = (lft + rgt) // 2
         if xs[mid] == x:
             return mid
-        elif x < xs[mid]:
-            rgt = mid - 1
-        elif x > xs[mid]:
+        if xs[mid] < x:
             lft = mid + 1
+        else:
+            rgt = mid - 1
 
     return None
 
@@ -39,9 +39,9 @@ def binary_search1(xs, x):
         mid = (lft + rgt) // 2
         if xs[mid] == x:
             return mid
-        elif x < xs[mid]:
-            rgt = mid
-        elif x > xs[mid]:
+        if xs[mid] < x:
             lft = mid + 1
+        else:
+            rgt = mid
 
     return None
