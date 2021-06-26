@@ -1,4 +1,6 @@
 def gcf(a, b):
+    """Compute the greatest common factor of a and b"""
+
     a = a if a >= 0 else -a
     b = b if b >= 0 else -b
 
@@ -9,6 +11,8 @@ def gcf(a, b):
 
 
 def xgcf(a, b):
+    """Compute the extended greatest common factor of a and b"""
+
     a = a if a >= 0 else -a
     b = b if b >= 0 else -b
 
