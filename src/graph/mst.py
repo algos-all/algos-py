@@ -30,7 +30,7 @@ class LazyPrimMST(WeightedGraph):
 
         src = next(iter(wgraph), None)
 
-        for i in range(len(wgraph) - 1):
+        for _ in range(len(wgraph) - 1):
             nodes[src] = True
 
             for dst, w in wgraph[src]:
