@@ -1,8 +1,8 @@
 Package algos-py
 ################
 
-.. image:: https://travis-ci.org/algos-all/algos-py.svg?branch=main
-   :target: https://travis-ci.org/algos-all/algos-py
+.. image:: https://github.com/algos-all/algos-py/actions/workflows/python-app.yml/badge.svg
+   :target: https://github.com/algos-all/algos-py/actions/workflows/python-app.yml
 .. image:: https://ci.appveyor.com/api/projects/status/j5ireye9mly39f9m/branch/main?svg=true
    :target: https://ci.appveyor.com/project/algos-all/algos-py
 .. image:: https://coveralls.io/repos/github/algos-all/algos-py/badge.svg?branch=main
