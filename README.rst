@@ -84,7 +84,7 @@ Where to find?
 
 Primary repository:
 
-https://github.com/alisianoi/algos-py
+https://github.com/algos-all/algos-py
 
 Secondary (mirror) repository:
 
