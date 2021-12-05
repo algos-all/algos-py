@@ -1,6 +1,6 @@
 import random, pytest
 
-from fractions import gcd
+from math import gcd
 from src.gcf import gcf, xgcf
 
 
@@ -42,5 +42,4 @@ def test_random_gcf(seed, lo=-1024, hi=1024):
     correct = gcd(a, b)
 
     assert correct == g, "{}, {}".format(a, b)
-    assert correct == s * a + t * b, "{}, {}".format(a, b)
-
+    assert correct == s * abs(a) + t * abs(b), "{}, {}".format(a, b)

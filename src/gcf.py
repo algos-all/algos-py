@@ -1,4 +1,7 @@
 def gcf(a, b):
+    a = a if a >= 0 else -a
+    b = b if b >= 0 else -b
+
     while b:
         a, b = b, a % b
 
@@ -6,6 +9,9 @@ def gcf(a, b):
 
 
 def xgcf(a, b):
+    a = a if a >= 0 else -a
+    b = b if b >= 0 else -b
+
     s1, s2 = 1, 0
     t1, t2 = 0, 1
 
