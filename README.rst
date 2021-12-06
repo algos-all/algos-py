@@ -99,9 +99,11 @@ Release procedure:
    $ git add setup.py
    $ git commit -m "Bump version to 1.0.0"
    $ git tag v1.0.0
-   $ git push origin master && git push origin --tags
-   $ git push gitlab master && git push gitlab --tags
+   $ git push github main && git push github --tags
+   $ git push gitlab main && git push gitlab --tags
+   $ pip install --upgrade wheel
    $ python setup.py bdist_wheel
+   $ pip install --upgrade twine
    $ twine upload ./dist/algos_py-1.0.0-py3-none-any.whl
 
 
