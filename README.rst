@@ -94,7 +94,6 @@ Release procedure:
 
 .. code-block:: bash
 
-   $ python setup.py check --restructuredtext
    $ # change version in setup.py
    $ git add setup.py
    $ git commit -m "Bump version to 1.0.0"
@@ -104,6 +103,7 @@ Release procedure:
    $ pip install --upgrade wheel
    $ python setup.py bdist_wheel
    $ pip install --upgrade twine
+   $ twine check ./dist/algos_py-1.0.0-py3-none-any.whl
    $ twine upload ./dist/algos_py-1.0.0-py3-none-any.whl
 
 
